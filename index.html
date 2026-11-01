@@ -35,7 +35,7 @@ body.fdc-focused #sound{height:100%;max-height:none}
 </style>
 <style id="fdc-sound-scroll-v2">
 /* Cadre sonore fixe dans la grille, avec défilement réservé aux boutons audio. */
-.shell .grid #sound{height:clamp(340px,58dvh,640px)!important;max-height:calc(100dvh - 90px)!important;min-height:0!important;overflow:hidden!important;display:flex!important;flex-direction:column!important}
+.shell .grid #sound{height:clamp(340px,58dvh,640px)!important;max-height:calc(100dvh - 90px)!important;min-height:0!important;overflow:hidden!important;flex-direction:column!important}
 .shell .grid #sound>.head,.shell .grid #sound>.soundtop,.shell .grid #sound>.row,.shell .grid #sound>.activebar{flex:0 0 auto!important}
 .shell .grid #sound>.pads{flex:1 1 0!important;height:0!important;min-height:0!important;max-height:none!important;overflow-y:auto!important;overflow-x:hidden!important;align-content:start!important;grid-auto-rows:max-content!important;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
 body.fdc-focused #sound{height:100%!important;max-height:none!important}
@@ -48,39 +48,16 @@ header .nav button.active{background:#821820;border-color:#e23541;color:#fff}
 header .nav button:active{transform:scale(.94)}
 @media(max-width:680px){header .nav{gap:4px}header .nav button{width:38px;height:40px;min-width:38px;padding:8px}header .nav button svg{width:22px;height:22px}}
 @media(prefers-reduced-motion:reduce){header .nav button{transition:none}}
-</style><style id="fdc-exclusive-module-fix">
-/* Priorité aux modules sélectionnés, y compris sur les anciennes règles sonores !important. */
-.shell .grid>.panel.fdc-module-hidden{display:none!important}
-.shell .grid>.panel.fdc-module-visible{display:flex!important;flex-direction:column}
-.shell .grid>#scenario.fdc-module-visible,.shell .grid>#visual.fdc-module-visible{display:block!important}
-</style><style id="fdc-navigation-visibility-final">
-/* Le sélecteur #sound de l'ancien thème imposait display:flex!important. */
-body .shell .grid #sound.fdc-module-hidden,
-body .shell .grid #scenario.fdc-module-hidden,
-body .shell .grid #combat.fdc-module-hidden,
-body .shell .grid #visual.fdc-module-hidden{display:none!important;visibility:hidden!important}
-body .shell .grid #sound.fdc-module-visible{display:flex!important;visibility:visible!important}
-body .shell .grid #visual.fdc-module-visible,
-body .shell .grid #scenario.fdc-module-visible{display:block!important;visibility:visible!important}
-</style><style id="fdc-hidden-guarantee">.shell .grid>.panel[hidden]{display:none!important}</style><style id="fdc-instant-switch">
-/* Navigation exclusive : un seul panneau monté visuellement à la fois. */
-body .shell .grid>.panel{display:none!important}
-body[data-active-module="scenario"] .shell .grid>#scenario,
-body[data-active-module="visual"] .shell .grid>#visual{display:block!important}
-body[data-active-module="sound"] .shell .grid>#sound,
-body[data-active-module="combat"] .shell .grid>#combat{display:flex!important}
-body .shell .grid{grid-template-columns:minmax(0,1fr)!important}
-body #homePanel{display:none!important}
-body[data-active-module="dashboard"] #homePanel{display:block!important}
-body[data-active-module="dashboard"] .shell .grid{display:none!important}
-body .shell .grid>.panel.fdc-module-hidden{display:none!important}
-body .shell .grid>.panel.fdc-module-visible{visibility:visible!important}
+</style><style id="fdc-module-navigation">
+/* hidden is the sole visibility state; layout rules never override it. */
+#homePanel[hidden],.shell>.grid[hidden],.shell>.grid>.panel[hidden]{display:none!important}
+.shell>.grid{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr)}
 </style></head><body><header><div class="brand"><div class="logo">⬡</div><div><div class="fdc-brand-row"><strong>FDC · CONSOLE MJ</strong><select id="campaign" onchange="changeCampaign()"><option>La Nuit des Morts-Vivants</option></select></div><div class="muted" id="campaignLabel">La Nuit des Morts-Vivants</div></div></div><div class="nav"><button data-module="dashboard" onclick="goModule('dashboard')" title="Accueil global" aria-label="Accueil global"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg></button><button data-module="scenario" onclick="goModule('scenario')" title="Scénario" aria-label="Scénario"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6c-3-2-6-2-9-1v14c3-1 6-1 9 1 3-2 6-2 9-1V5c-3-1-6-1-9 1z"/><path d="M12 6v14"/></svg></button><button data-module="combat" onclick="goModule('combat')" title="Combat" aria-label="Combat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 20 7-7m2-2 7-7M14 4l6 6M4 4l16 16M4 10l6-6"/></svg></button><button data-module="sound" onclick="goModule('sound')" title="Ambiance sonore" aria-label="Ambiance sonore"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></button><button data-module="visual" onclick="goModule('visual')" title="Visuels" aria-label="Visuels"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></button></div><span class="muted">● Version restaurée</span></header>
-<main class="shell"><div class="topline"><h2 id="moduleTitle">Accueil</h2><div class="row"><button class="small" onclick="editScenario()">✎ Mémo</button></div></div><section class="panel" id="homePanel"><h3>Console MJ FDC</h3><p class="muted">Choisis un module dans la barre de navigation pour préparer ou animer ta partie.</p><p>Campagne : <strong id="homeCampaign">La Nuit des Morts-Vivants</strong></p></section><div class="grid">
-<section class="panel" id="scenario"><div class="head"><h3>📖 Scénario</h3><div class="actions"><button class="small" onclick="editScenario()">Modifier le mémo</button><button class="small" onclick="goModule('scenario')">⛶</button></div></div><div id="scenarioContent" class="notes"></div></section>
-<section class="panel" id="combat"><div class="head"><h3>⚔ Combat</h3><div class="actions"><button class="small" onclick="openCombat()">⛶ Agrandir</button></div></div><iframe id="combatFrame" title="Module Combat interactif" style="display:block;width:100%;height:100%;min-height:0;border:0;background:#11151b;border-radius:8px"></iframe></section>
-<section class="panel" id="sound"><div class="head"><h3>♫ Ambiance sonore</h3><div class="actions"><button class="small" onclick="addSound()">＋ Son</button><button class="small" onclick="goModule('sound')">⛶</button></div></div><div class="soundtop"><label class="muted">Volume général</label><input id="master" type="range" min="0" max="100" value="75" oninput="setMaster(this.value)"><span id="masterText">75%</span><button id="loop" class="green small" onclick="toggleLoop()">LOOP ON</button><button class="red small" onclick="stopAll()">■ TOUT ARRÊTER</button></div><div class="activebar" id="activeSounds">En lecture : aucun son</div><div class="pads" id="pads"></div></section>
-<section class="panel" id="visual"><div class="head"><h3>▣ Visuels</h3><div class="actions"><button class="small blue" onclick="addVisual()">＋ Document</button><button class="small" onclick="goModule('visual')">⛶</button></div></div><div class="tabs" id="visualTabs"></div><div class="visualgrid" id="visualGrid"></div></section>
+<main class="shell"><div class="topline"><h2 id="moduleTitle">Accueil</h2><div class="row"><button class="small" onclick="editScenario()">✎ Mémo</button></div></div><section class="panel" id="homePanel"><h3>Console MJ FDC</h3><p class="muted">Choisis un module dans la barre de navigation pour préparer ou animer ta partie.</p><p>Campagne : <strong id="homeCampaign">La Nuit des Morts-Vivants</strong></p></section><div class="grid" hidden>
+<section class="panel" id="scenario" hidden><div class="head"><h3>📖 Scénario</h3><div class="actions"><button class="small" onclick="editScenario()">Modifier le mémo</button><button class="small" onclick="goModule('scenario')">⛶</button></div></div><div id="scenarioContent" class="notes"></div></section>
+<section class="panel" id="combat" hidden><div class="head"><h3>⚔ Combat</h3><div class="actions"><button class="small" onclick="openCombat()">⛶ Agrandir</button></div></div><iframe id="combatFrame" title="Module Combat interactif" style="display:block;width:100%;height:100%;min-height:0;border:0;background:#11151b;border-radius:8px"></iframe></section>
+<section class="panel" id="sound" hidden><div class="head"><h3>♫ Ambiance sonore</h3><div class="actions"><button class="small" onclick="addSound()">＋ Son</button><button class="small" onclick="goModule('sound')">⛶</button></div></div><div class="soundtop"><label class="muted">Volume général</label><input id="master" type="range" min="0" max="100" value="75" oninput="setMaster(this.value)"><span id="masterText">75%</span><button id="loop" class="green small" onclick="toggleLoop()">LOOP ON</button><button class="red small" onclick="stopAll()">■ TOUT ARRÊTER</button></div><div class="activebar" id="activeSounds">En lecture : aucun son</div><div class="pads" id="pads"></div></section>
+<section class="panel" id="visual" hidden><div class="head"><h3>▣ Visuels</h3><div class="actions"><button class="small blue" onclick="addVisual()">＋ Document</button><button class="small" onclick="goModule('visual')">⛶</button></div></div><div class="tabs" id="visualTabs"></div><div class="visualgrid" id="visualGrid"></div></section>
 </div><div class="footer">Version originale restaurée · Fichiers audio et images à importer localement · Le Combat conserve son stockage propre</div></main>
 
 <div class="overlay" id="overlay"><div class="dialog"><h3 id="dialogTitle"></h3><div id="dialogBody"></div><div class="actions"><button onclick="closeDialog()">Annuler / Fermer</button><button class="blue" id="dialogOk">Enregistrer</button></div></div></div>
@@ -108,6 +85,9 @@ const embeddedCombat="<!doctype html><html lang=\"fr\"><head><meta charset=\"utf
  if(document.body.dataset.activeModule===which)return;
  const previous=document.body.dataset.activeModule;
  document.body.dataset.activeModule=which;
+ $('homePanel').hidden=which!=='dashboard';
+ document.querySelector('.shell>.grid').hidden=which==='dashboard';
+ for(const module of ['scenario','combat','sound','visual'])$(module).hidden=module!==which;
  currentFocus=which==='dashboard'?null:which;
  document.body.classList.toggle('fdc-focused',which!=='dashboard');
  if(previous==='combat'&&which!=='combat')closeCombat();
@@ -292,7 +272,7 @@ dialog=function(title,html,cb,label){
  }
 };
 </script>
-<script>if("serviceWorker" in navigator && location.protocol.startsWith("http"))navigator.serviceWorker.register("sw.js").catch(console.warn);</script>
+<script>if("serviceWorker" in navigator && location.protocol.startsWith("http"))navigator.serviceWorker.register("sw.js",{updateViaCache:"none"}).then(reg=>reg.update()).catch(console.warn);</script>
 <script>
 /* Portrait du groupe, présent dans le dossier PJ de la campagne. */
 FDC_IMAGES["la nuit des morts vivants .png"]="assets/la nuit des morts vivants .png";
