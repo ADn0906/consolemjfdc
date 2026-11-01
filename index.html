@@ -95,7 +95,9 @@ render();
 <script>
 const FDC_AUDIO={"s1": "assets/ambiance taverne.mp3", "s2": "assets/explosions.mp3", "s3": "assets/la horde.mp3", "s4": "assets/ambiance village macabre.mp3", "s5": "assets/discussion .mp3", "s6": "assets/Révélations malkor.mp3"};
 const FDC_IMAGES={"NOVA.png": "assets/NOVA.png", "DIABLO.png": "assets/DIABLO.png", "HYDRA.png": "assets/HYDRA.png", "Borin.png": "assets/Borin.png", "VARNOK.png": "assets/VARNOK.png", "BALTUS.png": "assets/BALTUS.png", "Ysilde.png": "assets/Ysilde.png", "MALKOR VEYR.png": "assets/MALKOR VEYR.png", "Bourse rituelle et pi\u00e8ces d\u2019or.png": "assets/Bourse rituelle et pièces d’or.png", "Affiche de recherche de Malkor Veyr.png": "assets/Affiche de recherche de Malkor Veyr.png"};
+FDC_IMAGES["orbe de vie.png"]="https://drive.google.com/thumbnail?id=1esr8G5QKmlhztR688Me1ClszL8-Oyu1Y&sz=w1600";
 const FDC_VISUALS=[["PJ", "Nova", "NOVA.png"], ["PJ", "Diablo", "DIABLO.png"], ["PJ", "Hydra", "HYDRA.png"], ["PJ", "Borin", "Borin.png"], ["PJ", "Varnok", "VARNOK.png"], ["PNJ", "Baltus", "BALTUS.png"], ["PNJ", "Ysilde", "Ysilde.png"], ["PNJ", "Malkor Veyr", "MALKOR VEYR.png"], ["Indices", "Bourse rituelle et pièces d’or", "Bourse rituelle et pièces d’or.png"], ["Indices", "Affiche de recherche de Malkor Veyr", "Affiche de recherche de Malkor Veyr.png"]];
+FDC_VISUALS.push(["Indices","Orbe de Vie","orbe de vie.png"]);
 for(const [sid,filename] of Object.entries({"s1": "ambiance taverne.mp3", "s2": "explosions.mp3", "s3": "la horde.mp3", "s4": "ambiance village macabre.mp3", "s5": "discussion .mp3", "s6": "Révélations malkor.mp3"})){
  const s=state.tables.flatMap(t=>t.sounds).find(s=>s.id===sid);
  if(s)s.fileName=filename;
