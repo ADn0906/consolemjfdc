@@ -26,21 +26,14 @@ body.fdc-manage .padtools button{background:#262a32}
 /* Le module sonore garde un cadre fixe; seules les cases sonores défilent. */
 #sound{display:flex;flex-direction:column;min-height:0;min-width:0;overflow:hidden!important}
 #sound>.head,#sound>.soundtop,#sound>.row,#sound>.activebar{flex:0 0 auto}
-#sound>.pads{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;align-content:start;grid-auto-rows:max-content;padding:2px 4px 5px 2px}
+#sound>.pads{flex:1 1 0;overflow-x:hidden;min-height:0;overflow-y:auto;overscroll-behavior:contain;align-content:start;grid-auto-rows:max-content;padding:2px 4px 5px 2px}
 #sound>.pads>.pad{min-width:0;overflow:hidden}
 #sound>.pads>.pad strong{overflow-wrap:anywhere}
 @media(max-width:699px){#sound{height:460px;max-height:calc(100dvh - 125px)}}
 @media(min-width:700px) and (min-height:550px){.shell>.grid>#sound{overflow:hidden!important}}
 body.fdc-focused #sound{height:100%;max-height:none}
 </style>
-<style id="fdc-sound-scroll-v2">
-/* Cadre sonore fixe dans la grille, avec défilement réservé aux boutons audio. */
-.shell .grid #sound{height:clamp(340px,58dvh,640px)!important;max-height:calc(100dvh - 90px)!important;min-height:0!important;overflow:hidden!important;flex-direction:column!important}
-.shell .grid #sound>.head,.shell .grid #sound>.soundtop,.shell .grid #sound>.row,.shell .grid #sound>.activebar{flex:0 0 auto!important}
-.shell .grid #sound>.pads{flex:1 1 0!important;height:0!important;min-height:0!important;max-height:none!important;overflow-y:auto!important;overflow-x:hidden!important;align-content:start!important;grid-auto-rows:max-content!important;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
-body.fdc-focused #sound{height:100%!important;max-height:none!important}
-body.fdc-focused #sound>.pads{height:0!important;flex:1 1 0!important}
-</style><style id="fdc-modern-navigation">
+<style id="fdc-modern-navigation">
 header .nav{display:flex;flex-wrap:nowrap;gap:8px;align-items:center}
 header .nav button{width:44px;height:44px;min-width:44px;padding:9px;display:grid;place-items:center;border-radius:12px;background:#171c24;border:1px solid #3b4552;color:#e9edf4;transition:background-color .15s,border-color .15s,transform .15s;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 header .nav button svg{width:24px;height:24px;display:block;pointer-events:none}
@@ -48,10 +41,12 @@ header .nav button.active{background:#821820;border-color:#e23541;color:#fff}
 header .nav button:active{transform:scale(.94)}
 @media(max-width:680px){header .nav{gap:4px}header .nav button{width:38px;height:40px;min-width:38px;padding:8px}header .nav button svg{width:22px;height:22px}}
 @media(prefers-reduced-motion:reduce){header .nav button{transition:none}}
-</style><style id="fdc-module-navigation">
-/* hidden is the sole visibility state; layout rules never override it. */
-#homePanel[hidden],.shell>.grid[hidden],.shell>.grid>.panel[hidden]{display:none!important}
-.shell>.grid{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr)}
+</style><style id="fdc-module-layout">
+/* Un seul mécanisme de visibilité pour les cinq modules : l'attribut hidden.
+   Les règles de disposition (flex/grid) ne décident jamais du module actif. */
+.shell > [hidden], .shell > .grid > [hidden]{display:none!important}
+.shell > .grid{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr)}
+body.fdc-focused .shell > .grid{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr)}
 </style></head><body><header><div class="brand"><div class="logo">⬡</div><div><div class="fdc-brand-row"><strong>FDC · CONSOLE MJ</strong><select id="campaign" onchange="changeCampaign()"><option>La Nuit des Morts-Vivants</option></select></div><div class="muted" id="campaignLabel">La Nuit des Morts-Vivants</div></div></div><div class="nav"><button data-module="dashboard" onclick="goModule('dashboard')" title="Accueil global" aria-label="Accueil global"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg></button><button data-module="scenario" onclick="goModule('scenario')" title="Scénario" aria-label="Scénario"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6c-3-2-6-2-9-1v14c3-1 6-1 9 1 3-2 6-2 9-1V5c-3-1-6-1-9 1z"/><path d="M12 6v14"/></svg></button><button data-module="combat" onclick="goModule('combat')" title="Combat" aria-label="Combat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 20 7-7m2-2 7-7M14 4l6 6M4 4l16 16M4 10l6-6"/></svg></button><button data-module="sound" onclick="goModule('sound')" title="Ambiance sonore" aria-label="Ambiance sonore"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></button><button data-module="visual" onclick="goModule('visual')" title="Visuels" aria-label="Visuels"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></button></div><span class="muted">● Version restaurée</span></header>
 <main class="shell"><div class="topline"><h2 id="moduleTitle">Accueil</h2><div class="row"><button class="small" onclick="editScenario()">✎ Mémo</button></div></div><section class="panel" id="homePanel"><h3>Console MJ FDC</h3><p class="muted">Choisis un module dans la barre de navigation pour préparer ou animer ta partie.</p><p>Campagne : <strong id="homeCampaign">La Nuit des Morts-Vivants</strong></p></section><div class="grid" hidden>
 <section class="panel" id="scenario" hidden><div class="head"><h3>📖 Scénario</h3><div class="actions"><button class="small" onclick="editScenario()">Modifier le mémo</button><button class="small" onclick="goModule('scenario')">⛶</button></div></div><div id="scenarioContent" class="notes"></div></section>
@@ -84,10 +79,13 @@ const embeddedCombat="<!doctype html><html lang=\"fr\"><head><meta charset=\"utf
  if(!['dashboard','scenario','combat','sound','visual'].includes(which))return;
  if(document.body.dataset.activeModule===which)return;
  const previous=document.body.dataset.activeModule;
+ // Les panneaux et l'iframe restent en mémoire : aucune reconstruction ni requête.
+ const modules={dashboard:$('homePanel'),scenario:$('scenario'),combat:$('combat'),sound:$('sound'),visual:$('visual')};
+ for(const [name,panel] of Object.entries(modules))panel.hidden=name!==which;
+ document.querySelector('.shell > .grid').hidden=which==='dashboard';
+ closeDialog();
+ closeFdcImageViewer();
  document.body.dataset.activeModule=which;
- $('homePanel').hidden=which!=='dashboard';
- document.querySelector('.shell>.grid').hidden=which==='dashboard';
- for(const module of ['scenario','combat','sound','visual'])$(module).hidden=module!==which;
  currentFocus=which==='dashboard'?null:which;
  document.body.classList.toggle('fdc-focused',which!=='dashboard');
  if(previous==='combat'&&which!=='combat')closeCombat();
@@ -134,8 +132,8 @@ window.addEventListener('message',e=>{if(e.source===$('combatFrame').contentWind
 render();goModule('dashboard');
 </script>
 <script>
-const FDC_AUDIO={"s1": "assets/ambiance taverne.mp3", "s2": "assets/explosions.mp3", "s3": "assets/la horde.mp3", "s4": "assets/ambiance village macabre.mp3", "s5": "assets/discussion .mp3", "s6": "assets/Révélations malkor.mp3"};
-const FDC_IMAGES={"NOVA.png": "assets/NOVA.png", "DIABLO.png": "assets/DIABLO.png", "HYDRA.png": "assets/HYDRA.png", "Borin.png": "assets/Borin.png", "VARNOK.png": "assets/VARNOK.png", "BALTUS.png": "assets/BALTUS.png", "Ysilde.png": "assets/Ysilde.png", "MALKOR VEYR.png": "assets/MALKOR VEYR.png", "Bourse rituelle et pi\u00e8ces d\u2019or.png": "assets/Bourse rituelle et pièces d’or.png", "Affiche de recherche de Malkor Veyr.png": "assets/Affiche de recherche de Malkor Veyr.png"};
+const FDC_AUDIO={"s1": "assets/ambiance taverne.mp3", "s2": "assets/explosions.mp3", "s3": "assets/la horde.mp3", "s4": "assets/ambiance village macabre.mp3", "s5": "assets/discussion .mp3", "s6": "assets/révélations malkor.mp3"};
+const FDC_IMAGES={"NOVA.png": "assets/NOVA.png", "DIABLO.png": "assets/DIABLO.png", "HYDRA.png": "assets/HYDRA.png", "Borin.png": "assets/Borin.png", "VARNOK.png": "assets/VARNOK.png", "BALTUS.png": "assets/BALTUS.png", "Ysilde.png": "assets/Ysilde.png", "MALKOR VEYR.png": "assets/MALKOR VEYR.png", "Bourse rituelle et pi\u00e8ces d\u2019or.png": "assets/bourse rituelle et pièces d’or.png", "Affiche de recherche de Malkor Veyr.png": "assets/affiche de recherche de malkor veyr.png"};
 FDC_IMAGES["orbe de vie.png"]="https://drive.google.com/thumbnail?id=1esr8G5QKmlhztR688Me1ClszL8-Oyu1Y&sz=w1600";
 const FDC_VISUALS=[["PJ", "Nova", "NOVA.png"], ["PJ", "Diablo", "DIABLO.png"], ["PJ", "Hydra", "HYDRA.png"], ["PJ", "Borin", "Borin.png"], ["PJ", "Varnok", "VARNOK.png"], ["PNJ", "Baltus", "BALTUS.png"], ["PNJ", "Ysilde", "Ysilde.png"], ["PNJ", "Malkor Veyr", "MALKOR VEYR.png"], ["Indices", "Bourse rituelle et pièces d’or", "Bourse rituelle et pièces d’or.png"], ["Indices", "Affiche de recherche de Malkor Veyr", "Affiche de recherche de Malkor Veyr.png"]];
 FDC_VISUALS.push(["Indices","Orbe de Vie","orbe de vie.png"]);
@@ -272,7 +270,19 @@ dialog=function(title,html,cb,label){
  }
 };
 </script>
-<script>if("serviceWorker" in navigator && location.protocol.startsWith("http"))navigator.serviceWorker.register("sw.js",{updateViaCache:"none"}).then(reg=>reg.update()).catch(console.warn);</script>
+<script>
+// Une seule actualisation quand une version remplace le worker déjà actif.
+if('serviceWorker' in navigator){
+ let hadController=!!navigator.serviceWorker.controller, reloading=false;
+ navigator.serviceWorker.addEventListener('controllerchange',()=>{
+  if(hadController&&!reloading){reloading=true;location.reload();}
+  hadController=true;
+ });
+}
+if("serviceWorker" in navigator && location.protocol.startsWith("http"))navigator.serviceWorker.register("sw.js",{updateViaCache:"none"}).then(registration=>{
+ // Vérifier le code dès l'ouverture, sans effacer les données de campagne.
+ registration.update().catch(console.warn);
+}).catch(console.warn);</script>
 <script>
 /* Portrait du groupe, présent dans le dossier PJ de la campagne. */
 FDC_IMAGES["la nuit des morts vivants .png"]="assets/la nuit des morts vivants .png";
