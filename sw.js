@@ -1,4 +1,4 @@
-const CACHE="fdc-console-nuit-v4";
+const CACHE="fdc-console-nuit-v5";
 const FILES=['./', 'index.html', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'assets/DIABLO.png', 'assets/Révélations malkor.mp3', 'assets/ambiance taverne.mp3', 'assets/la horde.mp3', 'assets/BALTUS.png', 'assets/ambiance village macabre.mp3', 'assets/explosions.mp3', 'assets/MALKOR VEYR.png', 'assets/discussion .mp3', 'assets/Ysilde.png', 'assets/Affiche de recherche de Malkor Veyr.png', 'assets/HYDRA.png', 'assets/la nuit des morts vivants .png', 'assets/VARNOK.png', 'assets/Borin.png', 'assets/NOVA.png', 'assets/Bourse rituelle et pièces d’or.png'];
 self.addEventListener("install",e=>e.waitUntil(caches.open(CACHE).then(async c=>{
  for(const f of FILES){try{await c.add(f)}catch(err){console.warn("Cache",f,err)}}
