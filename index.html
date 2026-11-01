@@ -32,6 +32,14 @@ body.fdc-manage .padtools button{background:#262a32}
 @media(max-width:699px){#sound{height:460px;max-height:calc(100dvh - 125px)}}
 @media(min-width:700px) and (min-height:550px){.shell>.grid>#sound{overflow:hidden!important}}
 body.fdc-focused #sound{height:100%;max-height:none}
+</style>
+<style id="fdc-sound-scroll-v2">
+/* Cadre sonore fixe dans la grille, avec défilement réservé aux boutons audio. */
+.shell .grid #sound{height:clamp(340px,58dvh,640px)!important;max-height:calc(100dvh - 90px)!important;min-height:0!important;overflow:hidden!important;display:flex!important;flex-direction:column!important}
+.shell .grid #sound>.head,.shell .grid #sound>.soundtop,.shell .grid #sound>.row,.shell .grid #sound>.activebar{flex:0 0 auto!important}
+.shell .grid #sound>.pads{flex:1 1 0!important;height:0!important;min-height:0!important;max-height:none!important;overflow-y:auto!important;overflow-x:hidden!important;align-content:start!important;grid-auto-rows:max-content!important;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+body.fdc-focused #sound{height:100%!important;max-height:none!important}
+body.fdc-focused #sound>.pads{height:0!important;flex:1 1 0!important}
 </style></head><body><header><div class="brand"><div class="logo">⬡</div><div><div class="fdc-brand-row"><strong>FDC · CONSOLE MJ</strong><select id="campaign" onchange="changeCampaign()"><option>La Nuit des Morts-Vivants</option></select></div><div class="muted" id="campaignLabel">La Nuit des Morts-Vivants</div></div></div><div class="nav"><button onclick="goModule('dashboard')" title="Accueil global" aria-label="Accueil global">⌂</button><button onclick="goModule('scenario')" title="Scénario" aria-label="Scénario">📖</button><button onclick="goModule('combat')" title="Combat" aria-label="Combat">⚔</button><button onclick="goModule('sound')" title="Ambiance sonore" aria-label="Ambiance sonore">♫</button><button onclick="goModule('visual')" title="Visuels" aria-label="Visuels">▣</button></div><span class="muted">● Version restaurée</span></header>
 <main class="shell"><div class="topline"><h2>Tableau de bord MJ</h2><div class="row"><button class="small" onclick="editScenario()">✎ Mémo</button></div></div><div class="grid">
 <section class="panel" id="scenario"><div class="head"><h3>📖 Scénario</h3><div class="actions"><button class="small" onclick="editScenario()">Modifier le mémo</button><button class="small" onclick="goModule('scenario')">⛶</button></div></div><div id="scenarioContent" class="notes"></div></section>
