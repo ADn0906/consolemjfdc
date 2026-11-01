@@ -192,7 +192,7 @@ showVisual=async function(vid){
   if(revoke)URL.revokeObjectURL(url);closeDialog()
  },'Fermer');
 };
-render();
+render();goModule('dashboard');
 </script>
 <button type="button" class="fdc-manage-btn" id="fdcManageBtn" onclick="document.body.classList.toggle('fdc-manage');this.textContent=document.body.classList.contains('fdc-manage')?'✓ Terminer les réglages':'⚙ Réglages'">⚙ Réglages</button>
 <style>
