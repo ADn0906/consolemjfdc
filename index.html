@@ -80,9 +80,10 @@ const embeddedCombat="<!doctype html><html lang=\"fr\"><head><meta charset=\"utf
  if(document.body.dataset.activeModule===which)return;
  const previous=document.body.dataset.activeModule;
  // Les panneaux et l'iframe restent en mémoire : aucune reconstruction ni requête.
- const modules={dashboard:$('homePanel'),scenario:$('scenario'),combat:$('combat'),sound:$('sound'),visual:$('visual')};
- for(const [name,panel] of Object.entries(modules))panel.hidden=name!==which;
- document.querySelector('.shell > .grid').hidden=which==='dashboard';
+ const modules={scenario:$('scenario'),combat:$('combat'),sound:$('sound'),visual:$('visual')};
+ $('homePanel').hidden=true;
+ for(const [name,panel] of Object.entries(modules))panel.hidden=which!=='dashboard'&&name!==which;
+ document.querySelector('.shell > .grid').hidden=false;
  closeDialog();
  closeFdcImageViewer();
  document.body.dataset.activeModule=which;
