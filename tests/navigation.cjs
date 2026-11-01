@@ -11,7 +11,7 @@ const assert=require('node:assert/strict');
   for(const module of sequence){
    await page.locator(`header button[data-module="${module}"]`).click();
    const visible=await page.locator('#homePanel,.shell>.grid>.panel').evaluateAll(nodes=>nodes.filter(n=>n.getBoundingClientRect().width&&n.getBoundingClientRect().height).map(n=>n.id));
-   assert.deepEqual(visible,[module==='dashboard'?'homePanel':module]);
+   assert.deepEqual(visible,module==='dashboard'?['scenario','combat','sound','visual']:[module]);
   }
   assert.equal(await page.locator('#combatFrame').getAttribute('data-loaded'),'1');
   assert.deepEqual(errors,[]);
