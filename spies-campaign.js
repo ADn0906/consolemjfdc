@@ -26,7 +26,15 @@ function fdcShowHomebrewInfo(){
  function render(){
   let entries=[];try{entries=tab==='spells'?fdcHomeSpellLibrary():fdcHomeMonsterLibrary()}catch(e){}
   const q=info.querySelector('input').value.toLocaleLowerCase('fr');
-  info.querySelector('#homebrewResults').innerHTML=entries.filter(x=>JSON.stringify(x).toLocaleLowerCase('fr').includes(q)).map(x=>'<article><h4>'+escapeHTML(x.name)+'</h4><p style="white-space:pre-wrap">'+escapeHTML(x.abilities||x.description||(x.paragraphs||[]).join('\n'))+'</p></article>').join('')||'<p class="muted">'+(tab==='spells'?'Aucune carte de sort enregistrée. Les sorts des PJ sont disponibles dans leurs fiches.':'Aucune fiche de monstre enregistrée.')+' Cette bibliothèque sera alimentée avec tes photos.</p>';
+  const results=info.querySelector('#homebrewResults');results.replaceChildren();
+  const matches=entries.filter(x=>JSON.stringify(x).toLocaleLowerCase('fr').includes(q));
+  if(!matches.length){const empty=document.createElement('p');empty.className='muted';empty.textContent=tab==='spells'?'Aucun sort trouvé.':'Aucun monstre trouvé.';results.append(empty);}
+  for(const entry of matches){
+   const details=document.createElement('details');details.className='homebrew-entry';
+   const summary=document.createElement('summary');summary.textContent=entry.name;summary.style.cssText='cursor:pointer;min-height:48px;padding:12px 8px;touch-action:manipulation';details.append(summary);
+   const body=document.createElement('div');body.style.cssText='padding:0 12px 12px;white-space:pre-wrap;line-height:1.6';
+   body.textContent=entry.abilities||entry.description||(entry.paragraphs||[]).join('\\n');details.append(body);results.append(details);
+  }
  }
  info.querySelector('#homebrewSpells').onclick=()=>{tab='spells';render()};info.querySelector('#homebrewMonsters').onclick=()=>{tab='monsters';render()};info.querySelector('input').oninput=render;info.querySelector('#homebrewClose').onclick=()=>info.close();render();info.showModal();
 }
