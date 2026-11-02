@@ -93,7 +93,7 @@ async function fdcApplyCampaignArchive(packet){
  for(const [index,t] of p.tables.entries()){t.id=prefix+'table-'+index;t.name=p.campaign;for(const [i,v] of t.sounds.entries()){const old=v.id;v.id=prefix+'sound-'+index+'-'+i;remapped.set(old,v.id);delete v.url;}}
  for(const f of p.files){const r=resources.get(f.resource);const owner=[...p.visuals,...p.tables.flatMap(t=>t.sounds)].find(v=>v.id===remapped.get(f.id));if(owner){owner.fileName=r.name;owner.mime=r.mime;}}
  const actors=new Map(),types=new Map();for(const [i,t] of p.combat.bestiary.entries()){const old=t.id;t.id=prefix+'type-'+i;types.set(old,t.id);}
- for(const [i,v] of p.combat.pj.entries()){const old=v.id;v.id=prefix+'pj-'+i;actors.set(old,v.id);if(v.crop)v.crop={x:Number(v.crop.x)||50,y:Number(v.crop.y)||50,z:Number(v.crop.z)||1};}
+ for(const [i,v] of p.combat.pj.entries()){const old=v.id;v.id=prefix+'pj-'+i;actors.set(old,v.id);if(v.crop)v.crop={...v.crop,x:Number.isFinite(Number(v.crop.x))?Number(v.crop.x):50,y:Number.isFinite(Number(v.crop.y))?Number(v.crop.y):50,z:Number(v.crop.z)||1};}
  for(const [i,v] of p.combat.mobs.entries()){const old=v.id;v.id=prefix+'mob-'+i;v.type=types.get(v.type);actors.set(old,v.id);}
  p.combat.done=p.combat.done.map(id=>actors.get(id));p.combat.current=p.combat.current==null?null:actors.get(p.combat.current);
  // Keep built-in type IDs: startup migrations can recognize these instead of re-adding them.
