@@ -16,7 +16,7 @@ function fdcSpiesCombat(){
 
  render();
  <\/script>`;
- return fdcWithLibrary(doc).replace('</body>',extra+'</body>');
+ return fdcWithLibrary(fdcHomeCombatStats(doc)).replace('</body>',extra+'</body>');
 }
 function fdcShowHomebrewInfo(){
  let info=document.getElementById('homebrewInfo');
@@ -47,4 +47,30 @@ function fdcHomeMonsterLibrary(){
  for(const profile of FDC_HOME_MONSTERS){if(!entries.some(x=>x.id===profile.id))entries.push(structuredClone(profile));}
  try{localStorage.setItem('fdc-homebrew-monster-library-v1',JSON.stringify(entries));}catch(e){}
  return entries;
+}
+
+function fdcHomeMonsterStatData(t){
+ const text=String(t?.abilities||''),scores={};
+ for(const [key,field] of [['FOR','force'],['ADR','adresse'],['ESP','esprit']]){
+  const match=text.match(new RegExp('(?:^|[\\n|,; .])'+key+'\\s*:?\\s*(-?\\d+)'));
+  const value=match?Number(match[1]):t?.[field];
+  if(Number.isFinite(value))scores[key]={score:value,modifier:value};
+ }
+ const abilities=text.replace(/^PV\s*:[^\n]*\n/,'').replace(/^FOR\s+-?\d+\s*\|\s*ADR\s+-?\d+\s*\|\s*ESP\s+-?\d+\s*\n?/,'');
+ return {scores,prefix:'',abilities};
+}
+function fdcHomeMonsterStats(t,editable=false){
+ const data=fdcMonsterStatData(t),names=[['FOR','Force'],['ADR','Adresse'],['ESP','Esprit']];
+ return '<table class="monster-stats'+(editable?' monster-stats-edit':'')+'"><thead><tr>'+names.map(([key,label])=>'<th scope="col">'+label+'</th>').join('')+'</tr></thead><tbody><tr>'+names.map(([key,label])=>{const value=data.scores[key]?.score??'';return editable?'<td><input id="editStat'+key+'" class="monster-stat-input" type="number" step="1" aria-label="'+label+'" value="'+value+'"></td>':'<td><span class="stat-score">'+(value===''?'—':value)+'</span></td>';}).join('')+'</tr></tbody></table>';
+}
+function fdcHomeSaveMonsterAbilities(textareaId='editAb'){
+ const parts=[];
+ for(const name of ['FOR','ADR','ESP']){const input=$('editStat'+name);if(!input||input.value==='')continue;const n=Number(input.value);if(!Number.isInteger(n)||n<0||n>999)throw Error('Valeur invalide pour '+name);parts.push(name+' '+n);}
+ return (parts.length?parts.join(' | ')+'\n':'')+$(textareaId).value;
+}
+function fdcHomeCombatStats(doc){
+ doc=doc.replace(/function fdcMonsterStatData\(t\)\{[\s\S]*?(?=function fdcStatModifier)/,fdcHomeMonsterStatData.toString().replace('fdcHomeMonsterStatData','fdcMonsterStatData')+'\n');
+ doc=doc.replace(/function fdcMonsterStats\(t,editable=false\)\{[\s\S]*?(?=function fdcUpdateStatModifier)/,fdcHomeMonsterStats.toString().replace('fdcHomeMonsterStats','fdcMonsterStats')+'\n');
+ doc=doc.replace(/function fdcSaveMonsterAbilities\(textareaId='editAb'\)\{[\s\S]*?(?=function fdcMonsterImageButton)/,fdcHomeSaveMonsterAbilities.toString().replace('fdcHomeSaveMonsterAbilities','fdcSaveMonsterAbilities')+'\n');
+ return doc;
 }
