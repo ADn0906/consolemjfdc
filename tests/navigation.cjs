@@ -6,7 +6,7 @@ const assert=require('node:assert/strict');
   const context=await browser.newContext({viewport});const page=await context.newPage();const errors=[];
   page.on('pageerror',e=>errors.push(e.message));await page.goto(process.env.FDC_URL||'http://localhost:8765');
   await page.waitForFunction(()=>document.body.dataset.activeModule==='dashboard');
-  assert.equal(await page.locator('header .nav button').count(),5);
+  assert.equal(await page.locator('header .nav button[data-module]').count(),5);
   const sequence=['scenario','combat','sound','visual','dashboard',...Array.from({length:40},(_,i)=>i%2?'visual':'sound'),'combat','scenario','dashboard'];
   for(const module of sequence){
    await page.locator(`header button[data-module="${module}"]`).click();

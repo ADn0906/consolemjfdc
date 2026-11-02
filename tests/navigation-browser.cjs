@@ -31,8 +31,8 @@ async function visible(page){return page.locator('.shell > .panel, .shell > .gri
    const context=await browser.newContext({viewport:size,hasTouch:true,isMobile:true,serviceWorkers:'block'});
    const page=await context.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));
    await page.goto(origin);await page.frameLocator('#combatFrame').locator('#homeScreen').waitFor({state:'attached'});
-   assert.equal(await page.locator('header .nav button').count(),5);
-   assert.equal(await page.locator('header .nav button svg').count(),5);
+   assert.equal(await page.locator('header .nav button[data-module]').count(),5);
+   assert.equal(await page.locator('header .nav button[data-module] svg').count(),5);
    assert.deepEqual(await visible(page),['homePanel']);
    const before=await page.evaluate(()=>({data:localStorage.getItem(key),frame:document.querySelector('#combatFrame').srcdoc}));
    await page.evaluate(()=>{window.testFrame=document.querySelector('#combatFrame').contentWindow;window.testPads=document.querySelector('#pads').firstChild;window.switchTimings=[];document.querySelector('header .nav').addEventListener('click',()=>{const start=performance.now();requestAnimationFrame(()=>window.switchTimings.push(performance.now()-start));},true)});
