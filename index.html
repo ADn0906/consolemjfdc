@@ -39,13 +39,14 @@ body.fdc-focused #combatFrame{min-height:400px}
 body.fdc-focused #sound{height:100%;max-height:none}
 </style>
 <style id="fdc-modern-navigation">
-header .nav{display:flex;flex-wrap:nowrap;gap:8px;align-items:center}
-header .nav button{width:44px;height:44px;min-width:44px;padding:9px;display:grid;place-items:center;border-radius:12px;background:#171c24;border:1px solid #3b4552;color:#e9edf4;transition:background-color .15s,border-color .15s,transform .15s;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
-header .nav button svg{width:24px;height:24px;display:block;pointer-events:none}
+body>header{height:auto;min-height:82px}
+header .nav{display:flex;flex-wrap:nowrap;gap:12px;align-items:center;overflow:visible}
+header .nav button{width:60px;height:60px;min-width:60px;min-height:60px;flex:0 0 60px;padding:14px;display:grid;place-items:center;border-radius:14px;background:#171c24;border:1px solid #3b4552;color:#e9edf4;touch-action:manipulation;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
+header .nav button svg{width:30px;height:30px;display:block;pointer-events:none}
 header .nav button.active{background:#821820;border-color:#e23541;color:#fff}
-header .nav button:active{transform:scale(.94)}
-@media(max-width:680px){header .nav{gap:4px}header .nav button{width:38px;height:40px;min-width:38px;padding:8px}header .nav button svg{width:22px;height:22px}}
-@media(prefers-reduced-motion:reduce){header .nav button{transition:none}}
+header .nav button:active{background:#a12530;border-color:#ff6871}
+@media(max-width:850px){header .nav{gap:8px;justify-content:center;width:100%;padding:4px 0}}
+@media(max-width:680px){header .nav button{width:56px;height:56px;min-width:56px;min-height:56px;flex-basis:56px;padding:12px}header .nav button svg{width:28px;height:28px}}
 </style><style id="fdc-module-layout">
 /* Un seul mécanisme de visibilité pour les cinq modules : l'attribut hidden.
    Les règles de disposition (flex/grid) ne décident jamais du module actif. */
@@ -56,7 +57,7 @@ body.fdc-focused .shell > .grid{grid-template-columns:minmax(0,1fr);grid-templat
 #fdc-image-viewer{position:fixed;inset:0;z-index:99999;height:100dvh;width:100%;display:grid;grid-template-rows:auto minmax(0,1fr);background:#000;overflow:hidden;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
 #fdc-image-viewer img{display:block;width:100%;height:100%;min-width:0;min-height:0;object-fit:contain}
 
-</style></head><body><header><div class="brand"><div class="logo">⬡</div><div><div class="fdc-brand-row"><strong>FDC · CONSOLE MJ</strong><select id="campaign" onchange="changeCampaign()"><option>La Nuit des Morts-Vivants</option><option>Les Racines du Soleil</option></select></div><div class="muted" id="campaignLabel">La Nuit des Morts-Vivants</div></div></div><div class="nav"><button data-module="dashboard" onclick="goModule('dashboard')" title="Accueil global" aria-label="Accueil global"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg></button><button data-module="scenario" onclick="goModule('scenario')" title="Scénario" aria-label="Scénario"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6c-3-2-6-2-9-1v14c3-1 6-1 9 1 3-2 6-2 9-1V5c-3-1-6-1-9 1z"/><path d="M12 6v14"/></svg></button><button data-module="combat" onclick="goModule('combat')" title="Combat" aria-label="Combat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 20 7-7m2-2 7-7M14 4l6 6M4 4l16 16M4 10l6-6"/></svg></button><button data-module="sound" onclick="goModule('sound')" title="Ambiance sonore" aria-label="Ambiance sonore"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></button><button data-module="visual" onclick="goModule('visual')" title="Visuels" aria-label="Visuels"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></button></div><span class="muted">● Navigation 13</span></header>
+</style></head><body><header><div class="brand"><div class="logo">⬡</div><div><div class="fdc-brand-row"><strong>FDC · CONSOLE MJ</strong><select id="campaign" onchange="changeCampaign()"><option>La Nuit des Morts-Vivants</option><option>Les Racines du Soleil</option></select></div><div class="muted" id="campaignLabel">La Nuit des Morts-Vivants</div></div></div><div class="nav"><button data-module="dashboard" onclick="goModule('dashboard')" title="Accueil global" aria-label="Accueil global"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg></button><button data-module="scenario" onclick="goModule('scenario')" title="Scénario" aria-label="Scénario"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6c-3-2-6-2-9-1v14c3-1 6-1 9 1 3-2 6-2 9-1V5c-3-1-6-1-9 1z"/><path d="M12 6v14"/></svg></button><button data-module="combat" onclick="goModule('combat')" title="Combat" aria-label="Combat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 20 7-7m2-2 7-7M14 4l6 6M4 4l16 16M4 10l6-6"/></svg></button><button data-module="sound" onclick="goModule('sound')" title="Ambiance sonore" aria-label="Ambiance sonore"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></button><button data-module="visual" onclick="goModule('visual')" title="Visuels" aria-label="Visuels"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></button></div><span class="muted">● Navigation 14</span></header>
 <main class="shell"><div class="topline"><h2 id="moduleTitle">Accueil</h2><div class="row"><button class="small" onclick="editScenario()">✎ Mémo</button></div></div><section class="panel" id="homePanel" hidden><h3>Console MJ FDC</h3><p class="muted">Choisis un module dans la barre de navigation pour préparer ou animer ta partie.</p><p>Campagne : <strong id="homeCampaign">La Nuit des Morts-Vivants</strong></p></section><div class="grid" hidden>
 <section class="panel" id="scenario" hidden><div class="head"><h3><button class="module-heading" onclick="goModule('scenario')">📖 Scénario</button></h3><div class="actions"><button class="small" onclick="editScenario()">Modifier le mémo</button><button class="small" onclick="goModule('scenario')">⛶</button></div></div><div id="scenarioContent" class="notes"></div></section>
 <section class="panel" id="combat" hidden><div class="head"><h3><button class="module-heading" onclick="goModule('combat')">⚔ Combat</button></h3><div class="actions"><button class="small" onclick="goModule('combat')">⛶</button></div></div><iframe id="combatFrame" title="Module Combat interactif" style="display:block;width:100%;height:100%;min-height:0;border:0;background:#11151b;border-radius:8px"></iframe></section>
@@ -104,11 +105,20 @@ const embeddedCombat="<!doctype html><html lang=\"fr\"><head><meta charset=\"utf
  return doc;
 }
 function fdcLoadCombat(){const frame=$('combatFrame');frame.srcdoc=fdcCombatDocument();frame.dataset.loaded='1';}
+// La barre fixe répond dès le contact tactile ; clic et clavier restent disponibles.
+document.querySelector('header .nav').addEventListener('pointerdown',event=>{
+ if(event.pointerType!=='touch'&&event.pointerType!=='pen')return;
+ const button=event.target.closest('button[data-module]');
+ if(!button||event.isPrimary===false)return;
+ event.preventDefault();
+ goModule(button.dataset.module);
+},{passive:false});
 const moduleNames=['scenario','combat','sound','visual'];
 function openCombat(){goModule('combat')}
 function closeCombat(){if(document.body.dataset.activeModule==='combat')goModule('dashboard')}
 function goModule(which){
  if(which!=='dashboard'&&!moduleNames.includes(which))return;
+ if(document.body.dataset.activeModule===which)return;
  // Un seul état de navigation, aucun panneau superposé ou déplacé.
  document.body.dataset.activeModule=which;
  document.body.classList.toggle('fdc-focused',which!=='dashboard');
