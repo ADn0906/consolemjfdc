@@ -1,0 +1,15 @@
+const {chromium}=require('playwright');
+const fs=require('fs'),http=require('http');const server=http.createServer((req,res)=>{let f=decodeURIComponent(req.url.split('?')[0]);if(f==='/')f='/index.html';try{res.setHeader('Content-Type',f.endsWith('.js')?'text/javascript':f.endsWith('.webp')?'image/webp':f.endsWith('.json')?'application/json':'text/html');res.end(fs.readFileSync(process.cwd()+f))}catch(e){res.statusCode=404;res.end()}});
+(async()=>{await new Promise(r=>server.listen(8766,'127.0.0.1',r));const b=await chromium.launch({executablePath:'/tmp/chromium',headless:true,args:['--no-sandbox']});const p=await b.newPage();const errors=[];p.on('pageerror',e=>errors.push(e.message));await p.goto('http://127.0.0.1:8766');await p.selectOption('#campaign','Totally Spies & Dices');await p.waitForTimeout(1500);const assert=require('node:assert/strict');
+const snapshot=()=>p.evaluate(()=>document.querySelector('#combatFrame').contentWindow.fdcExportSnapshot());
+let snap=await snapshot();assert.equal(snap.pj.length,3);assert.equal(snap.bestiary.length,0);assert.equal(snap.mobs.length,0);
+const f=p.locator('#combatFrame').contentFrame();assert.equal(await f.locator('#pjCards>.pj').count(),3);
+assert(await f.locator('#pjCards img').evaluateAll(imgs=>imgs.every(i=>i.complete&&i.naturalWidth>0)));
+for(const module of ['visual','sound','scenario','combat','dashboard'])await p.locator('header button[data-module="'+module+'"]').click();
+await p.click('#combatInfoButton');assert((await p.locator('#homebrewInfo').innerText()).includes('Règles maison'));assert(!(await p.locator('#homebrewInfo').innerText()).includes('Sorts D&D'));await p.click('#homebrewMonsters');assert((await p.locator('#homebrewResults').innerText()).includes('Aucune fiche'));await p.click('#homebrewClose');
+const archive=await p.evaluate(()=>fdcBuildCampaignArchive());assert.equal(archive.campaign,'Totally Spies & Dices');
+await p.reload();await p.waitForFunction(()=>document.querySelector('#combatFrame').contentWindow.fdcSnapshotStorageKey==='fdc-combat-spies-v1');assert.equal((await snapshot()).pj.length,3);
+await p.selectOption('#campaign','Les Racines du Soleil');await p.waitForFunction(()=>document.querySelector('#combatFrame').contentWindow.fdcSnapshotStorageKey==='fdc-combat-racines-v1');assert.equal((await snapshot()).pj.length,5);
+await p.selectOption('#campaign','Totally Spies & Dices');await p.waitForFunction(()=>document.querySelector('#combatFrame').contentWindow.fdcSnapshotStorageKey==='fdc-combat-spies-v1');assert.equal((await snapshot()).bestiary.length,0);
+assert.deepEqual(errors,[]);console.log('PASS: portraits, three PJ, isolated empty bestiary, household rules info, five modules, archive, reload, campaign switching');
+await b.close();server.close()})();

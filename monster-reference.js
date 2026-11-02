@@ -17,6 +17,7 @@ function fdcMergeMonsterProfiles(library,bestiary,profiles){
  }
 }
 async function fdcEnableMonsterCatalog(frame){
+ if(fdcIsHomebrew())return;
  try{const data=await fdcLoadMonsterCatalog();if(frame!==document.getElementById('combatFrame')?.contentWindow||typeof frame.fdcInstallGlobalMonsters!=='function')return;frame.fdcInstallGlobalMonsters(data.monsters);}catch(e){console.warn('Bestiaire global indisponible',e.message);}
 }
 function fdcMonsterControlsMarkup(){return `<section id="monsterReference" class="spell-reference" hidden aria-label="Bestiaire global"><div class="spell-toolbar"><div><label for="monsterSelect">Monstres</label><select id="monsterSelect" disabled><option>Chargement…</option></select></div><div><label for="monsterSearch">Rechercher un monstre ou une capacité</label><input id="monsterSearch" type="search" placeholder="Ex. gobelin, dragon, poison…" disabled></div></div><p id="monsterCount" class="muted" role="status"></p><article id="monsterRules" class="spell-rules" aria-label="Fiche du monstre"></article><div class="actions"><button id="monsterImport" class="blue" disabled>Ajouter au bestiaire de la campagne</button><span id="monsterImportStatus" role="status"></span></div><p class="spell-source muted">PDF fourni · AideDD · <a href="assets/monsters-source-notice.txt" target="_blank" rel="noopener">Source et mentions</a></p></section>`;}

@@ -39,6 +39,7 @@ function fdcPrepareSpellLinks(data){
  const patterns=names.sort((a,b)=>b.length-a.length).map(name=>name.replace(/[.*+?^${}()|[\]\\]/g,'\\$&').replace(/\s+/g,'\\s+'));fdcSpellNameMatcher=new RegExp('(^|[^a-z0-9])('+patterns.join('|')+')(?![a-z0-9])','g');
 }
 function fdcSpellLinkMarkup(text){
+ if(fdcIsHomebrew())return escapeHTML(text);
  text=String(text||'');if(!fdcSpellNameMatcher)return escapeHTML(text);let folded='',starts=[],ends=[],offset=0;
  for(const char of text){const part=fdcSpellFold(char);for(let i=0;i<part.length;i++){starts.push(offset);ends.push(offset+char.length);}folded+=part;offset+=char.length;}
  let html='',last=0,match;fdcSpellNameMatcher.lastIndex=0;
@@ -48,7 +49,7 @@ function fdcSpellLinkMarkup(text){
 function fdcLoadSpellCatalog(){
  if(!fdcSpellLoadPromise)fdcSpellLoadPromise=fetch('assets/spells-fr.json').then(r=>{if(!r.ok)throw new Error('Chargement impossible');return r.json()}).then(data=>{if(data.format!=='fdc-spell-reference'||!Array.isArray(data.spells))throw new Error('Bibliothèque invalide');fdcPrepareSpellLinks(data);return data;}).catch(error=>{fdcSpellLoadPromise=null;throw error;});return fdcSpellLoadPromise;
 }
-async function fdcEnableMonsterSpellLinks(frame){try{await fdcLoadSpellCatalog();if(frame===document.getElementById('combatFrame')?.contentWindow&&typeof frame.fdcRefreshSpellLinks==='function')frame.fdcRefreshSpellLinks();}catch(error){console.warn('Référence des sorts indisponible',error.message);}}
+async function fdcEnableMonsterSpellLinks(frame){if(fdcIsHomebrew())return;try{await fdcLoadSpellCatalog();if(frame===document.getElementById('combatFrame')?.contentWindow&&typeof frame.fdcRefreshSpellLinks==='function')frame.fdcRefreshSpellLinks();}catch(error){console.warn('Référence des sorts indisponible',error.message);}}
 async function fdcOpenSpellReference(id){
  showCombatInfo();if(typeof fdcSelectInfoTab==='function')fdcSelectInfoTab('spell');const info=document.getElementById('combatInfoDialog');await fdcInitSpellReference(info);if(info.dataset.spellReady!=='1')return;const spell=fdcSpellCatalog?.spells.find(s=>s.id===id);if(!spell)return;const search=info.querySelector('#spellSearch'),select=info.querySelector('#spellSelect');search.value=spell.name;search.dispatchEvent(new Event('input'));select.value=id;select.dispatchEvent(new Event('change'));
 }

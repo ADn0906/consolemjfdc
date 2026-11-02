@@ -1,7 +1,7 @@
 /* Portable campaign archives. Files stay on the user's devices. */
 const FDC_TRANSFER_FORMAT='fdc-campaign';
 const FDC_TRANSFER_MAX=256*1024*1024;
-function fdcCombatKey(name){return name===RACINES.name?'fdc-combat-racines-v1':name==='La Nuit des Morts-Vivants'?'fdc-combat-v12-demo-3':'fdc-combat-custom-'+encodeURIComponent(name);}
+function fdcCombatKey(name){if(name===SPIES.name)return 'fdc-combat-spies-v1';return name===RACINES.name?'fdc-combat-racines-v1':name==='La Nuit des Morts-Vivants'?'fdc-combat-v12-demo-3':'fdc-combat-custom-'+encodeURIComponent(name);}
 function fdcTransferStatus(message){const el=document.getElementById('fdcTransferStatus');if(el)el.textContent=message;}
 function fdcTransferDialog(){
  dialog('Transférer une campagne',`<p>Campagne sélectionnée : <strong>${escapeHTML(state.campaign)}</strong></p><p>Prépare sur PC, exporte le fichier, puis ouvre-le avec « Importer » sur la tablette. Le transfert comprend le scénario, les PJ, les monstres, les images et les sons associés.</p><button id="fdcExportButton" type="button" style="min-height:48px;width:100%" onclick="fdcExportCampaign()">↓ Exporter cette campagne</button><label for="fdcImportFile">↑ Importer une campagne depuis un fichier</label><input id="fdcImportFile" type="file" accept=".fdc,.json,application/json,application/gzip" onchange="fdcChooseImport(this.files[0])"><p id="fdcTransferStatus" role="status" aria-live="polite"></p>`,closeDialog,'Fermer');
@@ -16,7 +16,7 @@ async function fdcBuildCampaignArchive(){
  const combat=frame.contentWindow.fdcExportSnapshot();
  const visuals=structuredClone(state.visuals.filter(v=>(v.campaign||'La Nuit des Morts-Vivants')===name));
  const tables=structuredClone(state.tables.filter(t=>t.name===name));
- const library=JSON.parse(localStorage.getItem('fdc-global-monster-library-v1')||'[]');
+ const library=JSON.parse(localStorage.getItem(name===SPIES.name?'fdc-homebrew-monster-library-v1':'fdc-global-monster-library-v1')||'[]');
  const resources=[],files=[],cached=new Map();let total=0;
  async function addBlob(blob,label){
   if(!(blob instanceof Blob)||!blob.size)throw new Error('Fichier vide ou illisible : '+label);
@@ -101,7 +101,7 @@ async function fdcApplyCampaignArchive(packet){
  const next=structuredClone(state);next.notes[p.campaign]=p.notes;next.visuals=next.visuals.filter(v=>(v.campaign||'La Nuit des Morts-Vivants')!==p.campaign).concat(p.visuals);next.tables=next.tables.filter(t=>t.name!==p.campaign).concat(p.tables);next.campaign=p.campaign;next.table=p.tables[0]?.id||'';next.racinesImportedV1=true;
  if(p.settings&&Number.isFinite(p.settings.master))next.master=Math.max(0,Math.min(100,p.settings.master));if(typeof p.settings?.loop==='boolean')next.loop=p.settings.loop;
  next.transferCampaigns=[...new Set([...(next.transferCampaigns||[]),p.campaign])];
- const libraryKey='fdc-global-monster-library-v1',merged=JSON.parse(localStorage.getItem(libraryKey)||'[]');
+ const libraryKey=p.campaign===SPIES.name?'fdc-homebrew-monster-library-v1':'fdc-global-monster-library-v1',merged=JSON.parse(localStorage.getItem(libraryKey)||'[]');
  for(const [i,v] of p.library.entries()){const found=merged.findIndex(t=>t.id===v.id||t.name.toLocaleLowerCase('fr')===v.name.toLocaleLowerCase('fr'));if(found>=0)merged[found]={...v,id:merged[found].id};else merged.push({...v,id:prefix+'library-'+i});}
  const updates=new Map([[key,JSON.stringify(next)],[fdcCombatKey(p.campaign),JSON.stringify(p.combat)],[libraryKey,JSON.stringify(merged)]]);
  if(p.campaign==='La Nuit des Morts-Vivants')updates.set('fdc-oneshot-dismissed-v1',JSON.stringify(p.dismissed||[]));
