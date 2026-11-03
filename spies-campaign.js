@@ -1,13 +1,197 @@
+const HERITAGE={
+  "name": "L’Héritage des Silences",
+  "notes": "L’HÉRITAGE DES SILENCES · NOTES MJ\n\nPOINT DE REPRISE — FIN DE L’ARC JOUÉ\nLe magicien a marqué le groupe et le gobelin avant de disparaître par un portail. Il a fixé Dory plus longtemps que les autres. Le glyphe, indélébile, a mené au camp gobelin. Les gobelins étaient manipulés et le sang du rituel a invoqué l’Abomination du Chaos. Après le combat, le groupe a récupéré la Pierre d’Obsidienne dans la créature et les gobelins ont retrouvé leurs esprits. Les Monts Chauds sont la piste de fond.\n\nREPÈRES DE L’ARC PRÉCÉDENT\nBorin « Rinrin » tient la taverne. Aeline Brumefeuille est son épouse, lien à garder côté MJ tant qu’il n’a pas été révélé. La quête optionnelle de la poule mène au cimetière elfique, avec des squelettes et une poule possédée. Épitaphe : Eldarion Lunargent, « Gardien des Silences ». « Que son repos préserve ce qui ne doit plus être nommé. »\n\nACTE 2 — SUR LA ROUTE OUBLIÉE\n• Reprendre à la taverne après le combat. Aeline donne l’indice qui met le groupe sur la piste de Papyrus / Marc Page.\n• Garder sous la main les scènes prévues pour l’île : l’épave et ses harpies, puis les fleurs à chercher dans la fange des trolls. Les jouer selon les choix du groupe.\n• Prévoir la rencontre de Pouaaah avec Argh. Garder ce moment disponible pour l’introduire quand le groupe s’y prête.\n• Les réponses obtenues sur cette route doivent remettre les Monts Chauds au premier plan. La Pierre d’Obsidienne, la marque et le regard du magicien sur Dory restent les fils à reprendre au moment voulu.\n\nRÈGLES ET GROUPE\nMode maison : 1d20 + Force au contact, Adresse à distance ou Esprit pour la magie, contre la CA. Initiative dynamique. Progression : +1 dans une caractéristique au choix et +3 PV par niveau. Les caractéristiques individuelles sont à renseigner depuis les fiches de table.\n",
+  "visuals": [
+    {
+      "id": "heritage-144Qf_UXywQ6wh1JvVzcGO0Hx_YVDKXSW",
+      "campaign": "L’Héritage des Silences",
+      "tab": "PNJ",
+      "name": "Borin",
+      "url": "https://drive.google.com/file/d/144Qf_UXywQ6wh1JvVzcGO0Hx_YVDKXSW/view?usp=drivesdk",
+      "drive": true,
+      "fileName": "Borin",
+      "mime": "image/jpeg"
+    },
+    {
+      "id": "heritage-1H_sFZgTXuE8KK0iSvnU9fgPnm8rRGI3P",
+      "campaign": "L’Héritage des Silences",
+      "tab": "PNJ",
+      "name": "Aeline Brumefeuille",
+      "url": "https://drive.google.com/file/d/1H_sFZgTXuE8KK0iSvnU9fgPnm8rRGI3P/view?usp=drivesdk",
+      "drive": true,
+      "fileName": "Aeline Brumefeuille",
+      "mime": "image/png"
+    },
+    {
+      "id": "heritage-1iR83uktTP5lWTT_9bxQuXpEwI7XQCqu1",
+      "campaign": "L’Héritage des Silences",
+      "tab": "Indices",
+      "name": "Marque magicien",
+      "url": "https://drive.google.com/file/d/1iR83uktTP5lWTT_9bxQuXpEwI7XQCqu1/view?usp=drivesdk",
+      "drive": true,
+      "fileName": "Marque magicien.png",
+      "mime": "image/png"
+    },
+    {
+      "id": "heritage-1zUyJMYdGAprZW64oaBiyKjqbzo93WQSn",
+      "campaign": "L’Héritage des Silences",
+      "tab": "PJ",
+      "name": "Doby",
+      "url": "https://drive.google.com/file/d/1zUyJMYdGAprZW64oaBiyKjqbzo93WQSn/view?usp=drivesdk",
+      "drive": true,
+      "fileName": "Doby",
+      "mime": "image/png"
+    },
+    {
+      "id": "heritage-1NIllodiwQ8r52T_aaJHbPXYZ8Lve_f6M",
+      "campaign": "L’Héritage des Silences",
+      "tab": "PJ",
+      "name": "Dory",
+      "url": "https://drive.google.com/file/d/1NIllodiwQ8r52T_aaJHbPXYZ8Lve_f6M/view?usp=drivesdk",
+      "drive": true,
+      "fileName": "Dory",
+      "mime": "image/png"
+    },
+    {
+      "id": "heritage-1-9x9Xb1RbMAH3wBLQKPPGx4ZGczXfZ7K",
+      "campaign": "L’Héritage des Silences",
+      "tab": "PJ",
+      "name": "Hardless",
+      "url": "https://drive.google.com/file/d/1-9x9Xb1RbMAH3wBLQKPPGx4ZGczXfZ7K/view?usp=drivesdk",
+      "drive": true,
+      "fileName": "Hardless",
+      "mime": "image/png"
+    },
+    {
+      "id": "heritage-1OddXEQ88mgqxu1eA1c8JZgXQN_m-j98e",
+      "campaign": "L’Héritage des Silences",
+      "tab": "PJ",
+      "name": "Mavis",
+      "url": "https://drive.google.com/file/d/1OddXEQ88mgqxu1eA1c8JZgXQN_m-j98e/view?usp=drivesdk",
+      "drive": true,
+      "fileName": "Mavis",
+      "mime": "image/png"
+    },
+    {
+      "id": "heritage-1S8dSPr55Xa2Svhk76dZASvDgTTWyNPpJ",
+      "campaign": "L’Héritage des Silences",
+      "tab": "PJ",
+      "name": "ARGH",
+      "url": "https://drive.google.com/file/d/1S8dSPr55Xa2Svhk76dZASvDgTTWyNPpJ/view?usp=drivesdk",
+      "drive": true,
+      "fileName": "ARGH",
+      "mime": "image/png"
+    },
+    {
+      "id": "heritage-1xkbX3A6-5pub60Du8qIrSNDvjqlTXeuj",
+      "campaign": "L’Héritage des Silences",
+      "tab": "PJ",
+      "name": "Photo de groupe Goupe",
+      "url": "https://drive.google.com/file/d/1xkbX3A6-5pub60Du8qIrSNDvjqlTXeuj/view?usp=drivesdk",
+      "drive": true,
+      "fileName": "Photo de groupe Goupe.png",
+      "mime": "image/png"
+    },
+    {
+      "id": "heritage-1pBoBsoe3Qh99DppSJB6sGWbZgh2yqdRV",
+      "campaign": "L’Héritage des Silences",
+      "tab": "PJ",
+      "name": "Affiche film groupe",
+      "url": "https://drive.google.com/file/d/1pBoBsoe3Qh99DppSJB6sGWbZgh2yqdRV/view?usp=drivesdk",
+      "drive": true,
+      "fileName": "Affiche film groupe.png",
+      "mime": "image/png"
+    },
+    {
+      "id": "heritage-1Y-FWVyFBNe2Kcc_JazSkRjcHt9unGZaV",
+      "campaign": "L’Héritage des Silences",
+      "tab": "Indices",
+      "name": "Récap MJ — arc joué et épitaphe",
+      "url": "https://drive.google.com/file/d/1Y-FWVyFBNe2Kcc_JazSkRjcHt9unGZaV/view?usp=drivesdk",
+      "drive": true,
+      "fileName": "LHeritage_des_Silences_Histoire_Avec_Epitaphe.pdf",
+      "mime": "application/pdf"
+    },
+    {
+      "id": "heritage-1qUhIWSpPu8n43zwq4zAASiObDNLBkXBe",
+      "campaign": "L’Héritage des Silences",
+      "tab": "Indices",
+      "name": "Progression — fiches niveau 2",
+      "url": "https://drive.google.com/file/d/1qUhIWSpPu8n43zwq4zAASiObDNLBkXBe/view?usp=drivesdk",
+      "drive": true,
+      "fileName": "LHeritage_des_Silences_Niveaux_Details.pdf",
+      "mime": "application/pdf"
+    }
+  ],
+  "combat": {
+    "pj": [
+      {
+        "id": "heritage-pj-0",
+        "name": "Doby",
+        "hp": 30,
+        "maxHp": 30,
+        "ca": 12,
+        "description": "Elfe guerrier",
+        "abilities": "Dégâts des Anciens : 1 fois par repos court. Sur une attaque réussie à l’arc ou à l’épée, +1d4 dégâts spirituels."
+      },
+      {
+        "id": "heritage-pj-1",
+        "name": "Argh",
+        "hp": 35,
+        "maxHp": 35,
+        "ca": 12,
+        "description": "Demi-orc barbare",
+        "abilities": "Rage Déchaînée : une attaque supplémentaire immédiate sur une attaque réussie qui inflige 8+ dégâts ou un critique."
+      },
+      {
+        "id": "heritage-pj-2",
+        "name": "Dory",
+        "hp": 30,
+        "maxHp": 30,
+        "ca": 11,
+        "description": "Halfeline magicienne",
+        "abilities": "Projectile magique automatique et illimité. Entrave de la Forêt : 1 fois par combat, jet de Force DD 15. Prestidigitation : illusion mineure."
+      },
+      {
+        "id": "heritage-pj-3",
+        "name": "Mavis",
+        "hp": 30,
+        "maxHp": 30,
+        "ca": 13,
+        "description": "Elfe druidesse",
+        "abilities": "Spitz géant : 1 fois par repos long, +10 PV temporaires et CA 17. Morsure : 1d12 + Force. Griffure : 1d10 + Force, attaque bonus à 8+ dégâts. Hurlement DD 15 Esprit : ennemis apeurés, fuite 1 tour, inefficace sur les boss."
+      },
+      {
+        "id": "heritage-pj-4",
+        "name": "Hardless",
+        "hp": 35,
+        "maxHp": 35,
+        "ca": 12,
+        "description": "Drakéide barbare",
+        "abilities": "Rage Déchaînée : une attaque supplémentaire immédiate sur une attaque réussie qui inflige 8+ dégâts ou un critique."
+      }
+    ],
+    "bestiary": [],
+    "mobs": [],
+    "done": [],
+    "current": null,
+    "round": 1,
+    "history": []
+  }
+};
 const SPIES={"name": "Totally Spies & Dices", "notes": "TOTALLY SPIES & DICES — ONE-SHOT · RÈGLES MAISON\n\nPOINTS D’HISTOIRE — À JOUER LIBREMENT\n• Zezrael, Nami et Nélya, anciennes agentes, se retrouvent dans une taverne de jeux.\n• Elles gagnent le jackpot et offrent une tournée. Elles s’endorment et découvrent au réveil que leur sac d’or a disparu.\n• Enquête libre autour des personnes présentes : Quatre-Feuilles, Clark, la serveuse et Brokk.\n• Quatre-Feuilles est innocent ; rencontre prévue chez les orques.\n• Clark, croupier tieflin, peut être retrouvé chez lui avec sa famille.\n• La serveuse humaine aide son frère étudiant en magie ; rencontre prévue dans une autre taverne.\n• Brokk « le Ronchon », vieux nain sous-payé et homme à tout faire depuis trente ans, est le cerveau du réseau. Les gros gagnants sont dépouillés grâce à des tournées droguées et des complices.\n• Message final de l’ancien chef des agentes : révélation de la mission contre le réseau de voleurs.\n\nVISUELS ET REPÈRES AJOUTÉS\n• Penne et Panic — entrée du Pacte rouge : visuel disponible ; rôle détaillé à compléter.\n\nRÈGLES MAISON\n• Force / Adresse / Esprit. Jet : 1D20 + caractéristique.\n• Pour toucher : Force au contact, Adresse pour les projectiles, Esprit pour la magie ; résultat comparé à la CA adverse. Puis dé de dégâts de l’attaque.\n• Difficultés : 5 / 10 / 15 / 20 / 25 / 30.\n• 30 PV par héroïne ; initiative dynamique ; repos courts et longs.\n• Les dagues de Zezrael infligent 1D6 + Adresse selon sa fiche.\n\nBIBLIOTHÈQUES DU MODE MAISON\n• Bestiaire : à alimenter avec les photos de tes fiches.\n• Sorts : les capacités déjà documentées figurent sur les fiches PJ ; les cartes photographiées compléteront la bibliothèque de sorts.\n", "visuals": [{"id": "spies-zezrael", "campaign": "Totally Spies & Dices", "tab": "PJ", "name": "Zezrael", "url": "assets/spies/zezrael.webp", "fileName": "zezrael.webp", "mime": "image/webp"}, {"id": "spies-nami", "campaign": "Totally Spies & Dices", "tab": "PJ", "name": "Nami", "url": "assets/spies/nami.webp", "fileName": "nami.webp", "mime": "image/webp"}, {"id": "spies-nelya", "campaign": "Totally Spies & Dices", "tab": "PJ", "name": "Nélya", "url": "assets/spies/nelya.webp", "fileName": "nelya.webp", "mime": "image/webp"}, {"id": "spies-groupe", "campaign": "Totally Spies & Dices", "tab": "PJ", "name": "Groupe", "url": "assets/spies/groupe.webp", "fileName": "groupe.webp", "mime": "image/webp"}, {"id": "spies-clark", "campaign": "Totally Spies & Dices", "tab": "PNJ", "name": "Clark le croupier", "url": "assets/spies/clark.webp", "fileName": "clark.webp", "mime": "image/webp"}, {"id": "spies-brokk", "campaign": "Totally Spies & Dices", "tab": "PNJ", "name": "Brokk « le Ronchon »", "url": "assets/spies/brokk.webp", "fileName": "brokk.webp", "mime": "image/webp"}, {"id": "spies-quatre-feuilles", "campaign": "Totally Spies & Dices", "tab": "PNJ", "name": "Quatre-Feuilles", "url": "assets/spies/quatre-feuilles.webp", "fileName": "quatre-feuilles.webp", "mime": "image/webp"}, {"id": "spies-serveuse", "campaign": "Totally Spies & Dices", "tab": "PNJ", "name": "Serveuse", "url": "assets/spies/serveuse.webp", "fileName": "serveuse.webp", "mime": "image/webp"}, {"id": "spies-penne-panic", "campaign": "Totally Spies & Dices", "tab": "PNJ", "name": "Penne et Panic — entrée du Pacte rouge", "url": "assets/spies/penne-panic.webp", "fileName": "penne-panic.webp", "mime": "image/webp"}], "combat": {"pj": [{"id": "spies-zezrael", "name": "Zezrael", "ca": 15, "hp": 30, "maxHp": 30, "force": 2, "adresse": 5, "esprit": 2, "description": "Elfe de la nuit · Roublarde", "abilities": "Dagues x2 : 1D6 + Adresse. Arc long : 1D8 + Adresse. Attaque sournoise : +1D6 si un allié est au contact ou si la cible est surprise. Vision dans le noir, Discrétion naturelle.", "photo": "assets/spies/zezrael.webp"}, {"id": "spies-nami", "name": "Nami", "ca": 12, "hp": 30, "maxHp": 30, "force": 1, "adresse": 2, "esprit": 5, "description": "Humaine · Magicienne", "abilities": "Bâton : 1D6 + Force. Projectile magique : 1D6 + Esprit. Sorts : Projectile magique, Boule de feu mineure, Lumière, Main de mage.", "photo": "assets/spies/nami.webp"}, {"id": "spies-nelya", "name": "Nélya", "ca": 13, "hp": 30, "maxHp": 30, "force": 2, "adresse": 2, "esprit": 5, "description": "Humaine · Druidesse", "abilities": "Gourdin : 1D6 + Force. Ronces : 1D6 + Esprit. Soin : 1D6 + Esprit. Lianes entravantes, Communication avec les animaux, Fleur protectrice : +2 CA à un allié pendant 1 tour.", "photo": "assets/spies/nelya.webp"}], "bestiary": [], "mobs": [], "done": [], "current": null, "round": 1, "history": []}};
-function fdcIsHomebrew(){return state.campaign===SPIES.name;}
+function fdcIsHomebrewCampaign(name){return name===SPIES.name||name===HERITAGE.name;}
+function fdcIsHomebrew(){return fdcIsHomebrewCampaign(state.campaign);}
 function fdcSpiesCombat(){
  fdcHomeMonsterLibrary();
- let doc=embeddedCombat.replace("const KEY='fdc-combat-v12-demo-3'","const KEY='fdc-combat-spies-v1'");
+ const campaign=state.campaign===HERITAGE.name?HERITAGE:SPIES;
+ const combatKey=campaign===HERITAGE?'fdc-combat-heritage-v1':'fdc-combat-spies-v1';
+ let doc=embeddedCombat.replace("const KEY='fdc-combat-v12-demo-3'","const KEY="+JSON.stringify(combatKey));
  const start=doc.indexOf('const defaults=()=>('),end=doc.indexOf(';try{state=',start);
- doc=doc.slice(0,start)+'const defaults=()=>('+JSON.stringify(SPIES.combat)+')'+doc.slice(end);
+ doc=doc.slice(0,start)+'const defaults=()=>('+JSON.stringify(campaign.combat)+')'+doc.slice(end);
  doc=doc.replace("const LIBKEY='fdc-global-monster-library-v1'","const LIBKEY='fdc-homebrew-monster-library-v1'");
  doc=doc.replace(/const fdcOneShotMonsters=\[[\s\S]*?\];/,'const fdcOneShotMonsters=[];');
- doc=doc.replaceAll('La Nuit des Morts-Vivants',SPIES.name);
+ doc=doc.replaceAll('La Nuit des Morts-Vivants',campaign.name);
  doc=doc.replace('Les fiches du PDF fourni et les fiches de campagne sont partagées entre tes campagnes.','Les fiches de ton mode maison sont partagées entre ses campagnes.');
  const extra=`<script>
  const basePJCard=fdcPJCard;
@@ -81,4 +265,8 @@ function fdcHomeCombatStats(doc){
  doc=doc.replace(/function fdcMonsterStats\(t,editable=false\)\{[\s\S]*?(?=function fdcUpdateStatModifier)/,fdcHomeMonsterStats.toString().replace('fdcHomeMonsterStats','fdcMonsterStats')+'\n');
  doc=doc.replace(/function fdcSaveMonsterAbilities\(textareaId='editAb'\)\{[\s\S]*?(?=function fdcMonsterImageButton)/,fdcHomeSaveMonsterAbilities.toString().replace('fdcHomeSaveMonsterAbilities','fdcSaveMonsterAbilities')+'\n');
  return doc;
+}
+
+function fdcIsDriveVisualUrl(url){
+ try{const link=new URL(url);return link.origin==='https://drive.google.com'&&link.pathname.startsWith('/file/d/');}catch{return false;}
 }

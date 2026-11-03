@@ -1,7 +1,7 @@
 /* Portable campaign archives. Files stay on the user's devices. */
 const FDC_TRANSFER_FORMAT='fdc-campaign';
 const FDC_TRANSFER_MAX=256*1024*1024;
-function fdcCombatKey(name){if(name===SPIES.name)return 'fdc-combat-spies-v1';return name===RACINES.name?'fdc-combat-racines-v1':name==='La Nuit des Morts-Vivants'?'fdc-combat-v12-demo-3':'fdc-combat-custom-'+encodeURIComponent(name);}
+function fdcCombatKey(name){if(name===HERITAGE.name)return 'fdc-combat-heritage-v1';if(name===SPIES.name)return 'fdc-combat-spies-v1';return name===RACINES.name?'fdc-combat-racines-v1':name==='La Nuit des Morts-Vivants'?'fdc-combat-v12-demo-3':'fdc-combat-custom-'+encodeURIComponent(name);}
 function fdcTransferStatus(message){const el=document.getElementById('fdcTransferStatus');if(el)el.textContent=message;}
 function fdcTransferDialog(){
  dialog('Transférer une campagne',`<p>Campagne sélectionnée : <strong>${escapeHTML(state.campaign)}</strong></p><p>Prépare sur PC, exporte le fichier, puis ouvre-le avec « Importer » sur la tablette. Le transfert comprend le scénario, les PJ, les monstres, les images et les sons associés.</p><button id="fdcExportButton" type="button" style="min-height:48px;width:100%" onclick="fdcExportCampaign()">↓ Exporter cette campagne</button><label for="fdcImportFile">↑ Importer une campagne depuis un fichier</label><input id="fdcImportFile" type="file" accept=".fdc,.json,application/json,application/gzip" onchange="fdcChooseImport(this.files[0])"><p id="fdcTransferStatus" role="status" aria-live="polite"></p>`,closeDialog,'Fermer');
@@ -16,7 +16,7 @@ async function fdcBuildCampaignArchive(){
  const combat=frame.contentWindow.fdcExportSnapshot();
  const visuals=structuredClone(state.visuals.filter(v=>(v.campaign||'La Nuit des Morts-Vivants')===name));
  const tables=structuredClone(state.tables.filter(t=>t.name===name));
- const library=JSON.parse(localStorage.getItem(name===SPIES.name?'fdc-homebrew-monster-library-v1':'fdc-global-monster-library-v1')||'[]');
+ const library=JSON.parse(localStorage.getItem(fdcIsHomebrewCampaign(name)?'fdc-homebrew-monster-library-v1':'fdc-global-monster-library-v1')||'[]');
  const resources=[],files=[],cached=new Map();let total=0;
  async function addBlob(blob,label){
   if(!(blob instanceof Blob)||!blob.size)throw new Error('Fichier vide ou illisible : '+label);
@@ -30,7 +30,7 @@ async function fdcBuildCampaignArchive(){
   return cached.get(url);
  }
  async function attachment(id,url,label){const local=await fdcStoredFile(id);if(local){fdcTransferStatus('Préparation : '+label+'…');files.push({id,resource:await addBlob(local,label)});}else if(url)files.push({id,resource:await remote(url,label)});}
- for(const v of visuals){await attachment(v.id,v.url||FDC_IMAGES[v.bundledFile],v.fileName||v.name);}
+ for(const v of visuals){await attachment(v.id,v.drive?null:v.url||FDC_IMAGES[v.bundledFile],v.fileName||v.name);}
  for(const t of tables)for(const sound of t.sounds){await attachment(sound.id,sound.url||FDC_AUDIO[sound.id],sound.fileName||sound.name);}
  // Embed portraits and original stat sheets once, even when shared by the library.
  for(const pj of combat.pj){if(!pj.photo){const bundled=Object.entries(FDC_IMAGES).find(([name])=>name.toLocaleLowerCase('fr')===pj.name.trim().toLocaleLowerCase('fr')+'.png');if(bundled)pj.photo=bundled[1];}}
@@ -89,7 +89,7 @@ async function fdcApplyCampaignArchive(packet){
  for(const r of p.resources){const bytes=Uint8Array.from(atob(r.data),c=>c.charCodeAt(0));total+=bytes.length;if(total>FDC_TRANSFER_MAX*.7)throw new Error('Les médias de ce fichier sont trop volumineux.');resources.set(r.id,{...r,blob:new Blob([bytes],{type:r.mime})});}
  const media=ref=>{const r=resources.get(ref.slice(13));if(!r||!r.mime.startsWith('image/'))throw new Error('Portrait ou fiche originale invalide.');return 'fdc-file:'+prefix+r.id;};
  for(const v of [...p.combat.pj,...p.combat.bestiary,...p.library])for(const property of ['photo','sourceImage'])if(v[property])v[property]=media(v[property]);
- for(const [index,v] of p.visuals.entries()){const old=v.id;v.id=prefix+'visual-'+index;remapped.set(old,v.id);v.campaign=p.campaign;delete v.url;delete v.bundledFile;}
+ for(const [index,v] of p.visuals.entries()){const old=v.id;v.id=prefix+'visual-'+index;remapped.set(old,v.id);v.campaign=p.campaign;if(!v.drive||!fdcIsDriveVisualUrl(v.url)){delete v.url;delete v.drive;}delete v.bundledFile;}
  for(const [index,t] of p.tables.entries()){t.id=prefix+'table-'+index;t.name=p.campaign;for(const [i,v] of t.sounds.entries()){const old=v.id;v.id=prefix+'sound-'+index+'-'+i;remapped.set(old,v.id);delete v.url;}}
  for(const f of p.files){const r=resources.get(f.resource);const owner=[...p.visuals,...p.tables.flatMap(t=>t.sounds)].find(v=>v.id===remapped.get(f.id));if(owner){owner.fileName=r.name;owner.mime=r.mime;}}
  const actors=new Map(),types=new Map();for(const [i,t] of p.combat.bestiary.entries()){const old=t.id;t.id=prefix+'type-'+i;types.set(old,t.id);}
@@ -101,7 +101,7 @@ async function fdcApplyCampaignArchive(packet){
  const next=structuredClone(state);next.notes[p.campaign]=p.notes;next.visuals=next.visuals.filter(v=>(v.campaign||'La Nuit des Morts-Vivants')!==p.campaign).concat(p.visuals);next.tables=next.tables.filter(t=>t.name!==p.campaign).concat(p.tables);next.campaign=p.campaign;next.table=p.tables[0]?.id||'';next.racinesImportedV1=true;
  if(p.settings&&Number.isFinite(p.settings.master))next.master=Math.max(0,Math.min(100,p.settings.master));if(typeof p.settings?.loop==='boolean')next.loop=p.settings.loop;
  next.transferCampaigns=[...new Set([...(next.transferCampaigns||[]),p.campaign])];
- const libraryKey=p.campaign===SPIES.name?'fdc-homebrew-monster-library-v1':'fdc-global-monster-library-v1',merged=JSON.parse(localStorage.getItem(libraryKey)||'[]');
+ const libraryKey=fdcIsHomebrewCampaign(p.campaign)?'fdc-homebrew-monster-library-v1':'fdc-global-monster-library-v1',merged=JSON.parse(localStorage.getItem(libraryKey)||'[]');
  for(const [i,v] of p.library.entries()){const found=merged.findIndex(t=>t.id===v.id||t.name.toLocaleLowerCase('fr')===v.name.toLocaleLowerCase('fr'));if(found>=0)merged[found]={...v,id:merged[found].id};else merged.push({...v,id:prefix+'library-'+i});}
  const updates=new Map([[key,JSON.stringify(next)],[fdcCombatKey(p.campaign),JSON.stringify(p.combat)],[libraryKey,JSON.stringify(merged)]]);
  if(p.campaign==='La Nuit des Morts-Vivants')updates.set('fdc-oneshot-dismissed-v1',JSON.stringify(p.dismissed||[]));
