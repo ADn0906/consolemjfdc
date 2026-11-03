@@ -7,100 +7,100 @@ const HERITAGE={
       "campaign": "L’Héritage des Silences",
       "tab": "PNJ",
       "name": "Borin",
-      "url": "https://drive.google.com/file/d/144Qf_UXywQ6wh1JvVzcGO0Hx_YVDKXSW/view?usp=drivesdk",
-      "drive": true,
-      "fileName": "Borin",
-      "mime": "image/jpeg"
+      "url": "assets/heritage/heritage-144Qf_UXywQ6wh1JvVzcGO0Hx_YVDKXSW.webp",
+      "drive": false,
+      "fileName": "Borin.webp",
+      "mime": "image/webp"
     },
     {
       "id": "heritage-1H_sFZgTXuE8KK0iSvnU9fgPnm8rRGI3P",
       "campaign": "L’Héritage des Silences",
       "tab": "PNJ",
       "name": "Aeline Brumefeuille",
-      "url": "https://drive.google.com/file/d/1H_sFZgTXuE8KK0iSvnU9fgPnm8rRGI3P/view?usp=drivesdk",
-      "drive": true,
-      "fileName": "Aeline Brumefeuille",
-      "mime": "image/png"
+      "url": "assets/heritage/heritage-1H_sFZgTXuE8KK0iSvnU9fgPnm8rRGI3P.webp",
+      "drive": false,
+      "fileName": "Aeline Brumefeuille.webp",
+      "mime": "image/webp"
     },
     {
       "id": "heritage-1iR83uktTP5lWTT_9bxQuXpEwI7XQCqu1",
       "campaign": "L’Héritage des Silences",
       "tab": "Indices",
       "name": "Marque magicien",
-      "url": "https://drive.google.com/file/d/1iR83uktTP5lWTT_9bxQuXpEwI7XQCqu1/view?usp=drivesdk",
-      "drive": true,
-      "fileName": "Marque magicien.png",
-      "mime": "image/png"
+      "url": "assets/heritage/heritage-1iR83uktTP5lWTT_9bxQuXpEwI7XQCqu1.webp",
+      "drive": false,
+      "fileName": "Marque magicien.webp",
+      "mime": "image/webp"
     },
     {
       "id": "heritage-1zUyJMYdGAprZW64oaBiyKjqbzo93WQSn",
       "campaign": "L’Héritage des Silences",
       "tab": "PJ",
       "name": "Doby",
-      "url": "https://drive.google.com/file/d/1zUyJMYdGAprZW64oaBiyKjqbzo93WQSn/view?usp=drivesdk",
-      "drive": true,
-      "fileName": "Doby",
-      "mime": "image/png"
+      "url": "assets/heritage/heritage-1zUyJMYdGAprZW64oaBiyKjqbzo93WQSn.webp",
+      "drive": false,
+      "fileName": "Doby.webp",
+      "mime": "image/webp"
     },
     {
       "id": "heritage-1NIllodiwQ8r52T_aaJHbPXYZ8Lve_f6M",
       "campaign": "L’Héritage des Silences",
       "tab": "PJ",
       "name": "Dory",
-      "url": "https://drive.google.com/file/d/1NIllodiwQ8r52T_aaJHbPXYZ8Lve_f6M/view?usp=drivesdk",
-      "drive": true,
-      "fileName": "Dory",
-      "mime": "image/png"
+      "url": "assets/heritage/heritage-1NIllodiwQ8r52T_aaJHbPXYZ8Lve_f6M.webp",
+      "drive": false,
+      "fileName": "Dory.webp",
+      "mime": "image/webp"
     },
     {
       "id": "heritage-1-9x9Xb1RbMAH3wBLQKPPGx4ZGczXfZ7K",
       "campaign": "L’Héritage des Silences",
       "tab": "PJ",
       "name": "Hardless",
-      "url": "https://drive.google.com/file/d/1-9x9Xb1RbMAH3wBLQKPPGx4ZGczXfZ7K/view?usp=drivesdk",
-      "drive": true,
-      "fileName": "Hardless",
-      "mime": "image/png"
+      "url": "assets/heritage/heritage-1-9x9Xb1RbMAH3wBLQKPPGx4ZGczXfZ7K.webp",
+      "drive": false,
+      "fileName": "Hardless.webp",
+      "mime": "image/webp"
     },
     {
       "id": "heritage-1OddXEQ88mgqxu1eA1c8JZgXQN_m-j98e",
       "campaign": "L’Héritage des Silences",
       "tab": "PJ",
       "name": "Mavis",
-      "url": "https://drive.google.com/file/d/1OddXEQ88mgqxu1eA1c8JZgXQN_m-j98e/view?usp=drivesdk",
-      "drive": true,
-      "fileName": "Mavis",
-      "mime": "image/png"
+      "url": "assets/heritage/heritage-1OddXEQ88mgqxu1eA1c8JZgXQN_m-j98e.webp",
+      "drive": false,
+      "fileName": "Mavis.webp",
+      "mime": "image/webp"
     },
     {
       "id": "heritage-1S8dSPr55Xa2Svhk76dZASvDgTTWyNPpJ",
       "campaign": "L’Héritage des Silences",
       "tab": "PJ",
       "name": "ARGH",
-      "url": "https://drive.google.com/file/d/1S8dSPr55Xa2Svhk76dZASvDgTTWyNPpJ/view?usp=drivesdk",
-      "drive": true,
-      "fileName": "ARGH",
-      "mime": "image/png"
+      "url": "assets/heritage/heritage-1S8dSPr55Xa2Svhk76dZASvDgTTWyNPpJ.webp",
+      "drive": false,
+      "fileName": "ARGH.webp",
+      "mime": "image/webp"
     },
     {
       "id": "heritage-1xkbX3A6-5pub60Du8qIrSNDvjqlTXeuj",
       "campaign": "L’Héritage des Silences",
       "tab": "PJ",
       "name": "Photo de groupe Goupe",
-      "url": "https://drive.google.com/file/d/1xkbX3A6-5pub60Du8qIrSNDvjqlTXeuj/view?usp=drivesdk",
-      "drive": true,
-      "fileName": "Photo de groupe Goupe.png",
-      "mime": "image/png"
+      "url": "assets/heritage/heritage-1xkbX3A6-5pub60Du8qIrSNDvjqlTXeuj.webp",
+      "drive": false,
+      "fileName": "Photo de groupe Goupe.webp",
+      "mime": "image/webp"
     },
     {
       "id": "heritage-1pBoBsoe3Qh99DppSJB6sGWbZgh2yqdRV",
       "campaign": "L’Héritage des Silences",
       "tab": "PJ",
       "name": "Affiche film groupe",
-      "url": "https://drive.google.com/file/d/1pBoBsoe3Qh99DppSJB6sGWbZgh2yqdRV/view?usp=drivesdk",
-      "drive": true,
-      "fileName": "Affiche film groupe.png",
-      "mime": "image/png"
+      "url": "assets/heritage/heritage-1pBoBsoe3Qh99DppSJB6sGWbZgh2yqdRV.webp",
+      "drive": false,
+      "fileName": "Affiche film groupe.webp",
+      "mime": "image/webp"
     },
     {
       "id": "heritage-1Y-FWVyFBNe2Kcc_JazSkRjcHt9unGZaV",
