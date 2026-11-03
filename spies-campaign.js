@@ -204,7 +204,7 @@ function fdcSpiesCombat(){
   if(player&&!player.photo)player.photo=portrait.photo;
  }
  const basePJCard=fdcPJCard;
- fdcPJCard=p=>basePJCard(p).replace('</div></div>', '<div class="muted">FOR '+(p.force??'—')+' · ADR '+(p.adresse??'—')+' · ESP '+(p.esprit??'—')+' · '+(p.maxHp??30)+' PV</div><button class="small" onclick="fdcShowPJRules(this.dataset.id)" data-id="'+esc(p.id)+'">Fiche</button></div></div>');
+ fdcPJCard=p=>basePJCard(p).replace('</div></div>', '<button class="small" onclick="fdcShowPJRules(this.dataset.id)" data-id="'+esc(p.id)+'">Fiche</button></div></div>');
  function fdcShowPJRules(id){const p=state.pj.find(x=>x.id===id);openModal('Fiche · '+p.name,'<p>'+esc(p.description||'')+'</p><p style="white-space:pre-wrap">'+esc(p.abilities||'')+'</p>',()=>closeModal());}
 
  render();
