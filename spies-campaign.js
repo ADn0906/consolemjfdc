@@ -132,7 +132,8 @@ const HERITAGE={
         "maxHp": 30,
         "ca": 12,
         "description": "Elfe guerrier",
-        "abilities": "Dégâts des Anciens : 1 fois par repos court. Sur une attaque réussie à l’arc ou à l’épée, +1d4 dégâts spirituels."
+        "abilities": "Dégâts des Anciens : 1 fois par repos court. Sur une attaque réussie à l’arc ou à l’épée, +1d4 dégâts spirituels.",
+        "photo": "assets/heritage/heritage-1zUyJMYdGAprZW64oaBiyKjqbzo93WQSn.webp"
       },
       {
         "id": "heritage-pj-1",
@@ -141,7 +142,8 @@ const HERITAGE={
         "maxHp": 35,
         "ca": 12,
         "description": "Demi-orc barbare",
-        "abilities": "Rage Déchaînée : une attaque supplémentaire immédiate sur une attaque réussie qui inflige 8+ dégâts ou un critique."
+        "abilities": "Rage Déchaînée : une attaque supplémentaire immédiate sur une attaque réussie qui inflige 8+ dégâts ou un critique.",
+        "photo": "assets/heritage/heritage-1S8dSPr55Xa2Svhk76dZASvDgTTWyNPpJ.webp"
       },
       {
         "id": "heritage-pj-2",
@@ -150,7 +152,8 @@ const HERITAGE={
         "maxHp": 30,
         "ca": 11,
         "description": "Halfeline magicienne",
-        "abilities": "Projectile magique automatique et illimité. Entrave de la Forêt : 1 fois par combat, jet de Force DD 15. Prestidigitation : illusion mineure."
+        "abilities": "Projectile magique automatique et illimité. Entrave de la Forêt : 1 fois par combat, jet de Force DD 15. Prestidigitation : illusion mineure.",
+        "photo": "assets/heritage/heritage-1NIllodiwQ8r52T_aaJHbPXYZ8Lve_f6M.webp"
       },
       {
         "id": "heritage-pj-3",
@@ -159,7 +162,8 @@ const HERITAGE={
         "maxHp": 30,
         "ca": 13,
         "description": "Elfe druidesse",
-        "abilities": "Spitz géant : 1 fois par repos long, +10 PV temporaires et CA 17. Morsure : 1d12 + Force. Griffure : 1d10 + Force, attaque bonus à 8+ dégâts. Hurlement DD 15 Esprit : ennemis apeurés, fuite 1 tour, inefficace sur les boss."
+        "abilities": "Spitz géant : 1 fois par repos long, +10 PV temporaires et CA 17. Morsure : 1d12 + Force. Griffure : 1d10 + Force, attaque bonus à 8+ dégâts. Hurlement DD 15 Esprit : ennemis apeurés, fuite 1 tour, inefficace sur les boss.",
+        "photo": "assets/heritage/heritage-1OddXEQ88mgqxu1eA1c8JZgXQN_m-j98e.webp"
       },
       {
         "id": "heritage-pj-4",
@@ -168,7 +172,8 @@ const HERITAGE={
         "maxHp": 35,
         "ca": 12,
         "description": "Drakéide barbare",
-        "abilities": "Rage Déchaînée : une attaque supplémentaire immédiate sur une attaque réussie qui inflige 8+ dégâts ou un critique."
+        "abilities": "Rage Déchaînée : une attaque supplémentaire immédiate sur une attaque réussie qui inflige 8+ dégâts ou un critique.",
+        "photo": "assets/heritage/heritage-1-9x9Xb1RbMAH3wBLQKPPGx4ZGczXfZ7K.webp"
       }
     ],
     "bestiary": [],
@@ -194,6 +199,10 @@ function fdcSpiesCombat(){
  doc=doc.replaceAll('La Nuit des Morts-Vivants',campaign.name);
  doc=doc.replace('Les fiches du PDF fourni et les fiches de campagne sont partagées entre tes campagnes.','Les fiches de ton mode maison sont partagées entre ses campagnes.');
  const extra=`<script>
+ for(const portrait of ${JSON.stringify(campaign===HERITAGE?campaign.combat.pj.map(({id,photo})=>({id,photo})):[])}){
+  const player=state.pj.find(p=>p.id===portrait.id);
+  if(player&&!player.photo)player.photo=portrait.photo;
+ }
  const basePJCard=fdcPJCard;
  fdcPJCard=p=>basePJCard(p).replace('</div></div>', '<div class="muted">FOR '+(p.force??'—')+' · ADR '+(p.adresse??'—')+' · ESP '+(p.esprit??'—')+' · '+(p.maxHp??30)+' PV</div><button class="small" onclick="fdcShowPJRules(this.dataset.id)" data-id="'+esc(p.id)+'">Fiche</button></div></div>');
  function fdcShowPJRules(id){const p=state.pj.find(x=>x.id===id);openModal('Fiche · '+p.name,'<p>'+esc(p.description||'')+'</p><p style="white-space:pre-wrap">'+esc(p.abilities||'')+'</p>',()=>closeModal());}
