@@ -68,7 +68,8 @@ body.fdc-focused .shell > .grid{grid-template-columns:minmax(0,1fr);grid-templat
 .scenario-visual-link,.monster-spell-link{font:inherit;display:inline;padding:0;margin:0;border:0;border-radius:0;background:transparent;color:#a9d4ff;text-decoration:underline;text-underline-offset:3px;cursor:pointer;touch-action:manipulation}.scenario-visual-link:hover,.monster-spell-link:hover{background:transparent;color:#d4e9ff}.scenario-visual-dialog{width:min(860px,calc(100vw - 24px));height:min(900px,90dvh);max-height:90dvh;box-sizing:border-box;background:#202833;color:#e9edf4;border:1px solid #46515f;border-radius:12px;padding:16px}.scenario-visual-dialog[open]{display:flex;flex-direction:column;gap:12px}.scenario-visual-dialog::backdrop{background:#000b}.scenario-preview-head{display:flex;align-items:center;justify-content:space-between;gap:12px}.scenario-preview-head h3{margin:0}.scenario-preview-head button{min-height:44px;flex-shrink:0}.scenario-preview-content{flex:1;min-height:0;display:flex;align-items:center;justify-content:center}.scenario-preview-content img{display:block;width:100%;height:100%;object-fit:contain}.scenario-preview-content iframe{width:100%;height:100%;border:0}
 </style></head><body>
 <style>#fdcIntroVideo::-webkit-media-controls,#fdcIntroVideo::-webkit-media-controls-start-playback-button{display:none!important;-webkit-appearance:none}#fdcIntroVideo{pointer-events:none}</style><div id="fdcIntro" role="dialog" aria-modal="true" aria-label="Introduction Fumble Dice Club" style="position:fixed;inset:0;z-index:10000;background:#000;display:grid;place-items:center;width:100vw;height:100dvh">
- <video id="fdcIntroVideo" autoplay muted playsinline webkit-playsinline disablepictureinpicture disableremoteplayback preload="auto" aria-label="Intro officielle FDC" style="width:100%;height:100%;object-fit:contain;background:#000" src="assets/fdc-intro.mp4"></video>
+ <video id="fdcIntroVideo" autoplay muted playsinline webkit-playsinline disablepictureinpicture disableremoteplayback preload="auto" aria-label="Intro officielle FDC" style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none" src="assets/fdc-intro.mp4"></video>
+ <canvas id="fdcIntroCanvas" aria-label="Intro officielle FDC" style="display:block;width:100%;height:100%;background:#000"></canvas>
  <button id="fdcIntroStart" hidden style="position:absolute;left:50%;bottom:max(10%,env(safe-area-inset-bottom));transform:translateX(-50%);min-height:48px;padding:12px 20px;background:#251d21;color:white;border:1px solid #b64652;border-radius:10px">Activer le son</button>
 </div>
 <script>
@@ -76,6 +77,28 @@ body.fdc-focused .shell > .grid{grid-template-columns:minmax(0,1fr);grid-templat
  const overlay=document.getElementById('fdcIntro');
  const video=document.getElementById('fdcIntroVideo');
  const start=document.getElementById('fdcIntroStart');
+ const canvas=document.getElementById('fdcIntroCanvas');
+ const context=canvas.getContext('2d');
+ let animationFrame=0;
+ function drawFrame(){
+  if(closed)return;
+  const ratio=Math.min(window.devicePixelRatio||1,2);
+  const width=Math.round(overlay.clientWidth*ratio);
+  const height=Math.round(overlay.clientHeight*ratio);
+  if(canvas.width!==width||canvas.height!==height){canvas.width=width;canvas.height=height;}
+  context.fillStyle='#000';
+  context.fillRect(0,0,width,height);
+  if(video.readyState>=2&&video.videoWidth){
+   const scale=Math.min(width/video.videoWidth,height/video.videoHeight);
+   const w=video.videoWidth*scale,h=video.videoHeight*scale;
+   context.drawImage(video,(width-w)/2,(height-h)/2,w,h);
+  }
+  animationFrame=requestAnimationFrame(drawFrame);
+ }
+ video.addEventListener('playing',()=>{
+  cancelAnimationFrame(animationFrame);
+  drawFrame();
+ });
  let closed=false;
  const previousOverflow=document.documentElement.style.overflow;
  document.documentElement.style.overflow='hidden';
@@ -83,6 +106,7 @@ body.fdc-focused .shell > .grid{grid-template-columns:minmax(0,1fr);grid-templat
   if(closed)return;
   closed=true;
   clearTimeout(loadTimeout);
+  cancelAnimationFrame(animationFrame);
   video.pause();
   overlay.remove();
   document.documentElement.style.overflow=previousOverflow;
@@ -108,7 +132,7 @@ body.fdc-focused .shell > .grid{grid-template-columns:minmax(0,1fr);grid-templat
  start.addEventListener('click',()=>{video.muted=false;start.hidden=true;});
  play();
 })();
-</script><header><div class="brand"><div class="logo">⬡</div><div><div class="fdc-brand-row"><strong>FDC · CONSOLE MJ</strong><select id="campaign" onchange="changeCampaign()"><option>La Nuit des Morts-Vivants</option><option>Les Racines du Soleil</option><option>Totally Spies & Dices</option><option>L’Héritage des Silences</option></select></div><div class="muted" id="campaignLabel">La Nuit des Morts-Vivants</div></div></div><div class="nav"><button data-module="dashboard" onclick="goModule('dashboard')" title="Accueil global" aria-label="Accueil global"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg></button><button data-module="scenario" onclick="goModule('scenario')" title="Scénario" aria-label="Scénario"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6c-3-2-6-2-9-1v14c3-1 6-1 9 1 3-2 6-2 9-1V5c-3-1-6-1-9 1z"/><path d="M12 6v14"/></svg></button><button data-module="combat" onclick="goModule('combat')" title="Combat" aria-label="Combat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 20 7-7m2-2 7-7M14 4l6 6M4 4l16 16M4 10l6-6"/></svg></button><button data-module="sound" onclick="goModule('sound')" title="Ambiance sonore" aria-label="Ambiance sonore"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></button><button data-module="visual" onclick="goModule('visual')" title="Visuels" aria-label="Visuels"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></button><button id="combatInfoButton" type="button" title="Informations et sorts D&D" aria-label="Informations et sorts D&D" aria-haspopup="dialog" onclick="showCombatInfo()"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7v1"/></svg></button></div><div class="header-tools"><span class="muted" id="navigationVersion">● Navigation 43</span><button id="headerTransferButton" type="button" class="small" onclick="fdcTransferDialog()">⇄ Exporter / Importer</button></div></header>
+</script><header><div class="brand"><div class="logo">⬡</div><div><div class="fdc-brand-row"><strong>FDC · CONSOLE MJ</strong><select id="campaign" onchange="changeCampaign()"><option>La Nuit des Morts-Vivants</option><option>Les Racines du Soleil</option><option>Totally Spies & Dices</option><option>L’Héritage des Silences</option></select></div><div class="muted" id="campaignLabel">La Nuit des Morts-Vivants</div></div></div><div class="nav"><button data-module="dashboard" onclick="goModule('dashboard')" title="Accueil global" aria-label="Accueil global"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg></button><button data-module="scenario" onclick="goModule('scenario')" title="Scénario" aria-label="Scénario"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6c-3-2-6-2-9-1v14c3-1 6-1 9 1 3-2 6-2 9-1V5c-3-1-6-1-9 1z"/><path d="M12 6v14"/></svg></button><button data-module="combat" onclick="goModule('combat')" title="Combat" aria-label="Combat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 20 7-7m2-2 7-7M14 4l6 6M4 4l16 16M4 10l6-6"/></svg></button><button data-module="sound" onclick="goModule('sound')" title="Ambiance sonore" aria-label="Ambiance sonore"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></button><button data-module="visual" onclick="goModule('visual')" title="Visuels" aria-label="Visuels"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></button><button id="combatInfoButton" type="button" title="Informations et sorts D&D" aria-label="Informations et sorts D&D" aria-haspopup="dialog" onclick="showCombatInfo()"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7v1"/></svg></button></div><div class="header-tools"><span class="muted" id="navigationVersion">● Navigation 44</span><button id="headerTransferButton" type="button" class="small" onclick="fdcTransferDialog()">⇄ Exporter / Importer</button></div></header>
 <main class="shell"><section class="panel" id="homePanel" hidden><h3>Console MJ FDC</h3><p class="muted">Choisis un module dans la barre de navigation pour préparer ou animer ta partie.</p><p>Campagne : <strong id="homeCampaign">La Nuit des Morts-Vivants</strong></p></section><div class="grid" hidden>
 <section class="panel" id="scenario" hidden><div class="head"><h3><button class="module-heading" onclick="goModule('scenario')">📖 Scénario</button></h3><div class="actions"><button class="small" onclick="editScenario()">Modifier le mémo</button><button class="small" onclick="goModule('scenario')">⛶</button></div></div><div id="scenarioContent" class="notes"></div></section>
 <section class="panel" id="combat" hidden><div class="head"><h3><button class="module-heading" onclick="goModule('combat')">⚔ Combat</button></h3><div class="actions"><button class="small" onclick="goModule('combat')">⛶</button></div></div><iframe id="combatFrame" title="Module Combat interactif" style="display:block;width:100%;height:100%;min-height:0;border:0;background:#11151b;border-radius:8px"></iframe></section>
