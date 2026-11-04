@@ -35,3 +35,5 @@ self.addEventListener("fetch",e=>{
 });
 
 // Navigation 39: deploy the bundled Heritage visuals.
+
+// Navigation 42 — intro officielle FDC.
