@@ -1,7 +1,7 @@
 /* Portable campaign archives. Files stay on the user's devices. */
 const FDC_TRANSFER_FORMAT='fdc-campaign';
 const FDC_TRANSFER_MAX=256*1024*1024;
-function fdcCombatKey(name){if(name===HERITAGE.name)return 'fdc-combat-heritage-v1';if(name===SPIES.name)return 'fdc-combat-spies-v1';return name===RACINES.name?'fdc-combat-racines-v1':name==='La Nuit des Morts-Vivants'?'fdc-combat-v12-demo-3':'fdc-combat-custom-'+encodeURIComponent(name);}
+function fdcCombatKey(name){if(name===EMERAUDE.name)return 'fdc-combat-emeraude-v1';if(name===HERITAGE.name)return 'fdc-combat-heritage-v1';if(name===SPIES.name)return 'fdc-combat-spies-v1';return name===RACINES.name?'fdc-combat-racines-v1':name==='La Nuit des Morts-Vivants'?'fdc-combat-v12-demo-3':'fdc-combat-custom-'+encodeURIComponent(name);}
 function fdcTransferStatus(message){const el=document.getElementById('fdcTransferStatus');if(el)el.textContent=message;}
 function fdcTransferDialog(){
  dialog('Transférer une campagne',`<p>Campagne sélectionnée : <strong>${escapeHTML(state.campaign)}</strong></p><p>Prépare sur PC, exporte le fichier, puis ouvre-le avec « Importer » sur la tablette. Le transfert comprend le scénario, les PJ, les monstres, les images et les sons associés.</p><button id="fdcExportButton" type="button" style="min-height:48px;width:100%" onclick="fdcExportCampaign()">↓ Exporter cette campagne</button><label for="fdcImportFile">↑ Importer une campagne depuis un fichier</label><input id="fdcImportFile" type="file" accept=".fdc,.json,application/json,application/gzip" onchange="fdcChooseImport(this.files[0])"><p id="fdcTransferStatus" role="status" aria-live="polite"></p>`,closeDialog,'Fermer');

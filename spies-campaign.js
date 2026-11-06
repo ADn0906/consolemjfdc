@@ -1,3 +1,300 @@
+const EMERAUDE={
+  "name": "Le Souffle d’Émeraude",
+  "notes": "LE SOUFFLE D’ÉMERAUDE — MÉMO MJ\nMode de jeu maison · Force / Adresse / Esprit · Initiative dynamique\n\nHÉROS\nRose, elfe druide et archère, et Ralph, humain chasseur à l’épée lunaire. Fiches de référence du dossier PJ : niveau 1, 30 PV et CA 11 chacun. Leurs capacités sont consultables via le bouton Fiche de Combat.\n\nMONDE ET FIL ROUGE\nÎle d’Ardalithe, départ à Rivesonge. Esmaril et les marais, Valperion, Nacreval, la Sylve et les Monts Haute Roches sont les lieux de référence.\nYcien, dernier dragon d’émeraude, est devenu le Mage Ycien. Il veut protéger la nature et imagine un monde parfait. Les maltraitances des humains envers les animaux et la nature nourrissent sa vengeance. Il crée des guerriers animaux : lapins, grenouilles, souris.\n\nARC 1 — LE GUERRIER DU REFLET\n• Attaque des lapins guerriers à Rivesonge.\n• Piste vers le Guerrier Grenouille et les marais d’Esmaril.\n• Marianne, grenouille mage, et l’énigme dont la réponse validée est « miroir ».\n• Château et confrontation avec le Guerrier Grenouille. Dernier état retrouvé : arc 1 jusqu’à sa défaite.\n\nRÉSUMÉ HISTORIQUE DU PDF — À RECALER AVEC LA TABLE\nLe document « Les Gardiens de la Forêt des Grenouilles » décrit l’attaque des lapins, une grenouille sage présentée comme le frère du guerrier, un château avec deux escaliers, une bibliothèque inondée avec des souris et une salle des reflets d’eau.\nIl propose ensuite un village illusoire, Ka le serpent et un fast-food magique où combattre un hot-dog, une frite et un doughnut géants. Ka oriente vers un « Maître des Ombres ».\nLa chronologie jouée de cette seconde partie n’est pas confirmée par les échanges retrouvés. Conserver Ycien comme fil rouge canonique et utiliser cette suite comme matière disponible pour la prochaine préparation.\n\nPROFILS DISPONIBLES\nRoger (lapin guerrier), Mickey (souris guerrière), Marianne (grenouille mage), Wispi (grenouille guerrier). Statistiques transcrites des images et fiches sources disponibles dans Visuels.\nLes dégâts spécifiques de ces fiches sont conservés tels qu’écrits, y compris les variantes de sorts de Marianne.\n\nRÈGLES\nJet pour toucher : 1D20 + Force au contact, Adresse pour les projectiles ou Esprit pour la magie, contre la CA adverse. Puis dégâts de l’attaque. Repos court et long. Difficultés 5 / 10 / 15 / 20 / 25 / 30.\n",
+  "visuals": [
+    {
+      "id": "emeraude-1fn50VdrTIEiLtmv2CgS47aXrjRJXClHF",
+      "campaign": "Le Souffle d’Émeraude",
+      "tab": "Lieux",
+      "name": "Arrivée à RIVESONGE",
+      "url": "assets/emeraude/1fn50VdrTIEiLtmv2CgS47aXrjRJXClHF.webp",
+      "fileName": "1fn50VdrTIEiLtmv2CgS47aXrjRJXClHF.webp",
+      "mime": "image/webp"
+    },
+    {
+      "id": "emeraude-1VjA21QE73sCyqKkYN2R9lSdV0JshE9Wy",
+      "campaign": "Le Souffle d’Émeraude",
+      "tab": "Lieux",
+      "name": "Rencontre avec Marianne",
+      "url": "assets/emeraude/1VjA21QE73sCyqKkYN2R9lSdV0JshE9Wy.webp",
+      "fileName": "1VjA21QE73sCyqKkYN2R9lSdV0JshE9Wy.webp",
+      "mime": "image/webp"
+    },
+    {
+      "id": "emeraude-1rbwtFBnzDekD9kMCNPksGd1C9ahdzrrl",
+      "campaign": "Le Souffle d’Émeraude",
+      "tab": "PJ",
+      "name": "ROSE",
+      "url": "assets/emeraude/1rbwtFBnzDekD9kMCNPksGd1C9ahdzrrl.webp",
+      "fileName": "1rbwtFBnzDekD9kMCNPksGd1C9ahdzrrl.webp",
+      "mime": "image/webp"
+    },
+    {
+      "id": "emeraude-1UbXirhTq73OPzZvIbql5JGiYDfUzDSNb",
+      "campaign": "Le Souffle d’Émeraude",
+      "tab": "PJ",
+      "name": "RALPH",
+      "url": "assets/emeraude/1UbXirhTq73OPzZvIbql5JGiYDfUzDSNb.webp",
+      "fileName": "1UbXirhTq73OPzZvIbql5JGiYDfUzDSNb.webp",
+      "mime": "image/webp"
+    },
+    {
+      "id": "emeraude-11V2paJhztkxK9kylWGg1SwGJ62sULmJ5",
+      "campaign": "Le Souffle d’Émeraude",
+      "tab": "PJ",
+      "name": "Rose",
+      "url": "assets/emeraude/11V2paJhztkxK9kylWGg1SwGJ62sULmJ5.webp",
+      "fileName": "11V2paJhztkxK9kylWGg1SwGJ62sULmJ5.webp",
+      "mime": "image/webp"
+    },
+    {
+      "id": "emeraude-1emkCnegI-yPt3WB9i37hiGnusx06b6eu",
+      "campaign": "Le Souffle d’Émeraude",
+      "tab": "Indices",
+      "name": "Fiche perso Rose ",
+      "url": "assets/emeraude/1emkCnegI-yPt3WB9i37hiGnusx06b6eu.webp",
+      "fileName": "1emkCnegI-yPt3WB9i37hiGnusx06b6eu.webp",
+      "mime": "image/webp"
+    },
+    {
+      "id": "emeraude-18oDr-BjBxWuzSEVFfT_XPzBonRpGLyNC",
+      "campaign": "Le Souffle d’Émeraude",
+      "tab": "Indices",
+      "name": "Fiche perso ralph",
+      "url": "assets/emeraude/18oDr-BjBxWuzSEVFfT_XPzBonRpGLyNC.webp",
+      "fileName": "18oDr-BjBxWuzSEVFfT_XPzBonRpGLyNC.webp",
+      "mime": "image/webp"
+    },
+    {
+      "id": "emeraude-1BSWOJI7YYl84yM2iqhZWyiQ_iEiJaa2s",
+      "campaign": "Le Souffle d’Émeraude",
+      "tab": "Lieux",
+      "name": "fabian_s_mount",
+      "url": "assets/emeraude/1BSWOJI7YYl84yM2iqhZWyiQ_iEiJaa2s.webp",
+      "fileName": "1BSWOJI7YYl84yM2iqhZWyiQ_iEiJaa2s.webp",
+      "mime": "image/webp"
+    },
+    {
+      "id": "emeraude-1Y11Sen0wmDM8EbEyr_G8w13R-u-q7fY3",
+      "campaign": "Le Souffle d’Émeraude",
+      "tab": "Lieux",
+      "name": "Carte RIVESONGE",
+      "url": "assets/emeraude/1Y11Sen0wmDM8EbEyr_G8w13R-u-q7fY3.webp",
+      "fileName": "1Y11Sen0wmDM8EbEyr_G8w13R-u-q7fY3.webp",
+      "mime": "image/webp"
+    },
+    {
+      "id": "emeraude-1ALtQ6Bss1kbRsef74Gsuy-MWjMCd_YKt",
+      "campaign": "Le Souffle d’Émeraude",
+      "tab": "Lieux",
+      "name": "carte ARDALITHE",
+      "url": "assets/emeraude/1ALtQ6Bss1kbRsef74Gsuy-MWjMCd_YKt.webp",
+      "fileName": "1ALtQ6Bss1kbRsef74Gsuy-MWjMCd_YKt.webp",
+      "mime": "image/webp"
+    },
+    {
+      "id": "emeraude-1OAQbwuDlRtl97hYSqwmz90FeaE2p77XQ",
+      "campaign": "Le Souffle d’Émeraude",
+      "tab": "Lieux",
+      "name": "house_of_the_fallen_priest",
+      "url": "assets/emeraude/1OAQbwuDlRtl97hYSqwmz90FeaE2p77XQ.webp",
+      "fileName": "1OAQbwuDlRtl97hYSqwmz90FeaE2p77XQ.webp",
+      "mime": "image/webp"
+    },
+    {
+      "id": "emeraude-17fid8AJn_c2x0qCgWM8tOCm3TEhPZ2x6",
+      "campaign": "Le Souffle d’Émeraude",
+      "tab": "PNJ",
+      "name": "Fiche perso Marianne",
+      "url": "assets/emeraude/17fid8AJn_c2x0qCgWM8tOCm3TEhPZ2x6.webp",
+      "fileName": "17fid8AJn_c2x0qCgWM8tOCm3TEhPZ2x6.webp",
+      "mime": "image/webp"
+    },
+    {
+      "id": "emeraude-1sJIGaEPfS04GPHddxq1IYYzOFg3kqYfN",
+      "campaign": "Le Souffle d’Émeraude",
+      "tab": "PNJ",
+      "name": "Fiche perso Lapin 3",
+      "url": "assets/emeraude/1sJIGaEPfS04GPHddxq1IYYzOFg3kqYfN.webp",
+      "fileName": "1sJIGaEPfS04GPHddxq1IYYzOFg3kqYfN.webp",
+      "mime": "image/webp"
+    },
+    {
+      "id": "emeraude-1xCbs5YZDa4G5sZAqPp6YM3gezuJpB7iY",
+      "campaign": "Le Souffle d’Émeraude",
+      "tab": "PNJ",
+      "name": "Fiche perso Wispi",
+      "url": "assets/emeraude/1xCbs5YZDa4G5sZAqPp6YM3gezuJpB7iY.webp",
+      "fileName": "1xCbs5YZDa4G5sZAqPp6YM3gezuJpB7iY.webp",
+      "mime": "image/webp"
+    },
+    {
+      "id": "emeraude-14hQOPjNOl2wB86HGl4M7JK6WIL4UEojk",
+      "campaign": "Le Souffle d’Émeraude",
+      "tab": "PJ",
+      "name": "Le Soufle D'emeraude",
+      "url": "assets/emeraude/14hQOPjNOl2wB86HGl4M7JK6WIL4UEojk.webp",
+      "fileName": "14hQOPjNOl2wB86HGl4M7JK6WIL4UEojk.webp",
+      "mime": "image/webp"
+    },
+    {
+      "id": "emeraude-1FrPoPrxnOfvbQHRGBqHb6rJa100ZCkMr",
+      "campaign": "Le Souffle d’Émeraude",
+      "tab": "PJ",
+      "name": "combat a RIVESONGE",
+      "url": "assets/emeraude/1FrPoPrxnOfvbQHRGBqHb6rJa100ZCkMr.webp",
+      "fileName": "1FrPoPrxnOfvbQHRGBqHb6rJa100ZCkMr.webp",
+      "mime": "image/webp"
+    },
+    {
+      "id": "emeraude-1kn34k_Rekgvrp8cS6jArbYIYriploABN",
+      "campaign": "Le Souffle d’Émeraude",
+      "tab": "PJ",
+      "name": "Fiche perso ROSE",
+      "url": "assets/emeraude/1kn34k_Rekgvrp8cS6jArbYIYriploABN.webp",
+      "fileName": "1kn34k_Rekgvrp8cS6jArbYIYriploABN.webp",
+      "mime": "image/webp"
+    },
+    {
+      "id": "emeraude-1KYjS8-TRoR1y7R9PoibFS4uw583l2LOS",
+      "campaign": "Le Souffle d’Émeraude",
+      "tab": "PJ",
+      "name": "Fiche perso RALPH",
+      "url": "assets/emeraude/1KYjS8-TRoR1y7R9PoibFS4uw583l2LOS.webp",
+      "fileName": "1KYjS8-TRoR1y7R9PoibFS4uw583l2LOS.webp",
+      "mime": "image/webp"
+    },
+    {
+      "id": "emeraude-1i7PMTzbpPPa8gQiNSOtXzpt3fDpb3vIn",
+      "campaign": "Le Souffle d’Émeraude",
+      "tab": "PJ",
+      "name": "groupe",
+      "url": "assets/emeraude/1i7PMTzbpPPa8gQiNSOtXzpt3fDpb3vIn.webp",
+      "fileName": "1i7PMTzbpPPa8gQiNSOtXzpt3fDpb3vIn.webp",
+      "mime": "image/webp"
+    },
+    {
+      "id": "emeraude-1u4_EkLhzVHYmj8QmKjRMwi0Od0h--Wkb",
+      "campaign": "Le Souffle d’Émeraude",
+      "tab": "PNJ",
+      "name": "Mickey — fiche de souris guerrière",
+      "url": "assets/emeraude/1u4_EkLhzVHYmj8QmKjRMwi0Od0h--Wkb.webp",
+      "fileName": "1u4_EkLhzVHYmj8QmKjRMwi0Od0h--Wkb.webp",
+      "mime": "image/webp"
+    },
+    {
+      "id": "emeraude-pdf-histoire",
+      "campaign": "Le Souffle d’Émeraude",
+      "tab": "Indices",
+      "name": "Histoire — Les Gardiens de la Forêt des Grenouilles",
+      "url": "https://drive.google.com/file/d/1DtjTXVei6VyYhfPhzz2Vm22dTE2UpGqe/view",
+      "drive": true,
+      "mime": "application/pdf",
+      "fileName": "Les_Gardiens_de_la_Foret_des_Grenouilles.pdf"
+    }
+  ],
+  "combat": {
+    "pj": [
+      {
+        "id": "emeraude-rose",
+        "name": "Rose",
+        "hp": 30,
+        "maxHp": 30,
+        "ca": 11,
+        "force": 2,
+        "adresse": 3,
+        "esprit": 4,
+        "photo": "assets/emeraude/1rbwtFBnzDekD9kMCNPksGd1C9ahdzrrl.webp",
+        "description": "Elfe druide · niveau 1",
+        "abilities": "Arc long : 1D6 + Adresse.\nLianes sauvages : 1D6 + Esprit par tour et immobilisation, 2 sorts par combat.\nSoin magique : 1D8 + Esprit, 2 sorts par combat."
+      },
+      {
+        "id": "emeraude-ralph",
+        "name": "Ralph",
+        "hp": 30,
+        "maxHp": 30,
+        "ca": 11,
+        "force": 4,
+        "adresse": 2,
+        "esprit": 1,
+        "photo": "assets/emeraude/1UbXirhTq73OPzZvIbql5JGiYDfUzDSNb.webp",
+        "description": "Humain chasseur · niveau 1",
+        "abilities": "Épée lunaire : 1D10 + Force.\nFlammes lunaires : 2D8 + Esprit, 1 sort par combat.\nBouclier lunaire : réaction, réduit de moitié les dégâts, 2 sorts par combat."
+      }
+    ],
+    "bestiary": [
+      {
+        "id": "maison-emeraude-roger",
+        "name": "Roger — Lapin guerrier",
+        "hp": 15,
+        "ca": 10,
+        "force": 1,
+        "adresse": 2,
+        "esprit": 1,
+        "description": "Le Souffle d’Émeraude · niveau 1",
+        "abilities": "FOR 1 | ADR 2 | ESP 1\nÉpée : 1D6 + Force.",
+        "sourceImage": "assets/emeraude/1sJIGaEPfS04GPHddxq1IYYzOFg3kqYfN.webp",
+        "source": {
+          "title": "Fiche personnage du Drive",
+          "fileId": "1sJIGaEPfS04GPHddxq1IYYzOFg3kqYfN"
+        }
+      },
+      {
+        "id": "maison-emeraude-mickey",
+        "name": "Mickey — Souris guerrière",
+        "hp": 20,
+        "ca": 13,
+        "force": 2,
+        "adresse": 5,
+        "esprit": 4,
+        "description": "Le Souffle d’Émeraude · niveau 2",
+        "abilities": "FOR 2 | ADR 5 | ESP 4\nÉpée : 1D10 + Force.",
+        "sourceImage": "assets/emeraude/1u4_EkLhzVHYmj8QmKjRMwi0Od0h--Wkb.webp",
+        "source": {
+          "title": "Fiche personnage du Drive",
+          "fileId": "1u4_EkLhzVHYmj8QmKjRMwi0Od0h--Wkb"
+        }
+      },
+      {
+        "id": "maison-emeraude-marianne",
+        "name": "Marianne — Grenouille mage",
+        "hp": 30,
+        "ca": 11,
+        "force": 2,
+        "adresse": 5,
+        "esprit": 6,
+        "description": "Le Souffle d’Émeraude · niveau 3",
+        "abilities": "FOR 2 | ADR 5 | ESP 6\nPotions explosives : 1D12 + Adresse.\nTéléportation : déplacement rapide.\nBoule de feu : 1D10 + Esprit.\nSoins de groupe : 1D8 + Esprit.",
+        "sourceImage": "assets/emeraude/17fid8AJn_c2x0qCgWM8tOCm3TEhPZ2x6.webp",
+        "source": {
+          "title": "Fiche personnage du Drive",
+          "fileId": "17fid8AJn_c2x0qCgWM8tOCm3TEhPZ2x6"
+        }
+      },
+      {
+        "id": "maison-emeraude-wispi",
+        "name": "Wispi — Grenouille guerrier",
+        "hp": 30,
+        "ca": 15,
+        "force": 5,
+        "adresse": 3,
+        "esprit": 1,
+        "description": "Le Souffle d’Émeraude · niveau 3",
+        "abilities": "FOR 5 | ADR 3 | ESP 1\nHallebarde : 1D10 + Force.\nBouclier : 1D6 + Force.\nAppel : appelle des renforts.",
+        "sourceImage": "assets/emeraude/1xCbs5YZDa4G5sZAqPp6YM3gezuJpB7iY.webp",
+        "source": {
+          "title": "Fiche personnage du Drive",
+          "fileId": "1xCbs5YZDa4G5sZAqPp6YM3gezuJpB7iY"
+        }
+      }
+    ],
+    "mobs": [],
+    "done": [],
+    "current": null,
+    "round": 1,
+    "history": []
+  }
+};
 const HERITAGE={
   "name": "L’Héritage des Silences",
   "notes": "L’HÉRITAGE DES SILENCES · NOTES MJ\n\nPOINT DE REPRISE — FIN DE L’ARC JOUÉ\nLe magicien a marqué le groupe et le gobelin avant de disparaître par un portail. Il a fixé Dory plus longtemps que les autres. Le glyphe, indélébile, a mené au camp gobelin. Les gobelins étaient manipulés et le sang du rituel a invoqué l’Abomination du Chaos. Après le combat, le groupe a récupéré la Pierre d’Obsidienne dans la créature et les gobelins ont retrouvé leurs esprits. Les Monts Chauds sont la piste de fond.\n\nREPÈRES DE L’ARC PRÉCÉDENT\nBorin « Rinrin » tient la taverne. Aeline Brumefeuille est son épouse, lien à garder côté MJ tant qu’il n’a pas été révélé. La quête optionnelle de la poule mène au cimetière elfique, avec des squelettes et une poule possédée. Épitaphe : Eldarion Lunargent, « Gardien des Silences ». « Que son repos préserve ce qui ne doit plus être nommé. »\n\nACTE 2 — SUR LA ROUTE OUBLIÉE\n• Reprendre à la taverne après le combat. Aeline donne l’indice qui met le groupe sur la piste de Papyrus / Marc Page.\n• Garder sous la main les scènes prévues pour l’île : l’épave et ses harpies, puis les fleurs à chercher dans la fange des trolls. Les jouer selon les choix du groupe.\n• Prévoir la rencontre de Pouaaah avec Argh. Garder ce moment disponible pour l’introduire quand le groupe s’y prête.\n• Les réponses obtenues sur cette route doivent remettre les Monts Chauds au premier plan. La Pierre d’Obsidienne, la marque et le regard du magicien sur Dory restent les fils à reprendre au moment voulu.\n\nRÈGLES ET GROUPE\nMode maison : 1d20 + Force au contact, Adresse à distance ou Esprit pour la magie, contre la CA. Initiative dynamique. Progression : +1 dans une caractéristique au choix et +3 PV par niveau. Les caractéristiques individuelles sont à renseigner depuis les fiches de table.\n",
@@ -185,12 +482,12 @@ const HERITAGE={
   }
 };
 const SPIES={"name": "Totally Spies & Dices", "notes": "TOTALLY SPIES & DICES — ONE-SHOT · RÈGLES MAISON\n\nPOINTS D’HISTOIRE — À JOUER LIBREMENT\n• Zezrael, Nami et Nélya, anciennes agentes, se retrouvent dans une taverne de jeux.\n• Elles gagnent le jackpot et offrent une tournée. Elles s’endorment et découvrent au réveil que leur sac d’or a disparu.\n• Enquête libre autour des personnes présentes : Quatre-Feuilles, Clark, la serveuse et Brokk.\n• Quatre-Feuilles est innocent ; rencontre prévue chez les orques.\n• Clark, croupier tieflin, peut être retrouvé chez lui avec sa famille.\n• La serveuse humaine aide son frère étudiant en magie ; rencontre prévue dans une autre taverne.\n• Brokk « le Ronchon », vieux nain sous-payé et homme à tout faire depuis trente ans, est le cerveau du réseau. Les gros gagnants sont dépouillés grâce à des tournées droguées et des complices.\n• Message final de l’ancien chef des agentes : révélation de la mission contre le réseau de voleurs.\n\nVISUELS ET REPÈRES AJOUTÉS\n• Penne et Panic — entrée du Pacte rouge : visuel disponible ; rôle détaillé à compléter.\n\nRÈGLES MAISON\n• Force / Adresse / Esprit. Jet : 1D20 + caractéristique.\n• Pour toucher : Force au contact, Adresse pour les projectiles, Esprit pour la magie ; résultat comparé à la CA adverse. Puis dé de dégâts de l’attaque.\n• Difficultés : 5 / 10 / 15 / 20 / 25 / 30.\n• 30 PV par héroïne ; initiative dynamique ; repos courts et longs.\n• Les dagues de Zezrael infligent 1D6 + Adresse selon sa fiche.\n\nBIBLIOTHÈQUES DU MODE MAISON\n• Bestiaire : à alimenter avec les photos de tes fiches.\n• Sorts : les capacités déjà documentées figurent sur les fiches PJ ; les cartes photographiées compléteront la bibliothèque de sorts.\n", "visuals": [{"id": "spies-zezrael", "campaign": "Totally Spies & Dices", "tab": "PJ", "name": "Zezrael", "url": "assets/spies/zezrael.webp", "fileName": "zezrael.webp", "mime": "image/webp"}, {"id": "spies-nami", "campaign": "Totally Spies & Dices", "tab": "PJ", "name": "Nami", "url": "assets/spies/nami.webp", "fileName": "nami.webp", "mime": "image/webp"}, {"id": "spies-nelya", "campaign": "Totally Spies & Dices", "tab": "PJ", "name": "Nélya", "url": "assets/spies/nelya.webp", "fileName": "nelya.webp", "mime": "image/webp"}, {"id": "spies-groupe", "campaign": "Totally Spies & Dices", "tab": "PJ", "name": "Groupe", "url": "assets/spies/groupe.webp", "fileName": "groupe.webp", "mime": "image/webp"}, {"id": "spies-clark", "campaign": "Totally Spies & Dices", "tab": "PNJ", "name": "Clark le croupier", "url": "assets/spies/clark.webp", "fileName": "clark.webp", "mime": "image/webp"}, {"id": "spies-brokk", "campaign": "Totally Spies & Dices", "tab": "PNJ", "name": "Brokk « le Ronchon »", "url": "assets/spies/brokk.webp", "fileName": "brokk.webp", "mime": "image/webp"}, {"id": "spies-quatre-feuilles", "campaign": "Totally Spies & Dices", "tab": "PNJ", "name": "Quatre-Feuilles", "url": "assets/spies/quatre-feuilles.webp", "fileName": "quatre-feuilles.webp", "mime": "image/webp"}, {"id": "spies-serveuse", "campaign": "Totally Spies & Dices", "tab": "PNJ", "name": "Serveuse", "url": "assets/spies/serveuse.webp", "fileName": "serveuse.webp", "mime": "image/webp"}, {"id": "spies-penne-panic", "campaign": "Totally Spies & Dices", "tab": "PNJ", "name": "Penne et Panic — entrée du Pacte rouge", "url": "assets/spies/penne-panic.webp", "fileName": "penne-panic.webp", "mime": "image/webp"}], "combat": {"pj": [{"id": "spies-zezrael", "name": "Zezrael", "ca": 15, "hp": 30, "maxHp": 30, "force": 2, "adresse": 5, "esprit": 2, "description": "Elfe de la nuit · Roublarde", "abilities": "Dagues x2 : 1D6 + Adresse. Arc long : 1D8 + Adresse. Attaque sournoise : +1D6 si un allié est au contact ou si la cible est surprise. Vision dans le noir, Discrétion naturelle.", "photo": "assets/spies/zezrael.webp"}, {"id": "spies-nami", "name": "Nami", "ca": 12, "hp": 30, "maxHp": 30, "force": 1, "adresse": 2, "esprit": 5, "description": "Humaine · Magicienne", "abilities": "Bâton : 1D6 + Force. Projectile magique : 1D6 + Esprit. Sorts : Projectile magique, Boule de feu mineure, Lumière, Main de mage.", "photo": "assets/spies/nami.webp"}, {"id": "spies-nelya", "name": "Nélya", "ca": 13, "hp": 30, "maxHp": 30, "force": 2, "adresse": 2, "esprit": 5, "description": "Humaine · Druidesse", "abilities": "Gourdin : 1D6 + Force. Ronces : 1D6 + Esprit. Soin : 1D6 + Esprit. Lianes entravantes, Communication avec les animaux, Fleur protectrice : +2 CA à un allié pendant 1 tour.", "photo": "assets/spies/nelya.webp"}], "bestiary": [], "mobs": [], "done": [], "current": null, "round": 1, "history": []}};
-function fdcIsHomebrewCampaign(name){return name===SPIES.name||name===HERITAGE.name;}
+function fdcIsHomebrewCampaign(name){return name===SPIES.name||name===HERITAGE.name||name===EMERAUDE.name;}
 function fdcIsHomebrew(){return fdcIsHomebrewCampaign(state.campaign);}
 function fdcSpiesCombat(){
  fdcHomeMonsterLibrary();
- const campaign=state.campaign===HERITAGE.name?HERITAGE:SPIES;
- const combatKey=campaign===HERITAGE?'fdc-combat-heritage-v1':'fdc-combat-spies-v1';
+ const campaign=state.campaign===EMERAUDE.name?EMERAUDE:state.campaign===HERITAGE.name?HERITAGE:SPIES;
+ const combatKey=campaign===EMERAUDE?'fdc-combat-emeraude-v1':campaign===HERITAGE?'fdc-combat-heritage-v1':'fdc-combat-spies-v1';
  let doc=embeddedCombat.replace("const KEY='fdc-combat-v12-demo-3'","const KEY="+JSON.stringify(combatKey));
  const start=doc.indexOf('const defaults=()=>('),end=doc.indexOf(';try{state=',start);
  doc=doc.slice(0,start)+'const defaults=()=>('+JSON.stringify(campaign.combat)+')'+doc.slice(end);
@@ -199,7 +496,7 @@ function fdcSpiesCombat(){
  doc=doc.replaceAll('La Nuit des Morts-Vivants',campaign.name);
  doc=doc.replace('Les fiches du PDF fourni et les fiches de campagne sont partagées entre tes campagnes.','Les fiches de ton mode maison sont partagées entre ses campagnes.');
  const extra=`<script>
- for(const portrait of ${JSON.stringify(campaign===HERITAGE?campaign.combat.pj.map(({id,photo})=>({id,photo})):[])}){
+ for(const portrait of ${JSON.stringify(campaign!==SPIES?campaign.combat.pj.map(({id,photo})=>({id,photo})):[])}){
   const player=state.pj.find(p=>p.id===portrait.id);
   if(player&&!player.photo)player.photo=portrait.photo;
  }
@@ -279,3 +576,5 @@ function fdcHomeCombatStats(doc){
 function fdcIsDriveVisualUrl(url){
  try{const link=new URL(url);return link.origin==='https://drive.google.com'&&link.pathname.startsWith('/file/d/');}catch{return false;}
 }
+
+FDC_HOME_MONSTERS.push(...EMERAUDE.combat.bestiary);
