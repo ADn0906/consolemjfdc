@@ -61,6 +61,34 @@ body.fdc-focused .shell > .grid{grid-template-columns:minmax(0,1fr);grid-templat
 </style><style>
 .combat-info-dialog{width:min(560px,calc(100vw - 24px));max-height:90dvh;overflow:auto;color:#e9edf3}.combat-info-dialog::backdrop{background:#000b}.combat-info-dialog li{line-height:1.55;margin:12px 0}.combat-info-dialog ul{padding-left:20px}.combat-info-dialog .actions button{min-height:44px}
 </style><style>
+/* Fenêtre des règles maison : mêmes proportions que les références D&D,
+   sans écraser la fiche lorsque le dialogue est affiché sur tablette. */
+#homebrewInfo.homebrew-info-dialog{
+ box-sizing:border-box;
+ width:min(900px,calc(100vw - 24px));
+ height:min(900px,calc(100dvh - var(--fdc-top-inset) - var(--fdc-bottom-inset) - 24px));
+ max-height:calc(100dvh - var(--fdc-top-inset) - var(--fdc-bottom-inset) - 24px);
+ margin:auto;
+ padding:18px;
+ overflow:hidden;
+}
+#homebrewInfo.homebrew-info-dialog[open]{display:flex;flex-direction:column;gap:12px}
+#homebrewInfo.homebrew-info-dialog>h3,
+#homebrewInfo.homebrew-info-dialog>p,
+#homebrewInfo.homebrew-info-dialog>.tabs,
+#homebrewInfo.homebrew-info-dialog>#homebrewClose{flex:0 0 auto}
+#homebrewInfo.homebrew-info-dialog>.spell-reference{flex:1 1 auto;min-height:0;overflow:hidden}
+#homebrewInfo.homebrew-info-dialog .spell-toolbar{flex:0 0 auto}
+#homebrewInfo.homebrew-info-dialog .spell-rules{flex:1 1 auto;min-height:120px;overflow-y:auto;font-size:15px;line-height:1.65}
+#homebrewInfo.homebrew-info-dialog .spell-rules h5{font-size:15px;margin:18px 0 8px;color:#f0ba88}
+#homebrewInfo.homebrew-info-dialog .spell-rules strong{font-weight:750;color:#f2e7da}
+#homebrewInfo.homebrew-info-dialog #homebrewClose{align-self:flex-end;min-height:44px}
+@media(max-width:600px){
+ #homebrewInfo.homebrew-info-dialog{padding:12px;width:calc(100vw - 12px);height:calc(100dvh - var(--fdc-top-inset) - var(--fdc-bottom-inset) - 12px)}
+ #homebrewInfo.homebrew-info-dialog .spell-toolbar{grid-template-columns:1fr;gap:4px}
+ #homebrewInfo.homebrew-info-dialog .spell-rules{padding:12px}
+}
+</style><style>
 .combat-info-dialog{top:var(--fdc-top-inset);bottom:var(--fdc-bottom-inset);width:min(860px,calc(100vw - 24px));height:min(900px,90dvh);max-height:90dvh}.combat-info-dialog[open]{display:flex;flex-direction:column;gap:8px}.combat-info-dialog h3{flex:0 0 auto;margin:0}.spell-reference{display:flex;flex-direction:column;flex:1 1 0;min-height:160px;min-width:0}.spell-toolbar{display:grid;grid-template-columns:1fr 1fr;gap:12px;flex:0 0 auto}.spell-toolbar>div{min-width:0}.spell-toolbar label{display:flex;align-items:flex-end;min-height:30px;font-size:12px;color:#bdc9d6;margin:5px 0}.spell-toolbar select,.spell-toolbar input{width:100%;min-width:0;min-height:46px;font-size:14px}.spell-rules{flex:1 1 0;overflow:auto;min-height:0;border:1px solid #46515f;border-radius:9px;background:#171e26;padding:16px;overscroll-behavior:contain;line-height:1.6}.spell-rules h4{font-size:19px;margin:0 0 8px;color:#f0ba88}.spell-rules p{margin:10px 0;white-space:pre-wrap;overflow-wrap:anywhere}.spell-rules .spell-metadata{margin:4px 0}.spell-subtitle{color:#b9cadd}.spell-page{border-top:1px solid #46515f;padding-top:9px}.spell-table-wrap{max-width:100%;overflow-x:auto;margin:14px 0}.spell-data-table{border-collapse:collapse;width:100%;font-size:13px}.spell-data-table th,.spell-data-table td{padding:6px 8px;border:1px solid #46515f;text-align:left;vertical-align:top}.spell-data-table th{color:#f0ba88;background:#202833}.spell-table-line{font-family:ui-monospace,monospace;font-size:12px;border-left:2px solid #637d99;padding-left:8px}.spell-source{font-size:11px;margin:6px 0 0}.spell-source a{color:#a9cdf4}.combat-info-dialog>.actions{flex:0 0 auto;margin-top:0}.spell-reference #spellCount{margin:7px 0}@media(max-width:600px){.combat-info-dialog{padding:12px}.spell-toolbar{gap:8px;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.spell-toolbar select,.spell-toolbar input{font-size:12px;padding:8px}.spell-rules{padding:11px}}
 </style><style>@media(max-width:430px){header .nav{gap:6px;overflow-x:auto;justify-content:flex-start}header .nav button{width:48px;height:48px;min-width:48px;min-height:48px;flex-basis:48px;padding:10px}header .nav button svg{width:26px;height:26px}}</style><style>
 .header-tools{display:flex;gap:10px;align-items:center;justify-content:flex-end;flex:0 0 auto}.header-tools #navigationVersion{white-space:nowrap}.header-tools button{min-height:44px;white-space:nowrap;touch-action:manipulation}header .nav{flex-shrink:0}@media(max-width:1150px){body>header{flex-wrap:wrap}body>header>.brand{order:0}body>header>.header-tools{order:1;margin-left:auto}body>header>.nav{order:2;width:100%;justify-content:center}}@media(max-width:430px){body>header>.nav{justify-content:flex-start}.header-tools{gap:8px}.header-tools button{font-size:11px;padding:8px}.header-tools #navigationVersion{font-size:10px}}
