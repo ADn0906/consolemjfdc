@@ -258,7 +258,20 @@ function fdcWithLibrary(doc){
  }
  window.addEventListener('pagehide',()=>{for(const url of fdcMediaUrls.values())URL.revokeObjectURL(url);});
  <\/script>`;
- doc=doc.replace('</head>',mediaHelper+'</head>');
+  const combatAbilityCss=`<style>
+ .mob-details [data-monster-abilities]{display:block!important;white-space:normal!important;margin:12px 0!important}
+ .mob-details .fdc-ability-list{display:flex!important;flex-direction:column!important;gap:12px!important;white-space:normal!important}
+ .mob-details .fdc-ability-section{display:block!important;background:#26394b!important;color:#ffd39a!important;border-left:4px solid #ffa852!important;border-radius:5px!important;padding:10px 12px!important;margin:12px 0 2px!important;font-size:14px!important;font-weight:800!important}
+ .mob-details .fdc-ability-entry{display:block!important;background:#19242f!important;border:1px solid #566779!important;border-radius:10px!important;padding:12px 14px!important;margin:0!important;white-space:normal!important}
+ .mob-details .fdc-ability-entry.fdc-ability-special{background:#302830!important;border-color:#a27562!important}
+ .mob-details .fdc-ability-heading{display:flex!important;flex-wrap:wrap!important;align-items:center!important;gap:8px!important;margin:0 0 10px!important;color:#ffb56d!important;font-size:16px!important;line-height:1.4!important}
+ .mob-details .fdc-ability-heading strong{display:inline!important;color:#ffb56d!important;font-weight:800!important}
+ .mob-details .fdc-ability-kind{display:inline-block!important;background:#33485b!important;color:#eaf4ff!important;font-size:11px!important;font-weight:800!important;border-radius:5px!important;padding:4px 7px!important}
+ .mob-details .fdc-ability-description{display:block!important;color:#f2f4f8!important;font-size:14px!important;line-height:1.65!important;overflow-wrap:anywhere!important}
+ .mob-details .fdc-ability-key{color:#ffcd83!important;font-weight:800!important}
+ </style>`;
+ doc=doc.replace('</head>',combatAbilityCss+'</head>');
+doc=doc.replace('</head>',mediaHelper+'</head>');
  const supplied=(fdcIsHomebrew()?[]:RACINES.combat.bestiary).map(t=>({...t,sourceImage:t.sourceImage.split('?')[0]+'?media=15'}));
  const migration=`<script>
  const suppliedProfiles=${JSON.stringify(supplied)};
