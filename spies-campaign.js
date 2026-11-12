@@ -510,7 +510,8 @@ function fdcSpiesCombat(){
 }
 function fdcShowHomebrewInfo(){
  let info=document.getElementById('homebrewInfo');
- if(!info){info=document.createElement('dialog');info.id='homebrewInfo';info.className='dialog';document.body.append(info);}
+ if(!info){info=document.createElement('dialog');info.id='homebrewInfo';info.className='dialog combat-info-dialog homebrew-info-dialog';document.body.append(info);}
+ info.className='dialog combat-info-dialog homebrew-info-dialog';
  info.innerHTML='<h3>Info · Règles maison</h3><p>1D20 + Force (contact), Adresse (projectiles) ou Esprit (magie), contre la CA. Initiative dynamique.</p><div class="tabs"><button id="homebrewSpells">Sorts maison</button><button id="homebrewMonsters">Bestiaire maison</button></div><section class="spell-reference"><div class="spell-toolbar"><div><label for="homebrewSelect">Choisir une fiche</label><select id="homebrewSelect"></select></div><div><label for="homebrewSearch">Rechercher une fiche ou capacité</label><input id="homebrewSearch" type="search" placeholder="Rechercher…"></div></div><p id="homebrewCount" class="muted"></p><article id="homebrewRules" class="spell-rules"></article></section><button id="homebrewClose">Fermer</button>';
  let tab='spells',selected='';
  const select=info.querySelector('#homebrewSelect'),search=info.querySelector('#homebrewSearch'),rules=info.querySelector('#homebrewRules'),count=info.querySelector('#homebrewCount');
