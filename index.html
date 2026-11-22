@@ -417,7 +417,7 @@ function goModule(which){
  document.body.dataset.activeModule=which;
  // Le combat est un document isolé : le charger pour la campagne active à l'ouverture,
  // sans toucher aux sauvegardes des personnages ou des monstres.
- if(which==='combat'){const frame=$('combatFrame');if(frame && (frame.dataset.loaded!=='1'||frame.dataset.campaign!==state.campaign))fdcLoadCombat();}
+ if(which==='combat'){const frame=$('combatFrame');if(frame && (frame.dataset.openedCampaign!==state.campaign||frame.dataset.loaded!=='1')){fdcLoadCombat();frame.dataset.openedCampaign=state.campaign;}}
  document.getElementById('combatInfoDialog')?.close();
  document.body.classList.toggle('fdc-focused',which!=='dashboard');
  currentFocus=which==='dashboard'?null:which;
@@ -648,4 +648,4 @@ FDC_IMAGES["la nuit des morts vivants .png"]="assets/la nuit des morts vivants .
  save();renderVisuals();
 })();
 </script>
-<script>if(typeof embeddedCombat!=="undefined" && document.getElementById("combatFrame"))fdcLoadCombat()</script><script src="campaign-transfer.js"></script><script src="spell-reference.js"></script><script src="monster-reference.js"></script><script src="scenario-links.js"></script><script src="mont-chaud-nolrag.js"></script></body></html>
+<script>/* Combat chargé à la première ouverture de l’onglet : évite une iframe initialisée avant la fin du démarrage. */</script><script src="campaign-transfer.js"></script><script src="spell-reference.js"></script><script src="monster-reference.js"></script><script src="scenario-links.js"></script><script src="mont-chaud-nolrag.js"></script></body></html>
