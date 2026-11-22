@@ -378,7 +378,7 @@ doc=doc.replace('</head>',mediaHelper+'</head>');
  <\/script>`;
  return doc.replace('</body>',migration+'</body>');
 }
-function fdcLoadCombat(){const frame=$('combatFrame');frame.srcdoc=fdcCombatDocument();frame.dataset.loaded='1';}
+function fdcLoadCombat(){const frame=$('combatFrame');if(!frame)return;const campaign=state.campaign;frame.dataset.loaded='0';frame.dataset.campaign=campaign;frame.srcdoc=fdcCombatDocument();frame.dataset.loaded='1';}
 // La barre fixe répond dès le contact tactile ; clic et clavier restent disponibles.
 document.querySelector('header .nav').addEventListener('pointerdown',event=>{
  if(event.pointerType!=='touch'&&event.pointerType!=='pen')return;
@@ -415,6 +415,9 @@ function goModule(which){
  if(document.body.dataset.activeModule===which)return;
  // Un seul état de navigation, aucun panneau superposé ou déplacé.
  document.body.dataset.activeModule=which;
+ // Le combat est un document isolé : le charger pour la campagne active à l'ouverture,
+ // sans toucher aux sauvegardes des personnages ou des monstres.
+ if(which==='combat'){const frame=$('combatFrame');if(frame && (frame.dataset.loaded!=='1'||frame.dataset.campaign!==state.campaign))fdcLoadCombat();}
  document.getElementById('combatInfoDialog')?.close();
  document.body.classList.toggle('fdc-focused',which!=='dashboard');
  currentFocus=which==='dashboard'?null:which;
@@ -645,4 +648,4 @@ FDC_IMAGES["la nuit des morts vivants .png"]="assets/la nuit des morts vivants .
  save();renderVisuals();
 })();
 </script>
-<script>if(typeof embeddedCombat!=="undefined" && document.getElementById("combatFrame")){document.getElementById("combatFrame").srcdoc=fdcCombatDocument();document.getElementById("combatFrame").dataset.loaded="1"}</script><script src="campaign-transfer.js"></script><script src="spell-reference.js"></script><script src="monster-reference.js"></script><script src="scenario-links.js"></script><script src="mont-chaud-nolrag.js"></script></body></html>
+<script>if(typeof embeddedCombat!=="undefined" && document.getElementById("combatFrame"))fdcLoadCombat()</script><script src="campaign-transfer.js"></script><script src="spell-reference.js"></script><script src="monster-reference.js"></script><script src="scenario-links.js"></script><script src="mont-chaud-nolrag.js"></script></body></html>
