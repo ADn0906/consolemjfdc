@@ -4,7 +4,7 @@ const FDC_TRANSFER_MAX=256*1024*1024;
 function fdcCombatKey(name){if(name===EMERAUDE.name)return 'fdc-combat-emeraude-v1';if(name===HERITAGE.name)return 'fdc-combat-heritage-v1';if(name===SPIES.name)return 'fdc-combat-spies-v1';return name===RACINES.name?'fdc-combat-racines-v1':name==='La Nuit des Morts-Vivants'?'fdc-combat-v12-demo-3':'fdc-combat-custom-'+encodeURIComponent(name);}
 function fdcTransferStatus(message){const el=document.getElementById('fdcTransferStatus');if(el)el.textContent=message;}
 function fdcTransferDialog(){
- dialog('Transférer une campagne',`<p>Campagne sélectionnée : <strong>${escapeHTML(state.campaign)}</strong></p><p>Prépare sur PC, exporte le fichier, puis ouvre-le avec « Importer » sur la tablette. Le transfert comprend le scénario, les PJ, les monstres, les images et les sons associés.</p><button id="fdcExportButton" type="button" style="min-height:48px;width:100%" onclick="fdcExportCampaign()">↓ Exporter cette campagne</button><label for="fdcImportFile">↑ Importer une campagne depuis un fichier</label><input id="fdcImportFile" type="file" accept=".fdc,.json,application/json,application/gzip" onchange="fdcChooseImport(this.files[0])"><p id="fdcTransferStatus" role="status" aria-live="polite"></p>`,closeDialog,'Fermer');
+ dialog('Transférer une campagne',`<p>Campagne sélectionnée : <strong>${escapeHTML(state.campaign)}</strong></p><p>Prépare sur PC, exporte le fichier, puis ouvre-le avec « Importer » sur la tablette. Le transfert comprend le scénario, les PJ, les monstres, les images et les sons associés.</p><button id="fdcExportButton" type="button" style="min-height:48px;width:100%" onclick="fdcExportCampaign()">↓ Exporter cette campagne</button><label for="fdcImportFile">↑ Importer une campagne depuis un fichier</label><input id="fdcImportFile" type="file" accept=".fdc,.json,application/json,application/gzip" onchange="fdcChooseImport(this.files[0])"><p id="fdcTransferStatus" role="status" aria-live="polite"></p><div id="fdcExportActions"></div>`,closeDialog,'Fermer');
 }
 async function fdcStoredFile(id){const database=await db();return new Promise((resolve,reject)=>{const tx=database.transaction('files','readonly'),request=tx.objectStore('files').get(id);request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(request.error);});}
 async function fdcBlobBase64(blob){return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result.slice(reader.result.indexOf(',')+1));reader.onerror=()=>reject(reader.error);reader.readAsDataURL(blob);});}
@@ -41,9 +41,46 @@ async function fdcBuildCampaignArchive(){
 }
 async function fdcEncodeArchive(packet){const json=JSON.stringify(packet);if(new Blob([json]).size>FDC_TRANSFER_MAX)throw new Error('Le fichier de campagne dépasse la limite de 256 Mo.');const source=new Blob([json],{type:'application/json'});if(typeof CompressionStream==='function')return new Response(source.stream().pipeThrough(new CompressionStream('gzip'))).blob();return source;}
 async function fdcExportCampaign(){
- const button=$('fdcExportButton');if(button)button.disabled=true;
- try{const packet=await fdcBuildCampaignArchive();fdcTransferStatus('Création du fichier de transfert…');const archive=await fdcEncodeArchive(packet);const name=packet.campaign.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/gi,'_');const url=URL.createObjectURL(archive),link=document.createElement('a');link.href=url;link.download='FDC_'+name+'_'+new Date().toISOString().slice(0,10)+'.fdc';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);fdcTransferStatus('Fichier exporté. Transfère-le sur la tablette, puis choisis « Importer » dans la console.');}
- catch(error){fdcTransferStatus('Export impossible : '+error.message);}finally{if(button)button.disabled=false;}
+ const button=$('fdcExportButton'),actions=$('fdcExportActions');
+ if(!button||!actions)return;
+ button.disabled=true;
+ const previous=actions.querySelector('a[download]');
+ if(previous)URL.revokeObjectURL(previous.href);
+ actions.replaceChildren();
+ try{
+  fdcTransferStatus('Préparation de la sauvegarde…');
+  const packet=await fdcBuildCampaignArchive();
+  fdcTransferStatus('Création du fichier de transfert…');
+  const archive=await fdcEncodeArchive(packet);
+  if(!actions.isConnected)return;
+  const name=packet.campaign.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/gi,'_');
+  const filename='FDC_'+name+'_'+new Date().toISOString().slice(0,10)+'.fdc';
+  const link=document.createElement('a');
+  link.href=URL.createObjectURL(archive);
+  const url=link.href;
+  const observer=new MutationObserver(()=>{
+   if(link.isConnected)return;
+   observer.disconnect();
+   URL.revokeObjectURL(url);
+  });
+  observer.observe(actions.parentElement,{childList:true,subtree:true});
+  link.download=filename;
+  link.textContent='↓ Télécharger le fichier .fdc';
+  actions.append(link);
+  const files=[new File([archive],filename,{type:archive.type||'application/octet-stream'})];
+  if(navigator.canShare?.({files})){
+   const share=document.createElement('button');
+   share.type='button';
+   share.textContent='Partager le fichier';
+   share.onclick=async()=>{
+    try{await navigator.share({files});}
+    catch(error){if(error.name!=='AbortError')fdcTransferStatus('Partage indisponible. Tu peux utiliser le lien de téléchargement.');}
+   };
+   actions.append(share);
+  }
+  fdcTransferStatus('Sauvegarde prête. Appuie sur Télécharger ou Partager si cette option est disponible.');
+ }catch(error){if(actions.isConnected)fdcTransferStatus('Export impossible : '+error.message);}
+ finally{button.disabled=false;}
 }
 async function fdcReadBounded(stream){const reader=stream.getReader(),chunks=[];let size=0;try{for(;;){const {done,value}=await reader.read();if(done)break;size+=value.byteLength;if(size>FDC_TRANSFER_MAX)throw new Error('Fichier trop volumineux (256 Mo maximum après décompression).');chunks.push(value);}}catch(error){await reader.cancel().catch(()=>{});throw error;}return new Blob(chunks);}
 async function fdcDecodeArchive(file){
