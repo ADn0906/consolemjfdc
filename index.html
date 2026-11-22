@@ -160,7 +160,7 @@ body.fdc-focused .shell > .grid{grid-template-columns:minmax(0,1fr);grid-templat
  start.addEventListener('click',()=>{video.muted=false;start.hidden=true;});
  play();
 })();
-</script><header><div class="brand"><div class="logo">⬡</div><div><div class="fdc-brand-row"><strong>FDC · CONSOLE MJ</strong><select id="campaign" onchange="changeCampaign()"><option>La Nuit des Morts-Vivants</option><option>Les Racines du Soleil</option><option>Totally Spies & Dices</option><option>L’Héritage des Silences</option><option>Le Souffle d’Émeraude</option></select></div><div class="muted" id="campaignLabel">La Nuit des Morts-Vivants</div></div></div><div class="nav"><button data-module="dashboard" onclick="goModule('dashboard')" title="Accueil global" aria-label="Accueil global"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg></button><button data-module="scenario" onclick="goModule('scenario')" title="Scénario" aria-label="Scénario"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6c-3-2-6-2-9-1v14c3-1 6-1 9 1 3-2 6-2 9-1V5c-3-1-6-1-9 1z"/><path d="M12 6v14"/></svg></button><button data-module="combat" onclick="goModule('combat')" title="Combat" aria-label="Combat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 20 7-7m2-2 7-7M14 4l6 6M4 4l16 16M4 10l6-6"/></svg></button><button data-module="sound" onclick="goModule('sound')" title="Ambiance sonore" aria-label="Ambiance sonore"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></button><button data-module="visual" onclick="goModule('visual')" title="Visuels" aria-label="Visuels"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></button><button id="combatInfoButton" type="button" title="Informations et sorts D&D" aria-label="Informations et sorts D&D" aria-haspopup="dialog" onclick="showCombatInfo()"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7v1"/></svg></button></div><div class="header-tools"><span class="muted" id="navigationVersion">● Navigation 52</span><button id="headerTransferButton" type="button" class="small" onclick="fdcTransferDialog()">⇄ Exporter / Importer</button></div></header>
+</script><header><div class="brand"><div class="logo">⬡</div><div><div class="fdc-brand-row"><strong>FDC · CONSOLE MJ</strong><select id="campaign" onchange="changeCampaign()"><option>La Nuit des Morts-Vivants</option><option>Les Racines du Soleil</option><option>Totally Spies & Dices</option><option>L’Héritage des Silences</option><option>Le Souffle d’Émeraude</option></select></div><div class="muted" id="campaignLabel">La Nuit des Morts-Vivants</div></div></div><div class="nav"><button data-module="dashboard" onclick="goModule('dashboard')" title="Accueil global" aria-label="Accueil global"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg></button><button data-module="scenario" onclick="goModule('scenario')" title="Scénario" aria-label="Scénario"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6c-3-2-6-2-9-1v14c3-1 6-1 9 1 3-2 6-2 9-1V5c-3-1-6-1-9 1z"/><path d="M12 6v14"/></svg></button><button data-module="combat" onclick="goModule('combat')" title="Combat" aria-label="Combat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 20 7-7m2-2 7-7M14 4l6 6M4 4l16 16M4 10l6-6"/></svg></button><button data-module="sound" onclick="goModule('sound')" title="Ambiance sonore" aria-label="Ambiance sonore"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></button><button data-module="visual" onclick="goModule('visual')" title="Visuels" aria-label="Visuels"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></button><button id="combatInfoButton" type="button" title="Informations et sorts D&D" aria-label="Informations et sorts D&D" aria-haspopup="dialog" onclick="showCombatInfo()"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7v1"/></svg></button></div><div class="header-tools"><span class="muted" id="navigationVersion">● Navigation 53</span><button id="headerTransferButton" type="button" class="small" onclick="fdcTransferDialog()">⇄ Exporter / Importer</button></div></header>
 <main class="shell"><section class="panel" id="homePanel" hidden><h3>Console MJ FDC</h3><p class="muted">Choisis un module dans la barre de navigation pour préparer ou animer ta partie.</p><p>Campagne : <strong id="homeCampaign">La Nuit des Morts-Vivants</strong></p></section><div class="grid" hidden>
 <section class="panel" id="scenario" hidden><div class="head"><h3><button class="module-heading" onclick="goModule('scenario')">📖 Scénario</button></h3><div class="actions"><button class="small" onclick="editScenario()">Modifier le mémo</button><button class="small" onclick="goModule('scenario')">⛶</button></div></div><div id="scenarioContent" class="notes"></div><div id="racinesSideQuests" style="margin-top:12px" hidden><div style="border:1px solid #46515f;border-radius:8px;padding:10px 12px;margin:0 0 14px"><div style="font-weight:750;margin-bottom:7px">SUITE DU SCÉNARIO — REPÈRES MJ</div><div style="white-space:pre-wrap;line-height:1.55;font-size:14px">1. SORTIE DU MANOIR DE VARN
 • Les aventuriers viennent de voler le fruit de la Fleur du Désespoir. Varn les a vus agir et les a laissés partir.
@@ -342,14 +342,18 @@ function fdcWithLibrary(doc){
  </style>`;
  doc=doc.replace('</head>',combatAbilityCss+'</head>');
 doc=doc.replace('</head>',mediaHelper+'</head>');
- const supplied=(fdcIsHomebrew()?[]:RACINES.combat.bestiary).map(t=>({...t,sourceImage:t.sourceImage.split('?')[0]+'?media=15'}));
+ const supplied=(fdcIsHomebrew()?[]:RACINES.combat.bestiary).map(profile=>{
+  if(!profile.sourceImage)return profile;
+  return {...profile,sourceImage:profile.sourceImage.split('?')[0]+'?media=15'};
+ });
  const migration=`<script>
  const suppliedProfiles=${JSON.stringify(supplied)};
  for(const profile of suppliedProfiles){
   const existing=state.bestiary.find(t=>t.id===profile.id);
   if(existing&&(!existing.sourceRevision||existing.sourceRevision<15)){
    if((existing.abilities||'').startsWith('Attaques, pouvoirs et règles : consulter')){existing.abilities=profile.abilities;existing.description=profile.description;}
-   existing.sourceImage=profile.sourceImage;existing.sourceRevision=15;
+   if(profile.sourceImage)existing.sourceImage=profile.sourceImage;
+   existing.sourceRevision=15;
   }
   const lid='lib-'+profile.id, entry=library.find(t=>t.id===lid);
   if(!entry)library.push({...profile,id:lid});
@@ -378,7 +382,21 @@ doc=doc.replace('</head>',mediaHelper+'</head>');
  <\/script>`;
  return doc.replace('</body>',migration+'</body>');
 }
-function fdcLoadCombat(){const frame=$('combatFrame');if(!frame)return;const campaign=state.campaign;frame.dataset.loaded='0';frame.dataset.campaign=campaign;frame.srcdoc=fdcCombatDocument();frame.dataset.loaded='1';}
+function fdcLoadCombat(){
+ const frame=$('combatFrame');
+ const combat=fdcCombatDocument();
+ frame.style.visibility='hidden';
+ frame.dataset.loaded='0';
+ frame.srcdoc=combat.replace('</body>',`<script>
+  window.parent.fdcCombatReady(document,window.fdcSnapshotStorageKey);
+ <\/script></body>`);
+}
+function fdcCombatReady(documentLoaded,storageKey){
+ const frame=$('combatFrame');
+ if(frame.contentDocument!==documentLoaded||storageKey!==fdcCombatKey(state.campaign))return;
+ frame.dataset.loaded='1';
+ frame.style.visibility='';
+}
 // La barre fixe répond dès le contact tactile ; clic et clavier restent disponibles.
 document.querySelector('header .nav').addEventListener('pointerdown',event=>{
  if(event.pointerType!=='touch'&&event.pointerType!=='pen')return;
@@ -415,9 +433,6 @@ function goModule(which){
  if(document.body.dataset.activeModule===which)return;
  // Un seul état de navigation, aucun panneau superposé ou déplacé.
  document.body.dataset.activeModule=which;
- // Le combat est un document isolé : le charger pour la campagne active à l'ouverture,
- // sans toucher aux sauvegardes des personnages ou des monstres.
- if(which==='combat'){const frame=$('combatFrame');if(frame && (frame.dataset.openedCampaign!==state.campaign||frame.dataset.loaded!=='1')){fdcLoadCombat();frame.dataset.openedCampaign=state.campaign;}}
  document.getElementById('combatInfoDialog')?.close();
  document.body.classList.toggle('fdc-focused',which!=='dashboard');
  currentFocus=which==='dashboard'?null:which;
@@ -648,4 +663,4 @@ FDC_IMAGES["la nuit des morts vivants .png"]="assets/la nuit des morts vivants .
  save();renderVisuals();
 })();
 </script>
-<script>/* Combat chargé à la première ouverture de l’onglet : évite une iframe initialisée avant la fin du démarrage. */</script><script src="campaign-transfer.js"></script><script src="spell-reference.js"></script><script src="monster-reference.js"></script><script src="scenario-links.js"></script><script src="mont-chaud-nolrag.js"></script></body></html>
+<script src="campaign-transfer.js"></script><script src="spell-reference.js"></script><script src="monster-reference.js"></script><script src="scenario-links.js"></script><script src="mont-chaud-nolrag.js"></script><script>fdcLoadCombat();</script></body></html>
