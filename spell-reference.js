@@ -32,26 +32,42 @@ async function fdcPopulateSpellReference(info){
  }catch(error){count.textContent='Impossible de charger les sorts. Réessaie après avoir ouvert la console en ligne.';select.replaceChildren(new Option('Bibliothèque indisponible',''));const retry=document.createElement('button');retry.type='button';retry.textContent='Réessayer';retry.onclick=()=>fdcInitSpellReference(info);rules.replaceChildren(retry);}finally{delete info.dataset.spellLoading;}
 }
 
-let fdcSpellCatalog=null,fdcSpellNameMatcher=null,fdcSpellNameIds=new Map();
+let fdcSpellCatalog=null,fdcDndSpellLinks=null,fdcNtSpellLinks=null;
 function fdcSpellFold(text){return String(text).replace(/[Œœ]/g,'oe').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('fr').replace(/[’‘`]/g,"'").replace(/[‐‑–—]/g,'-');}
-function fdcPrepareSpellLinks(data){
- fdcSpellCatalog=data;const names=[];fdcSpellNameIds=new Map();for(const spell of data.spells)for(const name of [spell.name,...(spell.aliases||[])]){const folded=fdcSpellFold(name);if(!fdcSpellNameIds.has(folded)){names.push(folded);fdcSpellNameIds.set(folded,spell.id);}}
- const patterns=names.sort((a,b)=>b.length-a.length).map(name=>name.replace(/[.*+?^${}()|[\]\\]/g,'\\$&').replace(/\s+/g,'\\s+'));fdcSpellNameMatcher=new RegExp('(^|[^a-z0-9])('+patterns.join('|')+')(?![a-z0-9])','g');
+function fdcBuildSpellLinks(spells){
+ const byName=new Map();
+ for(const spell of spells)for(const name of [spell.name,...(spell.aliases||[])]){
+  const folded=fdcSpellFold(name).trim().replace(/\s+/g,' ');
+  if(folded&&!byName.has(folded))byName.set(folded,spell);
+ }
+ const names=[...byName.keys()];
+ const patterns=names.sort((a,b)=>b.length-a.length).map(name=>name.replace(/[.*+?^${}()|[\]\\]/g,'\\$&').replace(/\s+/g,'\\s+'));
+ return {byName,matcher:patterns.length?new RegExp('(^|[^a-z0-9])('+patterns.join('|')+')(?![a-z0-9])','g'):null};
 }
-function fdcSpellLinkMarkup(text){
- if(fdcIsHomebrew())return escapeHTML(text);
- text=String(text||'');if(!fdcSpellNameMatcher)return escapeHTML(text);let folded='',starts=[],ends=[],offset=0;
+function fdcPrepareSpellLinks(data){fdcSpellCatalog=data;fdcDndSpellLinks=fdcBuildSpellLinks(data.spells);}
+function fdcSpellLinkMarkup(text,format=escapeHTML){
+ text=String(text||'');
+ const links=fdcIsHomebrew()?(fdcNtSpellLinks??=fdcBuildSpellLinks(fdcHomeSpellLibrary())):fdcDndSpellLinks;
+ if(!links?.matcher)return format(text);
+ let folded='',starts=[],ends=[],offset=0;
  for(const char of text){const part=fdcSpellFold(char);for(let i=0;i<part.length;i++){starts.push(offset);ends.push(offset+char.length);}folded+=part;offset+=char.length;}
- let html='',last=0,match;fdcSpellNameMatcher.lastIndex=0;
- while((match=fdcSpellNameMatcher.exec(folded))!==null){const from=match.index+match[1].length,to=from+match[2].length,start=starts[from],end=ends[to-1],id=fdcSpellNameIds.get(match[2].replace(/\s+/g,' '));if(!id)continue;const spell=fdcSpellCatalog.spells.find(s=>s.id===id);html+=escapeHTML(text.slice(last,start))+'<button type="button" class="monster-spell-link" data-spell-id="'+id+'" title="Ouvrir le sort '+escapeHTML(spell.name)+'" onclick="fdcOpenSpellReference(this.dataset.spellId)">'+escapeHTML(text.slice(start,end))+'</button>';last=end;}
- return html+escapeHTML(text.slice(last));
+ let html='',last=0,match;links.matcher.lastIndex=0;
+ while((match=links.matcher.exec(folded))!==null){
+  const from=match.index+match[1].length,to=from+match[2].length,start=starts[from],end=ends[to-1];
+  const spell=links.byName.get(match[2].replace(/\s+/g,' '));
+  if(!spell)continue;
+  html+=format(text.slice(last,start))+'<button type="button" class="monster-spell-link" data-spell-id="'+escapeHTML(spell.id)+'" title="Ouvrir le sort '+escapeHTML(spell.name)+'" onclick="fdcOpenSpellReference(this.dataset.spellId)">'+escapeHTML(text.slice(start,end))+'</button>';
+  last=end;
+ }
+ return html+format(text.slice(last));
 }
 function fdcLoadSpellCatalog(){
  if(!fdcSpellLoadPromise)fdcSpellLoadPromise=fetch('assets/spells-fr.json').then(r=>{if(!r.ok)throw new Error('Chargement impossible');return r.json()}).then(data=>{if(data.format!=='fdc-spell-reference'||!Array.isArray(data.spells))throw new Error('Bibliothèque invalide');fdcPrepareSpellLinks(data);return data;}).catch(error=>{fdcSpellLoadPromise=null;throw error;});return fdcSpellLoadPromise;
 }
-async function fdcEnableMonsterSpellLinks(frame){if(fdcIsHomebrew())return;try{await fdcLoadSpellCatalog();if(frame===document.getElementById('combatFrame')?.contentWindow&&typeof frame.fdcRefreshSpellLinks==='function')frame.fdcRefreshSpellLinks();}catch(error){console.warn('Référence des sorts indisponible',error.message);}}
+async function fdcEnableMonsterSpellLinks(frame){if(fdcIsHomebrew())return;try{await fdcLoadSpellCatalog();if(!fdcIsHomebrew()&&frame===document.getElementById('combatFrame')?.contentWindow&&typeof frame.fdcRefreshSpellLinks==='function')frame.fdcRefreshSpellLinks();}catch(error){console.warn('Référence des sorts indisponible',error.message);}}
 async function fdcOpenSpellReference(id){
- if(fdcIsHomebrew())return;
- showCombatInfo();if(typeof fdcSelectInfoTab==='function')fdcSelectInfoTab('spell');const info=document.getElementById('combatInfoDialog');await fdcInitSpellReference(info);if(info.dataset.spellReady!=='1')return;const spell=fdcSpellCatalog?.spells.find(s=>s.id===id);if(!spell)return;const search=info.querySelector('#spellSearch'),select=info.querySelector('#spellSelect');search.value=spell.name;search.dispatchEvent(new Event('input'));select.value=id;select.dispatchEvent(new Event('change'));
+ if(fdcIsHomebrew()){fdcShowHomebrewInfo(id);return;}
+ const campaign=state.campaign;
+ showCombatInfo();if(typeof fdcSelectInfoTab==='function')fdcSelectInfoTab('spell');const info=document.getElementById('combatInfoDialog');await fdcInitSpellReference(info);if(state.campaign!==campaign||info.dataset.spellReady!=='1')return;const spell=fdcSpellCatalog?.spells.find(s=>s.id===id);if(!spell)return;const search=info.querySelector('#spellSearch'),select=info.querySelector('#spellSelect');search.value=spell.name;search.dispatchEvent(new Event('input'));select.value=id;select.dispatchEvent(new Event('change'));
 }
 fdcEnableMonsterSpellLinks(document.getElementById('combatFrame')?.contentWindow);

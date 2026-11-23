@@ -517,12 +517,12 @@ function fdcSpiesCombat(){
  <\/script>`;
  return fdcWithLibrary(fdcHomeCombatStats(doc)).replace('</body>',extra+'</body>');
 }
-function fdcShowHomebrewInfo(){
+function fdcShowHomebrewInfo(spellId=''){
  let info=document.getElementById('homebrewInfo');
  if(!info){info=document.createElement('dialog');info.id='homebrewInfo';info.className='dialog combat-info-dialog homebrew-info-dialog';document.body.append(info);}
  info.className='dialog combat-info-dialog homebrew-info-dialog';
  info.innerHTML='<h3>Info · Règles maison</h3><p>1D20 + Force (contact), Adresse (projectiles) ou Esprit (magie), contre la CA. Initiative dynamique.</p><div class="tabs"><button id="homebrewSpells">Sorts maison</button><button id="homebrewMonsters">Bestiaire maison</button></div><section class="spell-reference"><div class="spell-toolbar"><div><label for="homebrewSelect">Choisir une fiche</label><select id="homebrewSelect"></select></div><div><label for="homebrewSearch">Rechercher une fiche ou capacité</label><input id="homebrewSearch" type="search" placeholder="Rechercher…"></div></div><p id="homebrewCount" class="muted"></p><article id="homebrewRules" class="spell-rules"></article></section><button id="homebrewClose">Fermer</button>';
- let tab='spells',selected='';
+ let tab='spells',selected=spellId;
  const select=info.querySelector('#homebrewSelect'),search=info.querySelector('#homebrewSearch'),rules=info.querySelector('#homebrewRules'),count=info.querySelector('#homebrewCount');
  const normalize=t=>String(t||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('fr');
  function addLabeledField(label,value){
@@ -552,7 +552,7 @@ function fdcShowHomebrewInfo(){
    for(const line of String(e.abilities||e.description||(e.paragraphs||[]).join('\n')).split('\n')){
     if(!line.trim())continue;
     if(/^(ATTAQUES|POUVOIRS|CAPACITÉ|TACTIQUE|RÈGLES MJ)/.test(line.trim())&&!line.includes(':')){const h5=document.createElement('h5');h5.textContent=line;rules.append(h5);continue;}
-    const p=document.createElement('p');for(const part of line.split(/(\*\*[^*]+\*\*)/g)){if(part.startsWith('**')&&part.endsWith('**')){const strong=document.createElement('strong');strong.textContent=part.slice(2,-2);p.append(strong);}else p.append(document.createTextNode(part));}rules.append(p);
+    const p=document.createElement('p');for(const part of line.split(/(\*\*[^*]+\*\*)/g)){if(part.startsWith('**')&&part.endsWith('**')){const strong=document.createElement('strong');strong.innerHTML=fdcSpellLinkMarkup(part.slice(2,-2));p.append(strong);}else{const span=document.createElement('span');span.innerHTML=fdcSpellLinkMarkup(part);p.append(span);}}rules.append(p);
    }
   }
   rules.scrollTop=0;
@@ -562,7 +562,7 @@ function fdcShowHomebrewInfo(){
  info.querySelector('#homebrewSpells').onclick=()=>{tab='spells';selected='';search.value='';render();};
  info.querySelector('#homebrewMonsters').onclick=()=>{tab='monsters';selected='';search.value='';render();};
  info.querySelector('#homebrewClose').onclick=()=>info.close();
- render();info.showModal();
+ render();if(!info.open)info.showModal();
 }
 
 // Cartes maison validées par l’utilisateur, Canva, révision 68.
