@@ -17,12 +17,15 @@ function fdcMergeMonsterProfiles(library,bestiary,profiles){
  }
 }
 async function fdcEnableMonsterCatalog(frame){
- if(fdcIsHomebrew())return;
- try{const data=await fdcLoadMonsterCatalog();if(frame!==document.getElementById('combatFrame')?.contentWindow||typeof frame.fdcInstallGlobalMonsters!=='function')return;frame.fdcInstallGlobalMonsters(data.monsters);}catch(e){console.warn('Bestiaire global indisponible',e.message);}
+ if(!frame||fdcIsHomebrew())return;
+ const install=frame.fdcInstallGlobalMonsters;
+ if(typeof install!=='function')return;
+ try{const data=await fdcLoadMonsterCatalog();if(fdcIsHomebrew()||frame!==document.getElementById('combatFrame')?.contentWindow||frame.fdcInstallGlobalMonsters!==install)return;install(data.monsters);}catch(e){console.warn('Bestiaire global indisponible',e.message);}
 }
 function fdcMonsterControlsMarkup(){return `<section id="monsterReference" class="spell-reference" hidden aria-label="Bestiaire global"><div class="spell-toolbar"><div><label for="monsterSelect">Monstres</label><select id="monsterSelect" disabled><option>Chargement…</option></select></div><div><label for="monsterSearch">Rechercher un monstre ou une capacité</label><input id="monsterSearch" type="search" placeholder="Ex. gobelin, dragon, poison…" disabled></div></div><p id="monsterCount" class="muted" role="status"></p><article id="monsterRules" class="spell-rules" aria-label="Fiche du monstre"></article><div class="actions"><button id="monsterImport" class="blue" disabled>Ajouter au bestiaire de la campagne</button><span id="monsterImportStatus" role="status"></span></div><p class="spell-source muted">PDF fourni · AideDD · <a href="assets/monsters-source-notice.txt" target="_blank" rel="noopener">Source et mentions</a></p></section>`;}
 function fdcSelectInfoTab(tab){const info=document.getElementById('combatInfoDialog');for(const name of ['spell','monster']){info.querySelector('#'+name+'Reference').hidden=name!==tab;info.querySelector('[data-info-tab="'+name+'"]').setAttribute('aria-selected',String(name===tab));}if(tab==='monster')fdcInitMonsterReference(info);}
 async function fdcInitMonsterReference(info){
+ if(fdcIsHomebrew())return;
  const select=info.querySelector('#monsterSelect'),search=info.querySelector('#monsterSearch'),count=info.querySelector('#monsterCount'),rules=info.querySelector('#monsterRules'),add=info.querySelector('#monsterImport'),status=info.querySelector('#monsterImportStatus');
  if(info.fdcMonsterRefresh){info.fdcMonsterRefresh();return;}if(info.dataset.monsterLoading)return;info.dataset.monsterLoading='1';
  try{
@@ -39,7 +42,7 @@ async function fdcInitMonsterReference(info){
    if(p.sourcePages){const source=document.createElement('p');source.className='muted';source.textContent='Source : DD5-Monstres.pdf · pages '+p.sourcePages.join(', ');rules.append(source);}rules.scrollTop=0;refresh();
   }
   function filter(){const q=fdcSpellNormalize(search.value),words=q.split(' ').filter(Boolean),previous=select.value;const matches=monsters.filter(p=>words.every(w=>index.get(p.id).includes(w)));if(q)matches.sort((a,b)=>Number(fdcSpellNormalize(b.name)===q)-Number(fdcSpellNormalize(a.name)===q));select.replaceChildren(new Option(matches.length?'Choisir un monstre…':'Aucun résultat',''));for(const p of matches)select.append(new Option(p.name,p.id));select.value=q?(matches[0]?.id||''):(matches.some(p=>p.id===previous)?previous:'');count.textContent=matches.length+' créatures sur '+monsters.length+' · dont '+data.monsters.length+' fiches du PDF';show();}
-  search.oninput=filter;select.onchange=show;add.onclick=()=>{const p=monsters.find(t=>t.id===select.value),w=document.getElementById('combatFrame').contentWindow;if(!p||!w.fdcAddGlobalMonster)return;const added=w.fdcAddGlobalMonster(p);refresh();if(added)status.textContent=p.name+' ajouté à '+state.campaign;};select.disabled=false;search.disabled=false;info.fdcMonsterRefresh=refresh;filter();
+  search.oninput=filter;select.onchange=show;add.onclick=()=>{const p=monsters.find(t=>t.id===select.value),w=document.getElementById('combatFrame').contentWindow;if(fdcIsHomebrew()||!p||!w.fdcAddGlobalMonster)return;const added=w.fdcAddGlobalMonster(p);refresh();if(added)status.textContent=p.name+' ajouté à '+state.campaign;};select.disabled=false;search.disabled=false;info.fdcMonsterRefresh=refresh;filter();
  }catch(e){count.textContent='Impossible de charger le bestiaire. Ouvre la console en ligne puis réessaie.';const retry=document.createElement('button');retry.textContent='Réessayer';retry.onclick=()=>fdcInitMonsterReference(info);rules.replaceChildren(retry);}finally{delete info.dataset.monsterLoading;}
 }
 fdcEnableMonsterCatalog(document.getElementById('combatFrame')?.contentWindow);

@@ -160,7 +160,7 @@ body.fdc-focused .shell > .grid{grid-template-columns:minmax(0,1fr);grid-templat
  start.addEventListener('click',()=>{video.muted=false;start.hidden=true;});
  play();
 })();
-</script><header><div class="brand"><div class="logo">⬡</div><div><div class="fdc-brand-row"><strong>FDC · CONSOLE MJ</strong><select id="campaign" onchange="changeCampaign()"><option>La Nuit des Morts-Vivants</option><option>Les Racines du Soleil</option><option>Totally Spies & Dices</option><option>L’Héritage des Silences</option><option>Le Souffle d’Émeraude</option></select></div><div class="muted" id="campaignLabel">La Nuit des Morts-Vivants</div></div></div><div class="nav"><button data-module="dashboard" onclick="goModule('dashboard')" title="Accueil global" aria-label="Accueil global"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg></button><button data-module="scenario" onclick="goModule('scenario')" title="Scénario" aria-label="Scénario"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6c-3-2-6-2-9-1v14c3-1 6-1 9 1 3-2 6-2 9-1V5c-3-1-6-1-9 1z"/><path d="M12 6v14"/></svg></button><button data-module="combat" onclick="goModule('combat')" title="Combat" aria-label="Combat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 20 7-7m2-2 7-7M14 4l6 6M4 4l16 16M4 10l6-6"/></svg></button><button data-module="sound" onclick="goModule('sound')" title="Ambiance sonore" aria-label="Ambiance sonore"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></button><button data-module="visual" onclick="goModule('visual')" title="Visuels" aria-label="Visuels"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></button><button id="combatInfoButton" type="button" title="Informations et sorts D&D" aria-label="Informations et sorts D&D" aria-haspopup="dialog" onclick="showCombatInfo()"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7v1"/></svg></button></div><div class="header-tools"><span class="muted" id="navigationVersion">● Navigation 58</span><button id="headerTransferButton" type="button" class="small" onclick="fdcTransferDialog()">⇄ Exporter / Importer</button></div></header>
+</script><header><div class="brand"><div class="logo">⬡</div><div><div class="fdc-brand-row"><strong>FDC · CONSOLE MJ</strong><select id="campaign" onchange="changeCampaign()"><option>La Nuit des Morts-Vivants</option><option>Les Racines du Soleil</option><option>Totally Spies & Dices</option><option>L’Héritage des Silences</option><option>Le Souffle d’Émeraude</option></select></div><div class="muted" id="campaignLabel">La Nuit des Morts-Vivants</div></div></div><div class="nav"><button data-module="dashboard" onclick="goModule('dashboard')" title="Accueil global" aria-label="Accueil global"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg></button><button data-module="scenario" onclick="goModule('scenario')" title="Scénario" aria-label="Scénario"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6c-3-2-6-2-9-1v14c3-1 6-1 9 1 3-2 6-2 9-1V5c-3-1-6-1-9 1z"/><path d="M12 6v14"/></svg></button><button data-module="combat" onclick="goModule('combat')" title="Combat" aria-label="Combat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 20 7-7m2-2 7-7M14 4l6 6M4 4l16 16M4 10l6-6"/></svg></button><button data-module="sound" onclick="goModule('sound')" title="Ambiance sonore" aria-label="Ambiance sonore"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></button><button data-module="visual" onclick="goModule('visual')" title="Visuels" aria-label="Visuels"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></button><button id="combatInfoButton" type="button" title="Informations et sorts D&D" aria-label="Informations et sorts D&D" aria-haspopup="dialog" onclick="showCombatInfo()"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7v1"/></svg></button></div><div class="header-tools"><span class="muted" id="navigationVersion">● Navigation 59</span><button id="headerTransferButton" type="button" class="small" onclick="fdcTransferDialog()">⇄ Exporter / Importer</button></div></header>
 <style>
 #fdcCampaignStart{
  position:fixed;inset:0;z-index:50;overflow:auto;display:grid;place-items:center;
@@ -177,7 +177,7 @@ body.fdc-focused .shell > .grid{grid-template-columns:minmax(0,1fr);grid-templat
 .fdc-campaign-card h1{margin:0 0 24px;color:#fff2df;font-size:clamp(1.55rem,4vw,2rem);font-weight:650;letter-spacing:-.025em}
 .fdc-campaign-actions{display:grid;gap:12px}
 .fdc-campaign-actions button,.fdc-campaign-actions input{min-height:48px;width:100%;text-align:left;border-radius:11px}
-.fdc-campaign-actions input{background:#151217;border-color:#786168;padding:10px 12px}
+.fdc-campaign-actions input,.fdc-campaign-actions select{min-height:48px;width:100%;border-radius:11px;background:#151217;border-color:#786168;padding:10px 12px}
 #fdcCampaignStart .fdc-campaign-primary{background:#74323e;border-color:#a7616b;color:#fff5ed}
 #fdcCampaignChoices button{
  display:grid;grid-template-columns:34px 1fr auto;align-items:center;gap:13px;
@@ -215,6 +215,14 @@ body.fdc-focused .shell > .grid{grid-template-columns:minmax(0,1fr);grid-templat
   <form id="fdcCampaignCreate" class="fdc-campaign-actions" hidden>
    <label for="fdcCampaignName">Nom de la campagne</label>
    <input id="fdcCampaignName" maxlength="150" required>
+   <div id="fdcCampaignModeField" class="fdc-campaign-actions">
+    <label for="fdcCampaignMode">Mode de jeu</label>
+    <select id="fdcCampaignMode" required>
+     <option value="">Choisir un mode</option>
+     <option value="dnd">D&amp;D 5e</option>
+     <option value="nt">Nolrag Tales</option>
+    </select>
+   </div>
    <button id="fdcCampaignSubmit" class="fdc-campaign-primary" type="submit">Créer la campagne</button>
   </form>
   <div id="fdcCampaignFooter" class="fdc-campaign-footer" hidden>
@@ -412,6 +420,7 @@ doc=doc.replace('</head>',mediaHelper+'</head>');
   if(!profile.sourceImage)return profile;
   return {...profile,sourceImage:profile.sourceImage.split('?')[0]+'?media=15'};
  });
+ const dnd=!fdcIsHomebrew();
  const migration=`<script>
  const suppliedProfiles=${JSON.stringify(supplied)};
  for(const profile of suppliedProfiles){
@@ -425,11 +434,13 @@ doc=doc.replace('</head>',mediaHelper+'</head>');
   if(!entry)library.push({...profile,id:lid});
   else if(!entry.sourceRevision||entry.sourceRevision<15)Object.assign(entry,profile,{id:lid});
  }
+ ${dnd?`
  window.fdcInstallGlobalMonsters=profiles=>{window.parent.fdcMergeMonsterProfiles(library,state.bestiary,profiles);storeLibrary();save();};
  window.fdcGlobalMonsterSnapshot=()=>structuredClone(library);
  window.fdcHasMonster=profile=>state.bestiary.some(t=>window.parent.fdcMonsterKey(t.name)===window.parent.fdcMonsterKey(profile.name));
  window.fdcAddGlobalMonster=profile=>{if(window.fdcHasMonster(profile))return false;state.bestiary.push({...structuredClone(profile),id:id()});save();return true;};
  if(typeof window.parent.fdcEnableMonsterCatalog==='function')window.parent.fdcEnableMonsterCatalog(window);
+ `:''}
  const bundledPortraits=${JSON.stringify(RACINES.combat.pj)};
  for(const p of state.pj){if(p.photo?.startsWith('assets/racines/'))p.photo=bundledPortraits.find(x=>x.id===p.id)?.photo||p.photo.split('?')[0]+'?media=15';}
  for(const p of state.pj){
@@ -813,7 +824,10 @@ function fdcShowCampaignStart(view){
  if(view==='confirm')$('fdcCampaignConfirm').querySelector('button:last-child').focus();
  if(view==='new'||view==='rename'){
   const rename=view==='rename',input=$('fdcCampaignName');
-  if(!rename)fdcCampaignBeingRenamed=null;
+  const mode=$('fdcCampaignMode');
+  $('fdcCampaignModeField').hidden=rename;
+  mode.disabled=rename;
+  if(!rename){fdcCampaignBeingRenamed=null;mode.value='';}
   input.value=rename?fdcCampaignTitle(fdcCampaignBeingRenamed):'';
   input.setCustomValidity('');
   $('fdcCampaignSubmit').textContent=rename?'Enregistrer le nom':'Créer la campagne';
@@ -845,6 +859,9 @@ $('fdcCampaignCreate').addEventListener('submit',event=>{
   fdcShowCampaignStart('manage');
   return;
  }
+ const mode=$('fdcCampaignMode').value;
+ if(!['dnd','nt'].includes(mode))return;
+ (state.campaignPreferences||=[]).push({name,mode});
  state.notes[name]='';
  state.transferCampaigns=[...(state.transferCampaigns||[]),name];
  fdcRegisterTransferCampaigns();

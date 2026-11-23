@@ -482,21 +482,30 @@ const HERITAGE={
   }
 };
 const SPIES={"name": "Totally Spies & Dices", "notes": "TOTALLY SPIES & DICES — ONE-SHOT · RÈGLES MAISON\n\nPOINTS D’HISTOIRE — À JOUER LIBREMENT\n• Zezrael, Nami et Nélya, anciennes agentes, se retrouvent dans une taverne de jeux.\n• Elles gagnent le jackpot et offrent une tournée. Elles s’endorment et découvrent au réveil que leur sac d’or a disparu.\n• Enquête libre autour des personnes présentes : Quatre-Feuilles, Clark, la serveuse et Brokk.\n• Quatre-Feuilles est innocent ; rencontre prévue chez les orques.\n• Clark, croupier tieflin, peut être retrouvé chez lui avec sa famille.\n• La serveuse humaine aide son frère étudiant en magie ; rencontre prévue dans une autre taverne.\n• Brokk « le Ronchon », vieux nain sous-payé et homme à tout faire depuis trente ans, est le cerveau du réseau. Les gros gagnants sont dépouillés grâce à des tournées droguées et des complices.\n• Message final de l’ancien chef des agentes : révélation de la mission contre le réseau de voleurs.\n\nVISUELS ET REPÈRES AJOUTÉS\n• Penne et Panic — entrée du Pacte rouge : visuel disponible ; rôle détaillé à compléter.\n\nRÈGLES MAISON\n• Force / Adresse / Esprit. Jet : 1D20 + caractéristique.\n• Pour toucher : Force au contact, Adresse pour les projectiles, Esprit pour la magie ; résultat comparé à la CA adverse. Puis dé de dégâts de l’attaque.\n• Difficultés : 5 / 10 / 15 / 20 / 25 / 30.\n• 30 PV par héroïne ; initiative dynamique ; repos courts et longs.\n• Les dagues de Zezrael infligent 1D6 + Adresse selon sa fiche.\n\nBIBLIOTHÈQUES DU MODE MAISON\n• Bestiaire : à alimenter avec les photos de tes fiches.\n• Sorts : les capacités déjà documentées figurent sur les fiches PJ ; les cartes photographiées compléteront la bibliothèque de sorts.\n", "visuals": [{"id": "spies-zezrael", "campaign": "Totally Spies & Dices", "tab": "PJ", "name": "Zezrael", "url": "assets/spies/zezrael.webp", "fileName": "zezrael.webp", "mime": "image/webp"}, {"id": "spies-nami", "campaign": "Totally Spies & Dices", "tab": "PJ", "name": "Nami", "url": "assets/spies/nami.webp", "fileName": "nami.webp", "mime": "image/webp"}, {"id": "spies-nelya", "campaign": "Totally Spies & Dices", "tab": "PJ", "name": "Nélya", "url": "assets/spies/nelya.webp", "fileName": "nelya.webp", "mime": "image/webp"}, {"id": "spies-groupe", "campaign": "Totally Spies & Dices", "tab": "PJ", "name": "Groupe", "url": "assets/spies/groupe.webp", "fileName": "groupe.webp", "mime": "image/webp"}, {"id": "spies-clark", "campaign": "Totally Spies & Dices", "tab": "PNJ", "name": "Clark le croupier", "url": "assets/spies/clark.webp", "fileName": "clark.webp", "mime": "image/webp"}, {"id": "spies-brokk", "campaign": "Totally Spies & Dices", "tab": "PNJ", "name": "Brokk « le Ronchon »", "url": "assets/spies/brokk.webp", "fileName": "brokk.webp", "mime": "image/webp"}, {"id": "spies-quatre-feuilles", "campaign": "Totally Spies & Dices", "tab": "PNJ", "name": "Quatre-Feuilles", "url": "assets/spies/quatre-feuilles.webp", "fileName": "quatre-feuilles.webp", "mime": "image/webp"}, {"id": "spies-serveuse", "campaign": "Totally Spies & Dices", "tab": "PNJ", "name": "Serveuse", "url": "assets/spies/serveuse.webp", "fileName": "serveuse.webp", "mime": "image/webp"}, {"id": "spies-penne-panic", "campaign": "Totally Spies & Dices", "tab": "PNJ", "name": "Penne et Panic — entrée du Pacte rouge", "url": "assets/spies/penne-panic.webp", "fileName": "penne-panic.webp", "mime": "image/webp"}], "combat": {"pj": [{"id": "spies-zezrael", "name": "Zezrael", "ca": 15, "hp": 30, "maxHp": 30, "force": 2, "adresse": 5, "esprit": 2, "description": "Elfe de la nuit · Roublarde", "abilities": "Dagues x2 : 1D6 + Adresse. Arc long : 1D8 + Adresse. Attaque sournoise : +1D6 si un allié est au contact ou si la cible est surprise. Vision dans le noir, Discrétion naturelle.", "photo": "assets/spies/zezrael.webp"}, {"id": "spies-nami", "name": "Nami", "ca": 12, "hp": 30, "maxHp": 30, "force": 1, "adresse": 2, "esprit": 5, "description": "Humaine · Magicienne", "abilities": "Bâton : 1D6 + Force. Projectile magique : 1D6 + Esprit. Sorts : Projectile magique, Boule de feu mineure, Lumière, Main de mage.", "photo": "assets/spies/nami.webp"}, {"id": "spies-nelya", "name": "Nélya", "ca": 13, "hp": 30, "maxHp": 30, "force": 2, "adresse": 2, "esprit": 5, "description": "Humaine · Druidesse", "abilities": "Gourdin : 1D6 + Force. Ronces : 1D6 + Esprit. Soin : 1D6 + Esprit. Lianes entravantes, Communication avec les animaux, Fleur protectrice : +2 CA à un allié pendant 1 tour.", "photo": "assets/spies/nelya.webp"}], "bestiary": [], "mobs": [], "done": [], "current": null, "round": 1, "history": []}};
-function fdcIsHomebrewCampaign(name){return name===SPIES.name||name===HERITAGE.name||name===EMERAUDE.name;}
+function fdcBuiltInCampaignMode(name){
+ if(name===SPIES.name||name===HERITAGE.name||name===EMERAUDE.name)return 'nt';
+ if(name===RACINES.name||name==='La Nuit des Morts-Vivants')return 'dnd';
+ return null;
+}
+function fdcCampaignMode(name){
+ return fdcBuiltInCampaignMode(name)||(state.campaignPreferences||[]).find(record=>record.name===name)?.mode||'dnd';
+}
+function fdcIsHomebrewCampaign(name){return fdcCampaignMode(name)==='nt';}
 function fdcIsHomebrew(){return fdcIsHomebrewCampaign(state.campaign);}
 function fdcSpiesCombat(){
  fdcHomeMonsterLibrary();
- const campaign=state.campaign===EMERAUDE.name?EMERAUDE:state.campaign===HERITAGE.name?HERITAGE:SPIES;
- const combatKey=campaign===EMERAUDE?'fdc-combat-emeraude-v1':campaign===HERITAGE?'fdc-combat-heritage-v1':'fdc-combat-spies-v1';
+ const campaign=[EMERAUDE,HERITAGE,SPIES].find(item=>item.name===state.campaign);
+ const combatKey=fdcCombatKey(state.campaign);
+ const defaults=campaign?.combat||{pj:[],bestiary:[],mobs:[],done:[],current:null,round:1,history:[]};
  let doc=embeddedCombat.replace("const KEY='fdc-combat-v12-demo-3'","const KEY="+JSON.stringify(combatKey));
  const start=doc.indexOf('const defaults=()=>('),end=doc.indexOf(';try{state=',start);
- doc=doc.slice(0,start)+'const defaults=()=>('+JSON.stringify(campaign.combat)+')'+doc.slice(end);
+ doc=doc.slice(0,start)+'const defaults=()=>('+JSON.stringify(defaults)+')'+doc.slice(end);
  doc=doc.replace("const LIBKEY='fdc-global-monster-library-v1'","const LIBKEY='fdc-homebrew-monster-library-v1'");
  doc=doc.replace(/const fdcOneShotMonsters=\[[\s\S]*?\];/,'const fdcOneShotMonsters=[];');
- doc=doc.replaceAll('La Nuit des Morts-Vivants',campaign.name);
+ if(campaign)doc=doc.replaceAll('La Nuit des Morts-Vivants',campaign.name);
  doc=doc.replace('Les fiches du PDF fourni et les fiches de campagne sont partagées entre tes campagnes.','Les fiches de ton mode maison sont partagées entre ses campagnes.');
  const extra=`<script>
- for(const portrait of ${JSON.stringify(campaign!==SPIES?campaign.combat.pj.map(({id,photo})=>({id,photo})):[])}){
+ for(const portrait of ${JSON.stringify(campaign&&campaign!==SPIES?campaign.combat.pj.map(({id,photo})=>({id,photo})):[])}){
   const player=state.pj.find(p=>p.id===portrait.id);
   if(player&&!player.photo)player.photo=portrait.photo;
  }

@@ -37,7 +37,7 @@ async function fdcBuildCampaignArchive(){
  for(const record of [...combat.pj,...combat.bestiary,...library])for(const property of ['photo','sourceImage']){
   if(record[property])record[property]='fdc-resource:'+await remote(record[property],record.name||'Portrait');
  }
- return {format:FDC_TRANSFER_FORMAT,version:1,createdAt:new Date().toISOString(),campaign:name,notes:state.notes[name]||'',visuals,tables,combat,library,files,resources,settings:{master:state.master,loop:state.loop},dismissed:JSON.parse(localStorage.getItem('fdc-oneshot-dismissed-v1')||'[]')};
+ return {format:FDC_TRANSFER_FORMAT,version:1,createdAt:new Date().toISOString(),campaign:name,mode:fdcCampaignMode(name),notes:state.notes[name]||'',visuals,tables,combat,library,files,resources,settings:{master:state.master,loop:state.loop},dismissed:JSON.parse(localStorage.getItem('fdc-oneshot-dismissed-v1')||'[]')};
 }
 async function fdcEncodeArchive(packet){const json=JSON.stringify(packet);if(new Blob([json]).size>FDC_TRANSFER_MAX)throw new Error('Le fichier de campagne dépasse la limite de 256 Mo.');const source=new Blob([json],{type:'application/json'});if(typeof CompressionStream==='function')return new Response(source.stream().pipeThrough(new CompressionStream('gzip'))).blob();return source;}
 async function fdcExportCampaign(){
@@ -96,6 +96,7 @@ function fdcValidateArchive(p){
  const array=(v,max=10000)=>Array.isArray(v)&&v.length<=max;
  const unique=items=>new Set(items.map(v=>v.id)).size===items.length;
  if(!p||p.format!==FDC_TRANSFER_FORMAT||p.version!==1||!text(p.campaign,150)||!p.campaign.trim()||['__proto__','constructor','prototype'].includes(p.campaign)||!text(p.notes)||!array(p.visuals)||!array(p.tables)||!array(p.library)||!array(p.files)||!array(p.resources)||!p.combat)fail();
+ if(p.mode!==undefined&&!['dnd','nt'].includes(p.mode))fail();
  const c=p.combat;if(!array(c.pj)||!array(c.bestiary)||!array(c.mobs)||!array(c.done)||!unique([...c.pj,...c.mobs])||!unique(c.bestiary))fail();
  const id=v=>v&&text(v.id,250)&&v.id.length>0;
  for(const v of p.visuals)if(!id(v)||!text(v.name,500)||!['PJ','PNJ','Lieux','Indices'].includes(v.tab))fail();
@@ -121,7 +122,12 @@ function fdcPreviewImport(packet){
 }
 function fdcRestoreStorage(snapshot){for(const [key,value] of snapshot){if(value===null)localStorage.removeItem(key);else localStorage.setItem(key,value);}}
 async function fdcApplyCampaignArchive(packet){
- fdcValidateArchive(packet);const p=structuredClone(packet),prefix='fdci-'+crypto.randomUUID()+'-',remapped=new Map();
+ fdcValidateArchive(packet);
+ const builtInMode=fdcBuiltInCampaignMode(packet.campaign);
+ const mode=packet.mode||builtInMode||'dnd';
+ const exists=Boolean(builtInMode)||Array.from($('campaign').options).some(option=>option.value===packet.campaign);
+ if(exists&&mode!==fdcCampaignMode(packet.campaign))throw new Error('Le mode de jeu du fichier ne correspond pas à celui de cette campagne.');
+ const p=structuredClone(packet),prefix='fdci-'+crypto.randomUUID()+'-',remapped=new Map();
  const resources=new Map();let total=0;
  for(const r of p.resources){const bytes=Uint8Array.from(atob(r.data),c=>c.charCodeAt(0));total+=bytes.length;if(total>FDC_TRANSFER_MAX*.7)throw new Error('Les médias de ce fichier sont trop volumineux.');resources.set(r.id,{...r,blob:new Blob([bytes],{type:r.mime})});}
  const media=ref=>{const r=resources.get(ref.slice(13));if(!r||!r.mime.startsWith('image/'))throw new Error('Portrait ou fiche originale invalide.');return 'fdc-file:'+prefix+r.id;};
@@ -138,7 +144,8 @@ async function fdcApplyCampaignArchive(packet){
  const next=structuredClone(state);next.notes[p.campaign]=p.notes;next.visuals=next.visuals.filter(v=>(v.campaign||'La Nuit des Morts-Vivants')!==p.campaign).concat(p.visuals);next.tables=next.tables.filter(t=>t.name!==p.campaign).concat(p.tables);next.campaign=p.campaign;next.table=p.tables[0]?.id||'';next.racinesImportedV1=true;
  if(p.settings&&Number.isFinite(p.settings.master))next.master=Math.max(0,Math.min(100,p.settings.master));if(typeof p.settings?.loop==='boolean')next.loop=p.settings.loop;
  next.transferCampaigns=[...new Set([...(next.transferCampaigns||[]),p.campaign])];
- const libraryKey=fdcIsHomebrewCampaign(p.campaign)?'fdc-homebrew-monster-library-v1':'fdc-global-monster-library-v1',merged=JSON.parse(localStorage.getItem(libraryKey)||'[]');
+ if(!exists)(next.campaignPreferences||=[]).push({name:p.campaign,mode});
+ const libraryKey=mode==='nt'?'fdc-homebrew-monster-library-v1':'fdc-global-monster-library-v1',merged=JSON.parse(localStorage.getItem(libraryKey)||'[]');
  for(const [i,v] of p.library.entries()){const found=merged.findIndex(t=>t.id===v.id||t.name.toLocaleLowerCase('fr')===v.name.toLocaleLowerCase('fr'));if(found>=0)merged[found]={...v,id:merged[found].id};else merged.push({...v,id:prefix+'library-'+i});}
  const updates=new Map([[key,JSON.stringify(next)],[fdcCombatKey(p.campaign),JSON.stringify(p.combat)],[libraryKey,JSON.stringify(merged)]]);
  if(p.campaign==='La Nuit des Morts-Vivants')updates.set('fdc-oneshot-dismissed-v1',JSON.stringify(p.dismissed||[]));

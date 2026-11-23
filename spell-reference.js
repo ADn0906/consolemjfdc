@@ -51,6 +51,7 @@ function fdcLoadSpellCatalog(){
 }
 async function fdcEnableMonsterSpellLinks(frame){if(fdcIsHomebrew())return;try{await fdcLoadSpellCatalog();if(frame===document.getElementById('combatFrame')?.contentWindow&&typeof frame.fdcRefreshSpellLinks==='function')frame.fdcRefreshSpellLinks();}catch(error){console.warn('Référence des sorts indisponible',error.message);}}
 async function fdcOpenSpellReference(id){
+ if(fdcIsHomebrew())return;
  showCombatInfo();if(typeof fdcSelectInfoTab==='function')fdcSelectInfoTab('spell');const info=document.getElementById('combatInfoDialog');await fdcInitSpellReference(info);if(info.dataset.spellReady!=='1')return;const spell=fdcSpellCatalog?.spells.find(s=>s.id===id);if(!spell)return;const search=info.querySelector('#spellSearch'),select=info.querySelector('#spellSelect');search.value=spell.name;search.dispatchEvent(new Event('input'));select.value=id;select.dispatchEvent(new Event('change'));
 }
 fdcEnableMonsterSpellLinks(document.getElementById('combatFrame')?.contentWindow);
