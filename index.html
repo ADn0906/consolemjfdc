@@ -160,23 +160,40 @@ body.fdc-focused .shell > .grid{grid-template-columns:minmax(0,1fr);grid-templat
  start.addEventListener('click',()=>{video.muted=false;start.hidden=true;});
  play();
 })();
-</script><header><div class="brand"><div class="logo">⬡</div><div><div class="fdc-brand-row"><strong>FDC · CONSOLE MJ</strong><select id="campaign" onchange="changeCampaign()"><option>La Nuit des Morts-Vivants</option><option>Les Racines du Soleil</option><option>Totally Spies & Dices</option><option>L’Héritage des Silences</option><option>Le Souffle d’Émeraude</option></select></div><div class="muted" id="campaignLabel">La Nuit des Morts-Vivants</div></div></div><div class="nav"><button data-module="dashboard" onclick="goModule('dashboard')" title="Accueil global" aria-label="Accueil global"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg></button><button data-module="scenario" onclick="goModule('scenario')" title="Scénario" aria-label="Scénario"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6c-3-2-6-2-9-1v14c3-1 6-1 9 1 3-2 6-2 9-1V5c-3-1-6-1-9 1z"/><path d="M12 6v14"/></svg></button><button data-module="combat" onclick="goModule('combat')" title="Combat" aria-label="Combat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 20 7-7m2-2 7-7M14 4l6 6M4 4l16 16M4 10l6-6"/></svg></button><button data-module="sound" onclick="goModule('sound')" title="Ambiance sonore" aria-label="Ambiance sonore"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></button><button data-module="visual" onclick="goModule('visual')" title="Visuels" aria-label="Visuels"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></button><button id="combatInfoButton" type="button" title="Informations et sorts D&D" aria-label="Informations et sorts D&D" aria-haspopup="dialog" onclick="showCombatInfo()"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7v1"/></svg></button></div><div class="header-tools"><span class="muted" id="navigationVersion">● Navigation 55</span><button id="headerTransferButton" type="button" class="small" onclick="fdcTransferDialog()">⇄ Exporter / Importer</button></div></header>
+</script><header><div class="brand"><div class="logo">⬡</div><div><div class="fdc-brand-row"><strong>FDC · CONSOLE MJ</strong><select id="campaign" onchange="changeCampaign()"><option>La Nuit des Morts-Vivants</option><option>Les Racines du Soleil</option><option>Totally Spies & Dices</option><option>L’Héritage des Silences</option><option>Le Souffle d’Émeraude</option></select></div><div class="muted" id="campaignLabel">La Nuit des Morts-Vivants</div></div></div><div class="nav"><button data-module="dashboard" onclick="goModule('dashboard')" title="Accueil global" aria-label="Accueil global"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg></button><button data-module="scenario" onclick="goModule('scenario')" title="Scénario" aria-label="Scénario"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 6c-3-2-6-2-9-1v14c3-1 6-1 9 1 3-2 6-2 9-1V5c-3-1-6-1-9 1z"/><path d="M12 6v14"/></svg></button><button data-module="combat" onclick="goModule('combat')" title="Combat" aria-label="Combat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 20 7-7m2-2 7-7M14 4l6 6M4 4l16 16M4 10l6-6"/></svg></button><button data-module="sound" onclick="goModule('sound')" title="Ambiance sonore" aria-label="Ambiance sonore"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></button><button data-module="visual" onclick="goModule('visual')" title="Visuels" aria-label="Visuels"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></button><button id="combatInfoButton" type="button" title="Informations et sorts D&D" aria-label="Informations et sorts D&D" aria-haspopup="dialog" onclick="showCombatInfo()"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7v1"/></svg></button></div><div class="header-tools"><span class="muted" id="navigationVersion">● Navigation 56</span><button id="headerTransferButton" type="button" class="small" onclick="fdcTransferDialog()">⇄ Exporter / Importer</button></div></header>
 <style>
-#fdcCampaignStart{position:fixed;inset:0;z-index:50;overflow:auto;background:#11151b;padding:24px;display:grid;place-items:center}
+#fdcCampaignStart{
+ position:fixed;inset:0;z-index:50;overflow:auto;display:grid;place-items:center;
+ padding:max(22px,env(safe-area-inset-top)) max(18px,env(safe-area-inset-right)) max(22px,env(safe-area-inset-bottom)) max(18px,env(safe-area-inset-left));
+ background:radial-gradient(ellipse at 50% 0%,#402b2e 0%,#21191d 42%,#121216 100%);
+}
 #fdcCampaignStart[hidden],#fdcCampaignStart [hidden]{display:none}
-.fdc-campaign-card{width:min(100%,440px);padding:24px;border:1px solid #373b45;border-radius:16px;background:#191e26}
-.fdc-campaign-card h1{margin:0 0 18px;font-size:1.45rem}
-.fdc-campaign-actions{display:grid;gap:10px}
-.fdc-campaign-actions button,.fdc-campaign-actions input{min-height:48px;width:100%;text-align:left}
-.fdc-campaign-primary{background:#783943;border-color:#ae6068}
-.fdc-campaign-back{margin-top:16px;min-height:44px}
+.fdc-campaign-card{
+ width:min(100%,450px);padding:clamp(20px,5vw,36px);border:1px solid #725257;
+ border-radius:20px;background:#1d191deF;box-shadow:0 22px 65px #0008;
+}
+.fdc-campaign-card h1{margin:0 0 24px;color:#fff2df;font-size:clamp(1.55rem,4vw,2rem);font-weight:650;letter-spacing:-.025em}
+.fdc-campaign-actions{display:grid;gap:12px}
+.fdc-campaign-actions button,.fdc-campaign-actions input{min-height:48px;width:100%;text-align:left;border-radius:11px}
+.fdc-campaign-actions input{background:#151217;border-color:#786168;padding:10px 12px}
+#fdcCampaignStart .fdc-campaign-primary{background:#74323e;border-color:#a7616b;color:#fff5ed}
+#fdcCampaignChoices button{
+ display:grid;grid-template-columns:34px 1fr auto;align-items:center;gap:13px;
+ min-height:64px;padding:12px 16px;font-weight:650;font-size:1rem;
+}
+#fdcCampaignChoices button:not(.fdc-campaign-primary){background:#292128;border-color:#685158}
+.fdc-campaign-icon{display:grid;place-items:center;width:34px;height:34px;border-radius:8px;background:#fff2df14;color:#f4d4a8;font-size:24px;line-height:1}
+.fdc-campaign-folder::before{content:"";width:16px;height:12px;border:1.5px solid currentColor;border-radius:2px;box-shadow:0 -3px 0 -1px currentColor}
+.fdc-campaign-arrow{color:#f4d4a8;font-size:21px;font-weight:400}
+.fdc-campaign-back{margin-top:16px;min-height:44px;background:transparent;border-color:#685158}
+#fdcCampaignStart :focus-visible{outline:2px solid #ffdda9;outline-offset:3px}
 </style>
 <section id="fdcCampaignStart" aria-labelledby="fdcCampaignHeading">
  <div class="fdc-campaign-card">
   <h1 id="fdcCampaignHeading">Console MJ FDC</h1>
   <div id="fdcCampaignChoices" class="fdc-campaign-actions">
-   <button type="button" class="fdc-campaign-primary" onclick="fdcShowCampaignStart('list')">Mes campagnes</button>
-   <button type="button" onclick="fdcShowCampaignStart('new')">Nouvelle campagne</button>
+   <button type="button" class="fdc-campaign-primary" onclick="fdcShowCampaignStart('list')"><span class="fdc-campaign-icon fdc-campaign-folder" aria-hidden="true"></span><span>Mes campagnes</span><span class="fdc-campaign-arrow" aria-hidden="true">›</span></button>
+   <button type="button" onclick="fdcShowCampaignStart('new')"><span class="fdc-campaign-icon" aria-hidden="true">+</span><span>Nouvelle campagne</span><span class="fdc-campaign-arrow" aria-hidden="true">›</span></button>
   </div>
   <div id="fdcCampaignList" class="fdc-campaign-actions" hidden></div>
   <form id="fdcCampaignCreate" class="fdc-campaign-actions" hidden>
