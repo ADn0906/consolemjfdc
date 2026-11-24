@@ -596,16 +596,26 @@ function fdcHomeMonsterLibrary(){
 }
 
 function fdcHomeMonsterStatData(t){
- const text=String(t?.abilities||''),scores={};
- for(const [key,field] of [['FOR','force'],['ADR','adresse'],['ESP','esprit']]){
-  const match=text.match(new RegExp('(?:^|[\\n|,; .])'+key+'\\s*:?\\s*(-?\\d+)'));
-  // Older homebrew monsters store their three modifiers in the description.
-  // Accept FOR +9, ADR +2, INT +5 (INT is the house-rule Esprit).
-  const legacy=String(t?.description||'').match(new RegExp('(?:^|[^A-Z])'+(key==='ESP'?'(?:ESP|INT)':key)+'\\s*:?\\s*([+−-]\\d+)', 'i'));
-  const value=match?Number(match[1]):Number.isFinite(t?.[field])?t[field]:legacy?Number(legacy[1].replace('−','-')):null;
-  if(Number.isFinite(value))scores[key]={score:value,modifier:value};
+ const text=String(t?.abilities||''),description=String(t?.description||''),scores={};
+ const name=String(t?.name||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+ // Older copies of the three Mont Chaud monsters may have no structured stats.
+ // Never overwrite a numeric value explicitly saved by the MJ.
+ const montChaud=name.includes('morzhael')&&name.includes('silence incandescent')?[9,2,5]:
+   name.includes('caillouchon tortue')?[4,-1,0]:
+   name.includes('caillouchon ordinaire')?[2,-2,-1]:null;
+ for(const [idx,key,field] of [['0','FOR','force'],['1','ADR','adresse'],['2','ESP','esprit']]){
+  const keys=key==='ESP'?'(?:ESP|INT)':'(?:'+key+')';
+  const pattern=new RegExp('(?:^|[^A-Z])'+keys+'\\s*:?\\s*([+−-]?\\d+)','i');
+  const raw=text.match(pattern),described=description.match(pattern);
+  const saved=t?.[field];
+  const value=Number.isFinite(saved)?saved:
+    (typeof saved==='string'&&saved.trim()!==''&&Number.isFinite(Number(saved))?Number(saved):
+    raw?Number(raw[1].replace('−','-')):
+    described?Number(described[1].replace('−','-')):
+    montChaud?montChaud[Number(idx)]:null);
+  if(value!==null&&Number.isFinite(value))scores[key]={score:value,modifier:value};
  }
- const abilities=text.replace(/^PV\s*:[^\n]*\n/,'').replace(/^FOR\s+-?\d+\s*\|\s*ADR\s+-?\d+\s*\|\s*ESP\s+-?\d+\s*\n?/,'');
+ const abilities=text.replace(/^PV\\s*:[^\\n]*\\n/,'').replace(/^FOR\\s*[+−-]?\\d+\\s*\\|\\s*ADR\\s*[+−-]?\\d+\\s*\\|\\s*ESP\\s*[+−-]?\\d+\\s*\\n?/,'');
  return {scores,prefix:'',abilities};
 }
 function fdcHomeMonsterStats(t,editable=false){
