@@ -599,7 +599,10 @@ function fdcHomeMonsterStatData(t){
  const text=String(t?.abilities||''),scores={};
  for(const [key,field] of [['FOR','force'],['ADR','adresse'],['ESP','esprit']]){
   const match=text.match(new RegExp('(?:^|[\\n|,; .])'+key+'\\s*:?\\s*(-?\\d+)'));
-  const value=match?Number(match[1]):t?.[field];
+  // Older homebrew monsters store their three modifiers in the description.
+  // Accept FOR +9, ADR +2, INT +5 (INT is the house-rule Esprit).
+  const legacy=String(t?.description||'').match(new RegExp('(?:^|[^A-Z])'+(key==='ESP'?'(?:ESP|INT)':key)+'\\s*:?\\s*([+−-]\\d+)', 'i'));
+  const value=match?Number(match[1]):Number.isFinite(t?.[field])?t[field]:legacy?Number(legacy[1].replace('−','-')):null;
   if(Number.isFinite(value))scores[key]={score:value,modifier:value};
  }
  const abilities=text.replace(/^PV\s*:[^\n]*\n/,'').replace(/^FOR\s+-?\d+\s*\|\s*ADR\s+-?\d+\s*\|\s*ESP\s+-?\d+\s*\n?/,'');
@@ -611,7 +614,7 @@ function fdcHomeMonsterStats(t,editable=false){
 }
 function fdcHomeSaveMonsterAbilities(textareaId='editAb'){
  const parts=[];
- for(const name of ['FOR','ADR','ESP']){const input=$('editStat'+name);if(!input||input.value==='')continue;const n=Number(input.value);if(!Number.isInteger(n)||n<0||n>999)throw Error('Valeur invalide pour '+name);parts.push(name+' '+n);}
+ for(const name of ['FOR','ADR','ESP']){const input=$('editStat'+name);if(!input||input.value==='')continue;const n=Number(input.value);if(!Number.isInteger(n)||n< -999||n>999)throw Error('Valeur invalide pour '+name);parts.push(name+' '+n);}
  return (parts.length?parts.join(' | ')+'\n':'')+$(textareaId).value;
 }
 function fdcHomeCombatStats(doc){
