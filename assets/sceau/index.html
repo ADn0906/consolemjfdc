@@ -135,7 +135,7 @@ const lockOrder=[2,1,3,0,4];
 const lockTime=id=>.35+lockOrder.indexOf(id)*.68;
 const plateStart=3.93, plateDelay=.68, plateDrop=.90, plateTravel=2.4, openingEnd=10.8;
 const smooth=x=>{const t=Math.max(0,Math.min(1,x));return t*t*(3-2*t);};
-let audio, openingAudio=[];
+let audio, stoneBus, openingAudio=[];
 function silenceOpening(){
  for(const node of openingAudio){try{node.stop();}catch{}}
  openingAudio=[];
@@ -150,12 +150,22 @@ function playOpening(){
   const noise=audio.createBuffer(1,Math.round(audio.sampleRate*3.3),audio.sampleRate);
   const samples=noise.getChannelData(0);
   for(let i=0;i<samples.length;i++)samples[i]=Math.random()*2-1;
-  function rumble(at,frequency,duration,volume,pitch){
+  if(!stoneBus){
+   const boost=audio.createGain();
+   boost.gain.value=2.8;
+   const limiter=audio.createDynamicsCompressor();
+   limiter.threshold.value=-9;limiter.knee.value=5;limiter.ratio.value=16;
+   limiter.attack.value=.003;limiter.release.value=.21;
+   boost.connect(limiter).connect(audio.destination);
+   stoneBus=boost;
+  }
+  function rumble(at,frequency,duration,volume,pitch,{sustain=0,output=stoneBus}={}){
    const source=audio.createBufferSource(), filter=audio.createBiquadFilter(), gain=audio.createGain();
    source.buffer=noise;filter.type='lowpass';filter.frequency.value=frequency;
-   source.connect(filter).connect(gain).connect(audio.destination);
+   source.connect(filter).connect(gain).connect(output);
    gain.gain.setValueAtTime(.0001,at);
    gain.gain.exponentialRampToValueAtTime(volume,at+Math.min(.085,duration*.25));
+   if(sustain)gain.gain.exponentialRampToValueAtTime(volume*sustain,at+duration*.77);
    gain.gain.exponentialRampToValueAtTime(.0001,at+duration);
    source.start(at);source.stop(at+duration);
    openingAudio.push(source);
@@ -166,18 +176,18 @@ function playOpening(){
    bass.gain.setValueAtTime(.0001,at);
    bass.gain.exponentialRampToValueAtTime(volume*.34,at+.035);
    bass.gain.exponentialRampToValueAtTime(.0001,at+duration);
-   tone.connect(bass).connect(audio.destination);
+   tone.connect(bass).connect(output);
    tone.start(at);tone.stop(at+duration);
    openingAudio.push(tone);
   }
   for(const id of lockOrder)rumble(start+lockTime(id)+.22,175+id*22,.58,.60,65-id*3);
   for(let side=0;side<2;side++){
    const at=start+plateStart+side*plateDelay;
-   rumble(at+.12,125,.62,.53,49);
-   rumble(at+plateDrop,165-side*18,plateTravel,.92,52-side*5);
-   rumble(at+plateDrop+plateTravel,190,.49,.67,55);
+   rumble(at+.12,370,.62,.59,82);
+   rumble(at+plateDrop,520-side*55,plateTravel,.91,70-side*5,{sustain:.55});
+   rumble(at+plateDrop+plateTravel,430,.54,.76,88);
   }
-  for(const {ignition} of sconces)rumble(start+ignition,1050,.25,.097,0);
+  for(const {ignition} of sconces)rumble(start+ignition,1050,.25,.097,0,{output:audio.destination});
  }catch(error){console.info('Son du mécanisme indisponible',error);}
 }
 let shaft;
